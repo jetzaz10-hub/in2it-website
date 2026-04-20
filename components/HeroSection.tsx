@@ -85,7 +85,7 @@ export default function HeroSection() {
         <div className="flex-[1.2] flex flex-col gap-6 text-white lg:max-w-[560px]">
           <div className="mb-2 select-none">
             <Image
-              src="/logo-white.png"
+              src="/logo/logo-white.png"
               alt="IN2IT COMPANY Logo"
               width={120}
               height={30}
