@@ -183,10 +183,49 @@ export default function OurServices() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /* ── Click nav item → jump precisely ── */
+  const scrollToService = (id: string) => {
+    const isDesktopScreen = window.innerWidth >= 1024;
+    const el = sectionRefs.current[`${id}-${isDesktopScreen ? 'desktop' : 'mobile'}`];
+
+    if (isDesktopScreen && trackRef.current) {
+      const idx = services.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        const rect = trackRef.current.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const trackTopAbsolute = window.scrollY + rect.top;
+        const startTrackingY = trackTopAbsolute + (0.8 * vh);
+        const endTrackingY = trackTopAbsolute + rect.height - (0.8 * vh);
+        const totalScrollable = endTrackingY - startTrackingY;
+
+        const ratio = idx / (services.length - 1);
+        const targetPxScrolled = ratio * totalScrollable;
+
+        // Mathematically mapped back from pxScrolled = (vh / 2) - startTrackingY relative to viewport
+        const targetScrollY = targetPxScrolled + trackTopAbsolute + (0.3 * vh);
+
+        // Use instant snap so the CSS transition handles the visual slide perfectly
+        window.scrollTo({ top: targetScrollY, behavior: "auto" });
+        return;
+      }
+    }
+
+    if (el) {
+      if (!isDesktopScreen) {
+        // Sticky nav is around 80px, give it 120px clearance
+        const targetTop = el.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: targetTop, behavior: "smooth" });
+      } else {
+        el.scrollIntoView({ block: "center" });
+      }
+    }
+  };
+
   /* ── Listen for Top Navbar jumps ── */
   useEffect(() => {
-    const handleNavJump = (e: any) => {
-      const targetId = e.detail?.targetId;
+    const handleNavJump = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const targetId = customEvent.detail?.targetId;
       if (targetId && services.some(s => s.id === targetId)) {
         scrollToService(targetId);
       }
@@ -234,44 +273,6 @@ export default function OurServices() {
       }
     }
   }, [activeId]);
-
-  /* ── Click nav item → jump precisely ── */
-  function scrollToService(id: string) {
-    const isDesktopScreen = window.innerWidth >= 1024;
-    const el = sectionRefs.current[`${id}-${isDesktopScreen ? 'desktop' : 'mobile'}`];
-
-    if (isDesktopScreen && trackRef.current) {
-      const idx = services.findIndex(s => s.id === id);
-      if (idx !== -1) {
-        const rect = trackRef.current.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const trackTopAbsolute = window.scrollY + rect.top;
-        const startTrackingY = trackTopAbsolute + (0.8 * vh);
-        const endTrackingY = trackTopAbsolute + rect.height - (0.8 * vh);
-        const totalScrollable = endTrackingY - startTrackingY;
-
-        const ratio = idx / (services.length - 1);
-        const targetPxScrolled = ratio * totalScrollable;
-
-        // Mathematically mapped back from pxScrolled = (vh / 2) - startTrackingY relative to viewport
-        const targetScrollY = targetPxScrolled + trackTopAbsolute + (0.3 * vh);
-
-        // Use instant snap so the CSS transition handles the visual slide perfectly
-        window.scrollTo({ top: targetScrollY, behavior: "auto" });
-        return;
-      }
-    }
-
-    if (el) {
-      if (!isDesktopScreen) {
-        // Sticky nav is around 80px, give it 120px clearance
-        const targetTop = el.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top: targetTop, behavior: "smooth" });
-      } else {
-        el.scrollIntoView({ block: "center" });
-      }
-    }
-  }
 
   return (
     <section id="services" className="py-16 bg-black">

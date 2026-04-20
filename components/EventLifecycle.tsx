@@ -109,15 +109,17 @@ const OUTER = 175, INNER = 110;
 
 /* ─── Detail Component ────────────────────────────────── */
 
+interface PhaseDetailProps {
+  phase: (typeof phases)[0];
+  openItems: Record<string, boolean>;
+  toggleItem: (i: string) => void;
+}
+
 function PhaseDetail({
   phase,
   openItems,
   toggleItem
-}: {
-  phase: any,
-  openItems: any,
-  toggleItem: (i: string) => void
-}) {
+}: PhaseDetailProps) {
   return (
     <div className="w-full lg:w-[540px] px-4 lg:px-0">
       <div className="mb-5 flex items-center gap-3">
@@ -182,7 +184,15 @@ function PhaseDetail({
 
 /* ─── Donut Component ─────────────────────────────────── */
 
-function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems }: any) {
+interface DonutGraphicProps {
+  activeId: string | null;
+  hoverId: string | null;
+  setHoverId: (id: string | null) => void;
+  setActiveId: (id: string | null) => void;
+  setOpenItems: (items: Record<string, boolean>) => void;
+}
+
+function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems }: DonutGraphicProps) {
   const [mouseData, setMouseData] = useState<{ angle: number, color: string } | null>(null);
 
   const targetId = hoverId || activeId;
@@ -372,7 +382,13 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
 }
 
 /* ─── Timeline Progress Component ──────────────────────── */
-function TimelineProgress({ activeId, setActiveId, setOpenItems }: any) {
+interface TimelineProgressProps {
+  activeId: string | null;
+  setActiveId: (id: string | null) => void;
+  setOpenItems: (items: Record<string, boolean>) => void;
+}
+
+function TimelineProgress({ activeId, setActiveId, setOpenItems }: TimelineProgressProps) {
   const activeIdx = phases.findIndex((p) => p.id === activeId);
 
   return (

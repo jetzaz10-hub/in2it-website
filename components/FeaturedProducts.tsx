@@ -74,8 +74,9 @@ export default function FeaturedProducts() {
 
   /* ── Listen for Top Navbar jumps ── */
   useEffect(() => {
-    const handleNavJump = (e: any) => {
-      const targetId = e.detail?.targetId;
+    const handleNavJump = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const targetId = customEvent.detail?.targetId;
       const idx = products.findIndex(p => p.id === targetId);
       if (idx !== -1) {
         setCurrent(idx);
@@ -85,7 +86,7 @@ export default function FeaturedProducts() {
     };
     window.addEventListener("nav-jump", handleNavJump);
     return () => window.removeEventListener("nav-jump", handleNavJump);
-  }, []);
+  }, [resetAuto]);
 
   const handleDragStart = (x: number) => { setDragging(true); setDragStart(x); };
   const handleDragEnd = (x: number) => {
