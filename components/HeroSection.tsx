@@ -6,30 +6,30 @@ import Image from "next/image";
 const imageSets = [
   // SET 1 (Original)
   [
-    { src: "/hero5.png" },
-    { src: "/hero2.png" },
-    { src: "/hero3.png" },
-    { src: "/hero4.png" },
-    { src: "/hero1.png" },
-    { src: "/hero6.png" },
+    { src: "/hero_section/set1/hero5.png" },
+    { src: "/hero_section/set1/hero2.png" },
+    { src: "/hero_section/set1/hero3.png" },
+    { src: "/hero_section/set1/hero4.png" },
+    { src: "/hero_section/set1/hero1.png" },
+    { src: "/hero_section/set1/hero6.png" },
   ],
   // SET 2
   [
-    { src: "/hero1.png" },
-    { src: "/hero2.png" },
-    { src: "/hero3.png" },
-    { src: "/hero4.png" },
-    { src: "/hero5.png" },
-    { src: "/hero6.png" },
+    { src: "/hero_section/set2/hero1.png" },
+    { src: "/hero_section/set2/hero2.png" },
+    { src: "/hero_section/set2/hero3.png" },
+    { src: "/hero_section/set2/hero4.png" },
+    { src: "/hero_section/set2/hero5.png" },
+    { src: "/hero_section/set2/hero6.png" },
   ],
   // SET 3
   [
-    { src: "/hero1.png" },
-    { src: "/hero2.png" },
-    { src: "/hero3.png" },
-    { src: "/hero4.png" },
-    { src: "/hero5.png" },
-    { src: "/hero6.png" },
+    { src: "/hero_section/set3/hero1.png" },
+    { src: "/hero_section/set3/hero2.png" },
+    { src: "/hero_section/set3/hero3.png" },
+    { src: "/hero_section/set3/hero4.png" },
+    { src: "/hero_section/set3/hero5.png" },
+    { src: "/hero_section/set3/hero6.png" },
   ]
 ];
 
