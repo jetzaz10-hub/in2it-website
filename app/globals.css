@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+}
+
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: var(--font-poppins), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-gradient-blue {
+    background: linear-gradient(90deg, #4A32FF 0%, #6CE8FD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-orange {
+    background: linear-gradient(90deg, #FF3366 0%, #FF6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Figma: Contact Us button = #4634F8 → #6CE8FD (blue to cyan diagonal), pill, 18/32 padding */
+  .btn-primary {
+    background: linear-gradient(135deg, #4634F8 0%, #6CE8FD 100%);
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s, transform 0.2s;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 16px rgba(70,52,248,0.35);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  /* Figma: View Portfolio = near-transparent fill, #acadad 30% border */
+  .btn-ghost {
+    background: rgba(0,0,0,0.004);
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid rgba(172, 173, 173, 0.30);
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+  }
+
+  /* Standard section heading — matches Figma ~60px at 1280px */
+  .section-heading {
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  /* XL heading — matches Figma "Our Services" ~80px */
+  .section-heading-xl {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .dashed-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+@keyframes marquee-partners {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
