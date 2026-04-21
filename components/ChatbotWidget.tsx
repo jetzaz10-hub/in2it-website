@@ -1,140 +1,303 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+
+interface Message {
+  id: number;
+  text: string;
+  sender: "bot" | "user";
+}
 
 export default function ChatbotWidget() {
   const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    { id: 1, text: "Hi! This is IN2IT Chatbot. How can I help you today?", sender: "bot" },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom of chat
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
+  const getBotResponse = (input: string): string => {
+    const text = input.toLowerCase();
+    const isThai = /[ก-ฮ]/.test(text);
+
+    // 1. Greetings
+    if (text.includes("hello") || text.includes("hi") || text.includes("สวัสดี") || text.includes("หวัดดี") || text.includes("ทักทาย")) {
+      return isThai 
+        ? "สวัสดีครับ! ยินดีต้อนรับสู่ IN2IT เราคือพาร์ทเนอร์ด้านเทคโนโลยีอีเวนต์แบบครบวงจร มีอะไรให้เราช่วยวันนี้บ้างครับ?"
+        : "Hello! Welcome to IN2IT. We are your One-Stop Partner for Event Technology. How can I assist you today?";
+    }
+
+    // 2. Overview / What do we do
+    if (text.includes("do you do") || text.includes("overview") || text.includes("เกี่ยวกับ") || text.includes("ทำอะไร") || text.includes("คืออะไร") || text.includes("บริการอะไร")) {
+      return isThai
+        ? "IN2IT เป็นบริการแบบ One-Stop สำหรับเทคโนโลยีอีเวนต์! เราเชี่ยวชาญด้านระบบลงทะเบียน, การออกแบบเว็บไซต์, โซลูชัน RFID/NFC และการถ่ายทอดสด ด้วยประสบการณ์กว่า 15 ปีและผลงานกว่า 500 อีเวนต์ เรามั่นใจว่าจะทำให้งานของคุณออกมาสมบูรณ์แบบครับ"
+        : "IN2IT is a One-Stop Service for Event Tech! We specialize in Registration Systems, Website Design, RFID/NFC solutions, and Live Streaming. With 15+ years of experience and 500+ successful events, we ensure your event runs flawlessly.";
+    }
+
+    // 3. Contact & Location
+    if (text.includes("contact") || text.includes("email") || text.includes("phone") || text.includes("call") || text.includes("location") || text.includes("where") || text.includes("ติดต่อ") || text.includes("เบอร์") || text.includes("อีเมล") || text.includes("ที่อยู่") || text.includes("แผนที่")) {
+      return isThai
+        ? "ติดต่อเราได้ที่ service@in2it.co.th หรือโทร +66 87 458 8833 สำนักงานใหญ่ของเราอยู่ที่เชียงใหม่ครับ (ดูแผนที่: https://www.google.com/maps/search/?api=1&query=IN2IT+Service+Chiang+Mai)"
+        : "You can reach us at service@in2it.co.th or call our hotline at +66 87 458 8833. Our main office is in Chiang Mai (View on Google Maps: https://www.google.com/maps/search/?api=1&query=IN2IT+Service+Chiang+Mai).";
+    }
+
+    // 4. Services - Registration & Ticketing
+    if (text.includes("registration") || text.includes("ticket") || text.includes("ลงทะเบียน") || text.includes("จองตั๋ว") || text.includes("ซื้อตั๋ว") || text.includes("เช็คอิน")) {
+      return isThai
+        ? "ระบบลงทะเบียนของเราครอบคลุมทั้งออนไลน์และหน้างาน รองรับคนได้มากกว่า 2,000 คน พร้อมระบบ QR Code และรายงานผลแบบ Real-time ครับ"
+        : "Our Registration System handles both Online and Onsite needs with high-capacity check-ins (2,000+ attendees). We offer custom forms, QR code entry, and real-time reporting.";
+    }
+
+    // 5. Services - RFID / NFC / Festival
+    if (text.includes("nfc") || text.includes("rfid") || text.includes("cashless") || text.includes("festival") || text.includes("บัตร") || text.includes("สายรัด") || text.includes("จ่ายเงิน")) {
+      return isThai
+        ? "เราเป็นผู้เชี่ยวชาญด้าน Festival Tech! มีบริการสายรัดข้อมือ RFID, ระบบจ่ายเงิน Cashless และ Digital Badges เพื่อช่วยจัดการฝูงชนและเพิ่มการมีส่วนร่วมในงานครับ"
+        : "We are specialists in Festival Technology! Our services include RFID wristbands, Cashless payment systems, and Digital Badges to enhance attendee engagement and crowd management.";
+    }
+
+    // 6. Services - Streaming / Virtual
+    if (text.includes("stream") || text.includes("live") || text.includes("zoom") || text.includes("virtual") || text.includes("ถ่ายทอดสด") || text.includes("สตรีม")) {
+      return isThai
+        ? "เรามีบริการ Live Streaming มืออาชีพแบบหลายกล้อง ส่งสัญญาณไปได้ทั้ง YouTube, Facebook หรือแพลตฟอร์มของคุณเอง พร้อมการบันทึกเทปและทีมซัพพอร์ตหน้างานครับ"
+        : "We provide professional multi-camera Live Streaming services to YouTube, Facebook, or custom platforms, including full recording and tech support.";
+    }
+
+    // 7. Portfolio & Trust
+    if (text.includes("portfolio") || text.includes("work") || text.includes("example") || text.includes("client") || text.includes("brand") || text.includes("ผลงาน") || text.includes("ลูกค้า") || text.includes("ประสบการณ์")) {
+      return isThai
+        ? "เราดูแลอีเวนต์มาแล้วกว่า 500 งานให้แบรนด์ระดับโลกอย่าง Meta, Coca-Cola และพาร์ทเนอร์อย่าง Techsauce มั่นใจได้ในคุณภาพครับ ดูผลงานเพิ่มเติมที่: https://www.facebook.com/in2itservice/"
+        : "We've managed 500+ successful events for global brands like Meta, Coca-Cola, and major partners like Techsauce. Quality and reliability are our priorities! Check our experience here: https://www.facebook.com/in2itservice/";
+    }
+
+    // 8. Pricing
+    if (text.includes("price") || text.includes("cost") || text.includes("how much") || text.includes("budget") || text.includes("ราคา") || text.includes("แพงไหม") || text.includes("งบ")) {
+      return isThai
+        ? "ราคาของเราจะปรับตามความต้องการเฉพาะของแต่ละงานครับ รบกวนติดต่อผู้อำนวยการโครงการ คุณปอย (Poii) เพื่อขอใบเสนอราคาได้ที่ service@in2it.co.th ครับ"
+        : "Every event is unique! Our pricing is tailored to your specific requirements. Please contact our Project Director, Poii, for a custom quote at service@in2it.co.th.";
+    }
+
+    // 9. Process / How we work
+    if (text.includes("process") || text.includes("step") || text.includes("how") || text.includes("ขั้นตอน") || text.includes("ยังไง") || text.includes("กระบวนการ")) {
+      return isThai
+        ? "เรามีขั้นตอนการทำงาน 4 ระยะ: การวางแผน (แบรนด์/ระบบ) -> การโปรโมท (มาร์เก็ตติ้ง/EDM) -> วันงาน (เทคโนโลยีหน้างาน) -> หลังจบงาน (สรุปผลและรายงาน) เราดูแลให้แบบไร้รอยต่อตั้งแต่ต้นจนจบครับ"
+        : "Our event lifecycle covers 4 phases: Planning (Branding/Setup) -> Promotion (Marketing/EDM) -> Day of Event (Onsite Tech) -> Post Event (Analytics & Recap). We ensure a seamless flow from start to finish!";
+    }
+
+    return isThai
+      ? "เป็นคำถามที่ดีมากครับ! สำหรับรายละเอียดเพิ่มเติมหรือคำถามเฉพาะเจาะจง ติดต่อเราได้ที่ service@in2it.co.th หรือติดตามเราได้ที่ Facebook Page ครับ"
+      : "That's a great question! For more details or specific inquiries, please reach out to us at service@in2it.co.th or follow our Facebook Page.";
+  };
+
+  const handleSend = () => {
+    if (!inputValue.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now(),
+      text: inputValue,
+      sender: "user",
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    const currentInput = inputValue;
+    setInputValue("");
+    setIsTyping(true);
+
+    // Simulate bot thinking time
+    setTimeout(() => {
+      const botMessage: Message = {
+        id: Date.now() + 1,
+        text: getBotResponse(currentInput),
+        sender: "bot",
+      };
+      setMessages((prev) => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 1200);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") handleSend();
+  };
+
+  const renderMessageText = (text: string) => {
+    // Regex for URLs and Emails
+    const urlRegex = /(https?:\/\/[^\s]+|[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,})/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        let displayNode = part;
+        let href = part;
+
+        // Check if it's an email
+        if (part.includes("@") && !part.startsWith("http")) {
+          href = `mailto:${part}`;
+        }
+
+        // Specific case for Facebook
+        if (part.includes("facebook.com")) {
+          displayNode = "Facebook Page";
+        }
+
+        // Specific case for Google Maps
+        if (part.includes("google.com/maps") || part.includes("maps.app.goo.gl")) {
+          displayNode = "View on Google Maps";
+        }
+
+        return (
+          <a
+            key={index}
+            href={href}
+            target={href.startsWith("mailto") ? undefined : "_blank"}
+            rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+            className="underline font-semibold hover:opacity-80 transition-opacity break-all inline-flex items-center gap-1"
+            style={{ color: "inherit" }}
+          >
+            {displayNode}
+            {!href.startsWith("mailto") && (
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+            )}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       {/* Chat panel */}
       {open && (
         <div
-          className="w-[340px] rounded-3xl shadow-2xl overflow-hidden"
-          style={{ background: "#e8e8e8" }}
+          className="w-[340px] rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+          style={{ background: "#e8e8e8", height: "450px" }}
         >
           {/* Header — Electric Indigo gradient */}
           <div
-            className="px-5 py-4 flex items-center justify-between"
+            className="px-5 py-4 flex items-center justify-between shrink-0"
             style={{
               background: "linear-gradient(135deg, #3B2DCC 0%, #4A32FF 100%)",
             }}
           >
             <div className="flex items-center gap-3">
-              {/* Logo in header - KEEPING SVG LOGO */}
               <div className="flex items-center bg-white/10 px-2 py-1.5 rounded-xl border border-white/10">
                 <Image src="/logo.svg" alt="IN2IT Logo" width={60} height={30} className="invert brightness-0" />
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-bold text-sm tracking-widest leading-none">CHAT</span>
-                <span className="text-white font-bold text-sm tracking-widest leading-none">BOT</span>
+                <span className="text-white font-bold text-[10px] tracking-[0.2em] leading-none opacity-60">IN2IT</span>
+                <span className="text-white font-black text-xs tracking-widest leading-none mt-1">CHATBOT</span>
               </div>
             </div>
-            {/* Window controls */}
             <div className="flex items-center gap-3">
-              <button className="text-white/70 hover:text-white" aria-label="Minimize">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
-                </svg>
-              </button>
-              <button className="text-white/70 hover:text-white" aria-label="More">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="5" cy="12" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="19" cy="12" r="1.5" />
-                </svg>
-              </button>
-              <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white" aria-label="Close">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white transition-colors" aria-label="Close">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
           </div>
 
-          {/* Chat body with IN2IT watermark */}
-          <div className="relative px-4 pt-5 pb-3 min-h-[260px]" style={{ background: "#e8e8e8" }}>
-            {/* Watermark logo - KEEPING SVG LOGO */}
-            <div
-              className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none"
-              style={{ opacity: 0.1 }}
-            >
-              <Image src="/logo.svg" alt="IN2IT Logo" width={140} height={70} className="grayscale brightness-0" />
-              <span className="text-[8px] font-bold text-black/50 tracking-[0.4em] uppercase mt-2">IN2IT COMPANY</span>
+          {/* Chat body */}
+          <div
+            ref={scrollRef}
+            className="relative px-4 py-5 flex-1 overflow-y-auto scrollbar-hide space-y-4"
+            style={{ background: "#e8e8e8" }}
+          >
+            {/* Watermark logo */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-[0.03]">
+              <Image src="/logo.svg" alt="IN2IT Logo" width={180} height={90} className="grayscale brightness-0" />
             </div>
 
-            {/* Bot message */}
-            <div className="flex items-start gap-3 mb-4 relative z-10">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                style={{ background: "#4A32FF" }}
-              >
-                {/* RESTORING Robot icon */}
-                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2a2 2 0 012 2v1h3a2 2 0 012 2v9a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zm0 5.5a1 1 0 100 2 1 1 0 000-2zM9 9.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z" />
-                </svg>
+            {messages.map((msg) => (
+              <div key={msg.id} className={`flex items-start gap-2 ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
+                {msg.sender === "bot" && (
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "#4A32FF" }}>
+                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2a2 2 0 012 2v1h3a2 2 0 012 2v9a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zm0 5.5a1 1 0 100 2 1 1 0 000-2zM9 9.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z" />
+                    </svg>
+                  </div>
+                )}
+                <div
+                  className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm max-w-[80%] ${msg.sender === "user"
+                      ? "bg-[#4A32FF] text-white rounded-tr-sm"
+                      : "bg-white text-gray-800 rounded-tl-sm border border-gray-200"
+                    }`}
+                >
+                  {renderMessageText(msg.text)}
+                </div>
               </div>
-              <div
-                className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm text-gray-800 max-w-[200px]"
-                style={{ background: "#ffffff" }}
-              >
-                Hi! This is IN2IT Chatbot.<br />How can i help you?
-              </div>
-            </div>
+            ))}
 
-            {/* Typing indicator */}
-            <div className="flex justify-end mb-4 relative z-10">
-              <div
-                className="px-4 py-3 rounded-2xl rounded-tr-sm flex items-center gap-1"
-                style={{ background: "#ffffff" }}
-              >
-                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+            {isTyping && (
+              <div className="flex items-start gap-2">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "#4A32FF" }}>
+                  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a2 2 0 012 2v1h3a2 2 0 012 2v9a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zm0 5.5a1 1 0 100 2 1 1 0 000-2zM9 9.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z" />
+                  </svg>
+                </div>
+                <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-white flex items-center gap-1 shadow-sm border border-gray-100">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: "300ms" }} />
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Footer links */}
-          <div className="text-center py-2 text-xs text-gray-500" style={{ background: "#e8e8e8" }}>
-            <span className="hover:text-gray-700 cursor-pointer">Help</span>
-            <span className="mx-2">|</span>
-            <span className="hover:text-gray-700 cursor-pointer">Contact Admin</span>
+            )}
           </div>
 
           {/* Input area */}
-          <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-200" style={{ background: "#ffffff" }}>
-            <input
-              type="text"
-              placeholder="Any Question? Ex. How can I contact your team?"
-              className="flex-1 text-xs text-gray-500 placeholder:text-gray-400 focus:outline-none bg-transparent"
-            />
-            <button
-              className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-white"
-              style={{ background: "#4A32FF" }}
-              aria-label="Send"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-              </svg>
-            </button>
+          <div className="p-4 border-t border-gray-200 shrink-0" style={{ background: "#ffffff" }}>
+            <div className="flex items-center gap-2 bg-gray-100 rounded-2xl px-4 py-2 focus-within:ring-2 focus-within:ring-[#4A32FF]/20 transition-all">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyPress}
+                placeholder="Ask me anything..."
+                className="flex-1 text-sm text-gray-700 bg-transparent focus:outline-none placeholder:text-gray-400"
+              />
+              <button
+                onClick={handleSend}
+                disabled={!inputValue.trim()}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${inputValue.trim() ? "bg-[#4A32FF] text-white scale-100" : "bg-gray-300 text-gray-100 scale-90"
+                  }`}
+                aria-label="Send"
+              >
+                <svg className="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L21 12m0 0l-7.5-7.5M21 12l-7.5 7.5" />
+                </svg>
+              </button>
+            </div>
+            <div className="mt-2 text-[10px] text-center text-gray-400 tracking-wider font-medium uppercase">
+              Powered by IN2IT AI
+            </div>
           </div>
         </div>
       )}
 
-      {/* Floating trigger button — RESTORING Speech bubble icon */}
+      {/* Trigger button */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform"
+        className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group"
         style={{ background: "#4A32FF" }}
         aria-label="Open chatbot"
       >
         {open ? (
-          <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-7 h-7 text-white relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 11H7v-2h6v2zm3-4H7V7h9v2z"/>
+          <svg className="w-7 h-7 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 11H7v-2h6v2zm3-4H7V7h9v2z" />
           </svg>
         )}
       </button>

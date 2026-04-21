@@ -102,8 +102,8 @@ const phases = [
   },
 ];
 
-const CX = 210, CY = 210;
-const OUTER = 175, INNER = 110;
+const CX = 170, CY = 170;
+const OUTER = 140, INNER = 90;
 
 /* ─── Component ───────────────────────────────────────── */
 
@@ -232,7 +232,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
   return (
     <>
       <svg
-        viewBox="0 0 420 420"
+        viewBox="0 0 340 340"
         className="w-full h-full drop-shadow-2xl overflow-visible"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -316,10 +316,10 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
           const isEnlarged = hoverId ? isHovered : isSelected;
           const isBright = isEnlarged || isSelected;
 
-          const r = isEnlarged ? 152 : 142;
+          const r = isEnlarged ? 122 : 115;
           const pos = polarToCartesian(CX, CY, r, phase.midDeg);
 
-          const extrudeDist = isSelected ? 24 : (isHovered ? 4 : 0);
+          const extrudeDist = isSelected ? 18 : (isHovered ? 4 : 0);
           const offset = polarToCartesian(0, 0, extrudeDist, phase.midDeg);
 
           return (
@@ -352,10 +352,10 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
       <div
         className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         style={{
-          top: `${((CY - INNER) / 420) * 100}%`,
-          bottom: `${((420 - CY - INNER) / 420) * 100}%`,
-          left: `${((CX - INNER) / 420) * 100}%`,
-          right: `${((420 - CX - INNER) / 420) * 100}%`,
+          top: `${((CY - INNER) / 340) * 100}%`,
+          bottom: `${((340 - CY - INNER) / 340) * 100}%`,
+          left: `${((CX - INNER) / 340) * 100}%`,
+          right: `${((340 - CX - INNER) / 340) * 100}%`,
         }}
       >
         <div
@@ -392,18 +392,18 @@ function TimelineProgress({ activeId, setActiveId, setOpenItems }: TimelineProgr
   const activeIdx = phases.findIndex((p) => p.id === activeId);
 
   return (
-    <div className="mt-8 lg:mt-12 w-full max-w-[1100px] mx-auto px-10 relative z-30">
-      <div className="relative flex justify-between items-center mb-10 pt-8">
+    <div className="mt-0 lg:mt-0 w-full max-w-[1100px] mx-auto px-10 relative z-30">
+      <div className="relative flex justify-between items-center mb-8 pt-6">
         {/* START/FINISH Absolute Labels */}
         <div className="absolute top-0 left-0 text-[10px] font-black tracking-[0.3em] text-white/40 italic">START</div>
         <div className="absolute top-0 right-0 text-[10px] font-black tracking-[0.3em] text-white/40 italic text-right">FINISH</div>
 
         {/* Background Track */}
-        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5 -translate-y-1/2 z-0" />
+        <div className="absolute top-1.5/2 left-0 right-0 h-[1.5px] bg-white/5 -translate-y-1.5/2 z-0" />
 
         {/* Active Progress Bar */}
         <div
-          className="absolute top-1/2 left-0 h-[2px] -translate-y-1/2 z-0 transition-all duration-[1000ms] cubic-bezier(0.16,1,0.3,1)"
+          className="absolute top-1.5/2 left-0 h-[2px] -translate-y-1.5/2 z-0 transition-all duration-[1000ms] cubic-bezier(0.16,1,0.3,1)"
           style={{
             width: activeId ? `calc(${(activeIdx / (phases.length - 1)) * 100}% - 0px)` : "0%",
             background: activeId ? phases[activeIdx].colorActive : "transparent",
@@ -472,7 +472,7 @@ export default function EventLifecycle() {
   }
 
   return (
-    <section className="relative py-24 bg-black overflow-hidden">
+    <section className="relative pt-8 pb-10 bg-black overflow-hidden">
       {/* Subtle Animated Ambient Background */}
       <style>{`
         @keyframes lifecycleGradientPan {
@@ -501,35 +501,35 @@ export default function EventLifecycle() {
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-8">
         {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="section-heading text-white">
+        <div className="text-center mb-4">
+          <h2 className="section-heading text-white text-3xl lg:text-4xl">
             Your event lifecycle,{" "}
             <span style={{ color: "#4A32FF" }}>from start to finish</span>
           </h2>
-          <p className="mt-4 text-white/60 text-lg mb-8">
+          <p className="mt-2 text-white/60 text-sm mb-2 max-w-2xl mx-auto">
             A structured, end-to-end workflow where we plan, think and execute
             every detail to ensure seamless results.
           </p>
 
           {/* Interactive Instruction Badge */}
-          <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-[#4A32FF]/30 backdrop-blur-md transition-all duration-700 ${activePhase ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 shadow-[0_0_30px_rgba(74,50,255,0.2)]'}`}>
-            <span className="relative flex h-3 w-3">
+          <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-[#4A32FF]/30 backdrop-blur-md transition-all duration-700 ${activePhase ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 shadow-[0_0_30px_rgba(74,50,255,0.2)]'}`}>
+            <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4A32FF] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#4A32FF]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4A32FF]"></span>
             </span>
-            <span className="text-white/90 font-medium text-sm tracking-wide">Click on any colored segment below to explore</span>
+            <span className="text-white/80 font-medium text-[11px] tracking-wide uppercase">Click on segments to explore</span>
           </div>
         </div>
 
         {/* ─── GPU Accelerated Desktop Layout ─── */}
-        <div className="hidden lg:block relative min-h-[460px] w-full max-w-[1040px] mx-auto">
+        <div className="hidden lg:block relative min-h-[350px] w-full max-w-[980px] mx-auto">
 
           {/* Slider Donut */}
           <div
-            className="absolute top-0 left-1/2 w-[420px] aspect-square transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20"
+            className="absolute top-0 left-1/2 w-[340px] aspect-square transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20"
             style={{
               transform: activePhase
-                ? (isReverse ? 'translateX(calc(-50% + 270px))' : 'translateX(calc(-50% - 270px))')
+                ? (isReverse ? 'translateX(calc(-50% + 220px))' : 'translateX(calc(-50% - 220px))')
                 : 'translateX(-50%)'
             }}
           >
@@ -538,11 +538,11 @@ export default function EventLifecycle() {
 
           {/* Left Content Box */}
           <div
-            className="absolute top-6 left-0 w-[540px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
+            className="absolute top-2 left-0 w-[500px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
             style={{
               opacity: activePhase && isReverse ? 1 : 0,
               pointerEvents: activePhase && isReverse ? 'auto' : 'none',
-              transform: activePhase && isReverse ? 'translateX(0)' : 'translateX(40px)'
+              transform: activePhase && isReverse ? 'translateX(0)' : 'translateX(30px)'
             }}
           >
             {activePhase && isReverse && (
@@ -554,11 +554,11 @@ export default function EventLifecycle() {
 
           {/* Right Content Box */}
           <div
-            className="absolute top-6 right-0 w-[540px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
+            className="absolute top-2 right-0 w-[500px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
             style={{
               opacity: activePhase && !isReverse ? 1 : 0,
               pointerEvents: activePhase && !isReverse ? 'auto' : 'none',
-              transform: activePhase && !isReverse ? 'translateX(0)' : 'translateX(-40px)'
+              transform: activePhase && !isReverse ? 'translateX(0)' : 'translateX(-30px)'
             }}
           >
             {activePhase && !isReverse && (

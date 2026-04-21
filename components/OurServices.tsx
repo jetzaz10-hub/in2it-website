@@ -9,8 +9,8 @@ const services = [
     label: "Registration System",
     heading: "Registration System",
     description:
-      "Customized ticketing solutions with secure payment gateways, tiered access levels, and real-time sales analytics to maximize your event revenue.",
-    tags: ["Technical Staff", "Payment Gateway", "QR Code Entry"],
+      "End-to-end event registration solutions with 15+ years of experience. We handle everything from customized online forms to high-capacity onsite check-ins for 2,000+ attendees.",
+    tags: ["Custom Forms", "Onsite Check-in", "2,000+ Capacity"],
     images: [
       "/services/regis/regis1.jpg",
       "/services/regis/regis2.jpg",
@@ -24,8 +24,8 @@ const services = [
     label: "Website Design",
     heading: "Event Website Design",
     description:
-      "Bespoke event microsites and landing pages crafted to convert visitors into attendees — from hero banners to registration forms.",
-    tags: ["Landing Page", "Registration Form", "Mobile Optimized"],
+      "Professional event microsites and corporate landing pages designed with 15+ years of UI/UX expertise to convert visitors into participants flawlessly.",
+    tags: ["15+ Years Exp", "Tailored UI/UX", "Mobile Optimized"],
     images: [
       "/services/web/web1.jpg",
     ],
@@ -79,8 +79,8 @@ const services = [
     label: "IOT & Hardware Design",
     heading: "IOT & Hardware Design",
     description:
-      "Custom hardware solutions including check-in kiosks, NFC readers, interactive displays and LED walls engineered for live events.",
-    tags: ["NFC", "Kiosks", "LED Walls"],
+      "Specially engineered hardware for the MICE industry: RFID systems, check-in kiosks, and IOT integrations for seamless event onsite management.",
+    tags: ["RFID Specialists", "Kiosks", "IOT Event Hub"],
     images: [
       "/services/iot/iot1.jpg",
       "/services/iot/iot3.jpg",

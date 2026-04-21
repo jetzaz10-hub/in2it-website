@@ -81,10 +81,49 @@ const features = [
 
 export default function WhyIN2IT() {
   return (
-    <section className="relative py-24 bg-black">
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <section className="relative pt-12 pb-16 bg-black overflow-hidden">
+      {/* Subtle Smoke-like Moving Gradient Background */}
+      <style>{`
+        @keyframes whySmokeMove {
+          0% { transform: translate(-100%, 0%) skewX(-15deg) scale(1); opacity: 0; }
+          25% { transform: translate(-50%, -5%) skewX(-10deg) scale(1.1); opacity: 0.05; }
+          50% { transform: translate(0%, 5%) skewX(-15deg) scale(1); opacity: 0.08; }
+          75% { transform: translate(50%, -5%) skewX(-10deg) scale(1.1); opacity: 0.05; }
+          100% { transform: translate(100%, 0%) skewX(-15deg) scale(1); opacity: 0; }
+        }
+        .why-smoke-wisp {
+          position: absolute;
+          height: 140%;
+          width: 100%;
+          filter: blur(160px);
+          z-index: 0;
+          pointer-events: none;
+          will-change: transform, opacity;
+        }
+      `}</style>
+      
+      {/* Smoke Layers - Optimized for very slow, subtle organic movement */}
+      <div className="why-smoke-wisp top-[-20%] left-0" 
+        style={{ 
+          background: 'linear-gradient(90deg, transparent, #4A32FF, transparent)', 
+          animation: 'whySmokeMove 60s ease-in-out infinite' 
+        }} />
+      <div className="why-smoke-wisp top-[-20%] left-0" 
+        style={{ 
+          background: 'linear-gradient(90deg, transparent, #FF3366, transparent)', 
+          animation: 'whySmokeMove 45s ease-in-out infinite',
+          animationDelay: '-15s'
+        }} />
+      <div className="why-smoke-wisp top-[-20%] left-0" 
+        style={{ 
+          background: 'linear-gradient(90deg, transparent, #00A6CB, transparent)', 
+          animation: 'whySmokeMove 80s ease-in-out infinite',
+          animationDelay: '-30s'
+        }} />
+
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8">
         {/* Heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="section-heading-xl text-white">
             Why <span style={{ color: "#4A32FF" }}>IN2IT</span> ?
           </h2>
@@ -99,7 +138,7 @@ export default function WhyIN2IT() {
             <div
               key={f.title}
               className={`
-                group relative flex flex-col min-h-[420px] lg:min-h-[440px] xl:min-h-[480px] p-6 lg:p-5 xl:p-7
+                group relative flex flex-col min-h-[380px] lg:min-h-[400px] xl:min-h-[440px] p-6 lg:p-5 xl:p-7
                 ${f.bgColor} ${f.textColor} 
                 rounded-3xl shadow-2xl overflow-hidden
                 transition-all duration-500 hover:-translate-y-3 cursor-pointer

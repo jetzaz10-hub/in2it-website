@@ -65,7 +65,7 @@ export default function MeetTeam() {
             <div className="text-xs tracking-[0.15em] uppercase font-semibold text-white/90">Global Clients</div>
           </div>
           <div>
-            <div className="text-5xl md:text-6xl font-extrabold mb-3">10+</div>
+            <div className="text-5xl md:text-6xl font-extrabold mb-3">15+</div>
             <div className="text-xs tracking-[0.15em] uppercase font-semibold text-white/90">Years Expertise</div>
           </div>
         </div>

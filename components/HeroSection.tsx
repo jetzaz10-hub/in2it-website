@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const imageSets = [
   // SET 1 (Original)
@@ -34,12 +35,12 @@ const imageSets = [
 ];
 
 const gridCells = [
-  { className: "col-span-1", priority: true, delayIdx: 0 },
-  { className: "col-span-2", priority: true, delayIdx: 1 },
-  { className: "col-span-2", priority: false, delayIdx: 0.5 },
-  { className: "col-span-1", priority: false, delayIdx: 2 },
-  { className: "col-span-1", priority: false, delayIdx: 0 },
-  { className: "col-span-2", priority: false, delayIdx: 1 },
+  { className: "col-span-1", priority: true },
+  { className: "col-span-2", priority: true },
+  { className: "col-span-2", priority: false },
+  { className: "col-span-1", priority: false },
+  { className: "col-span-1", priority: false },
+  { className: "col-span-2", priority: false },
 ];
 
 export default function HeroSection() {
@@ -75,9 +76,24 @@ export default function HeroSection() {
           animation: heroGradientPan 10s ease-in-out infinite;
         }
       `}</style>
+
+      {/* Layered Background Elements */}
       <div className="absolute inset-0 hero-bg-animated opacity-90" />
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen"
+        >
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
-      {/* Bottom round clip — Figma has bottomRight:70 bottomLeft:70 cornerRadius */}
+
+      {/* Bottom round clip */}
       <div className="absolute bottom-0 left-0 right-0 h-20 bg-black rounded-tl-[4.375rem] rounded-tr-[4.375rem] -mb-1" />
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-8 flex flex-col lg:flex-row items-center justify-between gap-12 h-full">
@@ -128,31 +144,33 @@ export default function HeroSection() {
         {/* Right photo mosaic */}
         <div className="flex-[1.2] grid grid-cols-3 grid-rows-3 gap-4 max-w-[560px] w-full aspect-square lg:aspect-auto lg:h-[560px]">
           {gridCells.map((cell, cellIdx) => (
-            <div key={cellIdx} className={`${cell.className} rounded-[24px] overflow-hidden relative group transition-transform duration-500 hover:scale-[1.02]`} style={{ perspective: '1200px' }}>
-              {imageSets.map((set, setIdx) => {
-                const isActive = activeIndex === setIdx;
-                const isBaseLayer = setIdx === 0;
-                return (
-                  <div
-                    key={setIdx}
-                    className={`${isBaseLayer ? 'relative' : 'absolute inset-0'} w-full h-full transition-all duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)] origin-left`}
-                    style={{
-                      transform: isActive ? 'rotateY(0deg)' : 'rotateY(-90deg)',
-                      opacity: isActive ? 1 : 0,
-                      transitionDelay: isActive ? `${cell.delayIdx * 150}ms` : '0ms',
-                      zIndex: isActive ? 10 : 0
-                    }}
-                  >
-                    <Image
-                      src={set[cellIdx].src}
-                      alt={`Hero image ${cellIdx}`}
-                      fill
-                      className={`${isBaseLayer ? 'relative' : 'absolute inset-0'} w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 group-hover:brightness-110`}
-                      priority={cell.priority && setIdx === 0}
-                    />
-                  </div>
-                )
-              })}
+            <div 
+              key={cellIdx} 
+              className={`${cell.className} rounded-[24px] overflow-hidden relative group transition-transform duration-500 hover:scale-[1.02] shadow-2xl`} 
+              style={{ perspective: '1200px' }}
+            >
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div
+                  key={`${activeIndex}-${cellIdx}`}
+                  initial={{ rotateY: 90, opacity: 0 }}
+                  animate={{ rotateY: 0, opacity: 1 }}
+                  exit={{ rotateY: -90, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.85, 
+                    ease: [0.23, 1, 0.32, 1] 
+                  }}
+                  className="absolute inset-0 w-full h-full"
+                  style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+                >
+                  <Image
+                    src={imageSets[activeIndex][cellIdx].src}
+                    alt={`Hero image ${cellIdx}`}
+                    fill
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 group-hover:brightness-110"
+                    priority={cell.priority && activeIndex === 0}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           ))}
         </div>

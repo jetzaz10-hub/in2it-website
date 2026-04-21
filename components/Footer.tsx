@@ -42,7 +42,7 @@ export default function Footer() {
             </div>
 
             <p className="text-white/60 text-sm leading-relaxed max-w-[280px]">
-              Revolutionizing event technology for the digital age. Trusted by thousands of organizers globally.
+              One Stop Service for Event Technology. 15+ years of expertise in delivering 500+ successful events globally.
             </p>
 
             {/* Social icons — Figma shows 3 circular outlined icons */}
@@ -98,7 +98,7 @@ export default function Footer() {
         {/* Bottom bar — Figma: separator line then centered copyright text */}
         <div className="border-t border-white/10 pt-6 text-center">
           <p className="text-white/40 text-xs">
-            © Copyright 2018 IN2IT CO.,LTD. All rights reserved.
+            © {new Date().getFullYear()} IN2IT CO.,LTD. All rights reserved.
           </p>
         </div>
       </div>
