@@ -14,14 +14,20 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: 90%; /* Global 90% Zoom Effect */
   }
 
   body {
     background-color: #000000;
     color: #ffffff;
-    font-family: var(--font-poppins), sans-serif;
+    font-family: var(--font-poppins), system-ui, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Force Poppins on all interactive and text elements */
+  h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select {
+    font-family: var(--font-poppins), system-ui, sans-serif !important;
   }
 }
 

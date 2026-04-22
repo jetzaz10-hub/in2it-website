@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const contactItems = [
   {
     icon: (
@@ -45,7 +49,13 @@ const contactItems = [
 export default function ContactSection() {
   return (
     <section id="contact" className="py-24 bg-black">
-      <div className="max-w-[1280px] mx-auto px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-5%" }}
+        transition={{ duration: 0.4, ease: "linear" }}
+        className="max-w-[1280px] mx-auto px-8"
+      >
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           {/* Left */}
           <div className="flex-1">
@@ -87,7 +97,11 @@ export default function ContactSection() {
           </div>
 
           {/* Right — map */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="flex-1 rounded-none overflow-hidden h-[320px] lg:h-[380px] w-full"
             style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)" }}
           >
@@ -101,9 +115,9 @@ export default function ContactSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

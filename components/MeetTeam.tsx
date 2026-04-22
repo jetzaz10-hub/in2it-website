@@ -1,12 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function MeetTeam() {
   return (
     <section id="team" className="bg-black overflow-hidden">
       {/* Text header — centered, black bg */}
-      <div className="pt-20 pb-5 text-center bg-black">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="pt-20 pb-5 text-center bg-black"
+      >
         <h2
           className="font-extrabold uppercase tracking-tight leading-none"
           style={{
@@ -23,10 +30,17 @@ export default function MeetTeam() {
           <br />
           One team. All solutions. From planning to post-event success.
         </p>
-      </div>
+      </motion.div>
 
       {/* Team photo — full width, black & white style with blue glow on left */}
-      <div className="relative w-full" style={{ height: "clamp(340px, 45vw, 550px)" }}>
+      <motion.div 
+        initial={{ opacity: 0, scale: 1.05 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-5%" }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full" 
+        style={{ height: "clamp(340px, 45vw, 550px)" }}
+      >
         {/* Blue glow on left — matches Figma's indigo radial on left */}
         <div
           className="absolute left-0 top-0 bottom-0 w-2/5 pointer-events-none z-10"
@@ -51,25 +65,8 @@ export default function MeetTeam() {
             background: "linear-gradient(to top, #000000 0%, transparent 100%)",
           }}
         />
-      </div>
+      </motion.div>
 
-      {/* Stats Block */}
-      <div className="w-full relative z-20 py-16" style={{ background: "linear-gradient(to right, #4A32FF, #8A2BE2)" }}>
-        <div className="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row items-center justify-around gap-12 text-center text-white">
-          <div>
-            <div className="text-5xl md:text-6xl font-extrabold mb-3">500+</div>
-            <div className="text-xs tracking-[0.15em] uppercase font-semibold text-white/90">Events Delivered</div>
-          </div>
-          <div>
-            <div className="text-5xl md:text-6xl font-extrabold mb-3">50+</div>
-            <div className="text-xs tracking-[0.15em] uppercase font-semibold text-white/90">Global Clients</div>
-          </div>
-          <div>
-            <div className="text-5xl md:text-6xl font-extrabold mb-3">15+</div>
-            <div className="text-xs tracking-[0.15em] uppercase font-semibold text-white/90">Years Expertise</div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }

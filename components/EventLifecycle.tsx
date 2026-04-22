@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 /* ─── Helpers ─────────────────────────────────────────── */
 
@@ -277,18 +278,31 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
                 transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)'
               }}
             >
-              <path
+              <motion.path
                 d={path}
                 fill={`url(#grad-${phase.id})`}
                 opacity={isBright ? 1 : 0.65}
-                stroke={`url(#grad-${phase.id})`}
-                strokeWidth="2"
+                stroke={isBright ? "white" : `url(#grad-${phase.id})`}
+                strokeWidth={isBright ? "1.5" : "2"}
                 strokeLinejoin="round"
                 className="transition-all duration-300"
                 style={{
                   filter: isEnlarged
                     ? `drop-shadow(0 0 16px ${phase.colorActive})`
                     : undefined,
+                }}
+                animate={isBright ? {
+                  filter: [
+                    `drop-shadow(0 0 10px ${phase.colorActive}77)`,
+                    `drop-shadow(0 0 25px ${phase.colorActive}aa)`,
+                    `drop-shadow(0 0 10px ${phase.colorActive}77)`
+                  ],
+                  strokeWidth: [1.5, 2.5, 1.5]
+                } : {}}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "easeInOut"
                 }}
               />
               <path
@@ -395,8 +409,8 @@ function TimelineProgress({ activeId, setActiveId, setOpenItems }: TimelineProgr
     <div className="mt-0 lg:mt-0 w-full max-w-[1100px] mx-auto px-10 relative z-30">
       <div className="relative flex justify-between items-center mb-8 pt-6">
         {/* START/FINISH Absolute Labels */}
-        <div className="absolute top-0 left-0 text-[10px] font-black tracking-[0.3em] text-white/40 italic">START</div>
-        <div className="absolute top-0 right-0 text-[10px] font-black tracking-[0.3em] text-white/40 italic text-right">FINISH</div>
+        <div className="absolute top-0 left-0 text-[10px] font-black tracking-[0.3em] text-white/40">START</div>
+        <div className="absolute top-0 right-0 text-[10px] font-black tracking-[0.3em] text-white/40 text-right">FINISH</div>
 
         {/* Background Track */}
         <div className="absolute top-1.5/2 left-0 right-0 h-[1.5px] bg-white/5 -translate-y-1.5/2 z-0" />
@@ -471,8 +485,19 @@ export default function EventLifecycle() {
     setOpenItems((prev) => (prev[item] ? {} : { [item]: true }));
   }
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const sectionScale = useTransform(scrollYProgress, [0, 0.4, 0.7, 1], [0.95, 1, 1, 0.95]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
   return (
-    <section className="relative pt-8 pb-10 bg-black overflow-hidden">
+    <section ref={sectionRef} className="relative pt-16 pb-20 bg-black overflow-hidden">
+      {/* Top transition overlay */}
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
       {/* Subtle Animated Ambient Background */}
       <style>{`
         @keyframes lifecycleGradientPan {
@@ -499,17 +524,32 @@ export default function EventLifecycle() {
       {/* Warm glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[380px] bg-[#F97316]/5 blur-[130px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-8">
+      <motion.div
+        style={{ scale: sectionScale, opacity: sectionOpacity }}
+        className="relative z-10 max-w-[1280px] mx-auto px-8 w-full"
+      >
         {/* Heading */}
         <div className="text-center mb-4">
-          <h2 className="section-heading text-white text-3xl lg:text-4xl">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-heading text-white text-3xl lg:text-4xl"
+          >
             Your event lifecycle,{" "}
             <span style={{ color: "#4A32FF" }}>from start to finish</span>
-          </h2>
-          <p className="mt-2 text-white/60 text-sm mb-2 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mt-2 text-white/60 text-sm mb-2 max-w-2xl mx-auto"
+          >
             A structured, end-to-end workflow where we plan, think and execute
             every detail to ensure seamless results.
-          </p>
+          </motion.p>
 
           {/* Interactive Instruction Badge */}
           <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-[#4A32FF]/30 backdrop-blur-md transition-all duration-700 ${activePhase ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 shadow-[0_0_30px_rgba(74,50,255,0.2)]'}`}>
@@ -524,16 +564,26 @@ export default function EventLifecycle() {
         {/* ─── GPU Accelerated Desktop Layout ─── */}
         <div className="hidden lg:block relative min-h-[350px] w-full max-w-[980px] mx-auto">
 
-          {/* Slider Donut */}
-          <div
-            className="absolute top-0 left-1/2 w-[340px] aspect-square transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20"
-            style={{
-              transform: activePhase
-                ? (isReverse ? 'translateX(calc(-50% + 220px))' : 'translateX(calc(-50% - 220px))')
-                : 'translateX(-50%)'
-            }}
-          >
-            <DonutGraphic activeId={activeId} hoverId={hoverId} setHoverId={setHoverId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
+          {/* Slider Donut Wrapper (Handles Centering) */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[340px] aspect-square z-20">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              animate={{
+                x: activePhase
+                  ? (isReverse ? 220 : -220)
+                  : 0
+              }}
+              transition={{
+                scale: { type: "spring", damping: 12, stiffness: 100, delay: 0.1 },
+                opacity: { duration: 0.4 },
+                x: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+              }}
+              className="w-full h-full"
+            >
+              <DonutGraphic activeId={activeId} hoverId={hoverId} setHoverId={setHoverId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
+            </motion.div>
           </div>
 
           {/* Left Content Box */}
@@ -600,7 +650,7 @@ export default function EventLifecycle() {
 
         {/* ─── Shared Progress Timeline ─── */}
         <TimelineProgress activeId={activeId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
-      </div>
+      </motion.div>
     </section>
   );
 }
