@@ -42,7 +42,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="text-white/40 text-[10px] lg:text-xs font-bold tracking-[0.3em] uppercase mb-2 text-center"
+          className="text-white/40 text-[14px] lg:text-xs font-bold tracking-[0.5em] uppercase mb-6 text-center"
         >
           IN2IT Company
         </motion.p>
@@ -56,20 +56,20 @@ export default function HeroSection() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full"
           >
-            <h1 className="flex flex-col items-center leading-[0.85] tracking-tighter mb-8 w-full">
-              <span className="text-white font-medium text-4xl md:text-6xl lg:text-7xl xl:text-8xl mb-0.5">
+            <h1 className="flex flex-wrap justify-center items-center gap-x-10 gap-y-8 leading-[1.5] tracking-tighter mb-8 w-full">
+              <span className="text-white font-medium text-4xl md:text-5xl lg:text-6xl xl:text-[6.8rem]">
                 Your One-Stop
               </span>
               <ShinyText
                 text="Event Tech Solution."
-                className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black py-2"
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-[6.9rem] font-black"
               />
             </h1>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-white/60 text-sm lg:text-base leading-relaxed max-w-2xl mx-auto mb-10"
+              className="text-white/60 text-sm lg:text-base leading-relaxed max-w-1xl mx-auto mb-6"
             >
               We deliver end-to-end event technology solutions for the MICE industry with cutting-edge expertise.
             </motion.p>
@@ -80,7 +80,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-4 lg:gap-6"
+            className="flex flex-wrap justify-center gap-4 lg:gap-9 mt-10"
           >
             <a
               href="#contact"

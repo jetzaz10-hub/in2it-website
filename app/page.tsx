@@ -12,6 +12,8 @@ import MetricsSection from "@/components/MetricsSection";
 import Footer from "@/components/Footer";
 import ChatbotWidget from "@/components/ChatbotWidget";
 
+import UnifiedBackgroundWrapper from "@/components/UnifiedBackgroundWrapper";
+
 export default function HomePage() {
   return (
     <>
@@ -20,11 +22,15 @@ export default function HomePage() {
         <HeroSection />
         <Partners />
         <WhyIN2IT />
-        <MetricsSection />
         <EventLifecycle />
-        <OurServices />
-        <FeaturedProducts />
-        <OurExperiences />
+        
+        <UnifiedBackgroundWrapper>
+          <OurServices />
+          <FeaturedProducts />
+          <OurExperiences />
+        </UnifiedBackgroundWrapper>
+
+        <MetricsSection />
         <MeetTeam />
         <ContactSection />
       </main>

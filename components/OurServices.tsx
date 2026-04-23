@@ -4,68 +4,20 @@ import { useRef, useState, useEffect, forwardRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import Counter from "./ui/Counter";
 
-// --- ElegantShape Component for Ambient Background ---
-function ElegantShape({
-  className,
-  delay = 0,
-  width = 400,
-  height = 100,
-  rotate = 0,
-  gradient = "from-white/[0.08]",
-}: {
-  className?: string;
-  delay?: number;
-  width?: number;
-  height?: number;
-  rotate?: number;
-  gradient?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -20, rotate: rotate - 15 }}
-      animate={{ opacity: 1, y: 0, rotate: rotate }}
-      transition={{
-        duration: 2.4,
-        delay,
-        ease: [0.23, 0.86, 0.39, 0.96],
-        opacity: { duration: 1.2 },
-      }}
-      className={`absolute ${className}`}
-    >
-      <motion.div
-        animate={{
-          y: [0, 15, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        style={{ width, height }}
-        className="relative"
-      >
-        <div
-          className={`absolute inset-0 rounded-full bg-gradient-to-r to-transparent ${gradient} backdrop-blur-md border border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]`}
-        />
-      </motion.div>
-    </motion.div>
-  );
-}
 
 const services = [
   {
     id: "registration",
     title: "Registration System",
-    description: "End-to-end event registration solutions with 15+ years of experience. We handle everything from customized online forms to high-capacity onsite check-ins.",
+    description: "End-to-end event registration solutions. We handle everything from customized online forms to high-capacity onsite check-ins.",
     images: ["/services/regis/regis1.png", "/services/regis/regis2.png", "/services/regis/regis 3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#6"
   },
   {
     id: "website",
     title: "Website Design",
-    description: "Professional event microsites and corporate landing pages designed with 15+ years of UI/UX expertise to convert visitors flawlessly.",
+    description: "Professional event microsites and corporate landing pages designed to convert visitors flawlessly.",
     images: ["/services/web/web1.png", "/services/web/web 2.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#13"
   },
@@ -112,7 +64,7 @@ const services = [
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#55"
   },
   {
-    id: "social",
+    id: "scm",
     title: "Social Tools",
     description: "Boost engagement with interactive social media integrations — Line OA, Facebook, Instagram, and live photo walls.",
     images: ["/services/scm/scm1.png", "/services/scm/scm2.png", "/services/scm/scm3.png"],
@@ -225,19 +177,57 @@ export default function OurServices() {
     }
   });
 
+  // Handle nav-jump event from Navbar/Footer
+  useEffect(() => {
+    const handleJump = (e: any) => {
+      const targetId = e.detail?.targetId;
+      const index = services.findIndex(s => s.id === targetId);
+
+      if (index !== -1 && containerRef.current) {
+        // Delay slightly to allow any menus to close or layout to stabilize
+        setTimeout(() => {
+          if (!containerRef.current) return;
+          
+          let absoluteTop = 0;
+          let element: HTMLElement | null = containerRef.current;
+          
+          while (element) {
+            absoluteTop += element.offsetTop;
+            element = element.offsetParent as HTMLElement;
+          }
+
+          const sectionHeight = containerRef.current.offsetHeight;
+          const viewportHeight = window.innerHeight;
+          const scrollableDistance = sectionHeight - viewportHeight;
+
+          // Calculate specific progress within the track
+          const targetProgress = index / (services.length / 0.9);
+          // Add a safe buffer (10% of viewport) to ensure the slide is active
+          const targetScroll = absoluteTop + (targetProgress * scrollableDistance) + (viewportHeight * 0.1);
+
+          window.scrollTo({
+            top: targetScroll,
+            behavior: "smooth"
+          });
+        }, 100);
+      }
+    };
+
+    window.addEventListener('nav-jump', handleJump);
+    return () => window.removeEventListener('nav-jump', handleJump);
+  }, []);
+ // Remove dependency on activeIndex
+
   // Section fade in/out with scale
   const contentOpacity = useTransform(scrollYProgress, [0, 0.05, 0.9, 1], [0, 1, 1, 0]);
   const contentScale = useTransform(scrollYProgress, [0, 0.1, 0.85, 1], [0.97, 1, 1, 0.97]);
 
-  // Parallax for ambient shapes
-  const shapeYLeft = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  const shapeYRight = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
     <section
       id="services"
       ref={containerRef}
-      className="relative h-[550vh] bg-black"
+      className="relative h-[550vh] bg-transparent"
     >
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -249,33 +239,11 @@ export default function OurServices() {
         {/* PC Sticky Viewport */}
         <div className="sticky top-0 h-screen w-full overflow-hidden hidden lg:block">
 
-          {/* Background Layer */}
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <motion.div style={{ y: shapeYLeft }}>
-              <ElegantShape
-                delay={0.3}
-                width={600}
-                height={140}
-                rotate={12}
-                gradient="from-[#4634F8]/[0.1]"
-                className="left-[-5%] top-[10%]"
-              />
-            </motion.div>
-            <motion.div style={{ y: shapeYRight }}>
-              <ElegantShape
-                delay={0.5}
-                width={500}
-                height={120}
-                rotate={-15}
-                gradient="from-[#FF6600]/[0.05]"
-                className="right-[-5%] top-[60%]"
-              />
-            </motion.div>
-          </div>
+          {/* Background Layer removed as it is now in UnifiedBackgroundWrapper */}
 
           {/* Content Layer */}
           <motion.div
-            style={{ 
+            style={{
               opacity: contentOpacity,
               scale: contentScale
             }}
@@ -286,7 +254,7 @@ export default function OurServices() {
               {/* Left Column: Heading + Service Info */}
               <div className="relative h-[550px] flex flex-col justify-center space-y-12">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">
+                  <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter">
                     Our <span className="text-[#FF6600]">Services</span>
                   </h2>
                   <div className="w-16 h-1 bg-[#4634F8] opacity-50"></div>
@@ -308,27 +276,22 @@ export default function OurServices() {
                         <span className="text-white/20">10</span>
                       </div>
 
-                      <h3 className="text-4xl lg:text-6xl font-extrabold text-white tracking-tighter leading-tight uppercase">
+                      <h3 className="text-4xl lg:text-6xl font-bold text-white tracking-tighter leading-tight uppercase">
                         {services[activeIndex].title}
                       </h3>
 
                       <p className="text-lg lg:text-xl text-white/50 leading-relaxed max-w-md font-light">
-                        {activeIndex === 0 || activeIndex === 1 ? (
-                          <>
-                            {activeIndex === 0 ? "End-to-end event registration solutions with " : "Professional event microsites and corporate landing pages designed with "}
-                            <Counter value={15} className="font-bold text-white" />+ years of {activeIndex === 0 ? "experience" : "UI/UX expertise"}. {activeIndex === 0 ? "We handle everything from customized online forms to high-capacity onsite check-ins." : "to convert visitors flawlessly."}
-                          </>
-                        ) : services[activeIndex].description}
+                        {services[activeIndex].description}
                       </p>
 
                       <a
                         href={services[activeIndex].link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group w-fit flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-7 py-3.5 rounded-full font-bold text-base transition-all"
+                        className="btn-sale-kit group w-fit font-bold"
                       >
-                        Sale Kits
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform text-[#FF6600]" />
+                        <span>Sale Kits</span>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform text-white" />
                       </a>
                     </motion.div>
                   </AnimatePresence>
@@ -336,7 +299,7 @@ export default function OurServices() {
               </div>
 
               {/* Right Column: Image Mockup with Slider */}
-              <div className="relative aspect-square lg:aspect-[4/5] overflow-hidden border border-white/10 bg-zinc-950 shadow-2xl">
+              <div className="relative aspect-square lg:aspect-[4/5] overflow-hidden border border-white/10 bg-transparent shadow-2xl">
                 <AnimatePresence mode="popLayout" custom={direction}>
                   <motion.div
                     key={activeIndex}
@@ -385,7 +348,7 @@ export default function OurServices() {
         {/* Mobile Fallback with Slider */}
         <div className="lg:hidden block bg-black py-20 px-8 space-y-16">
           <div className="space-y-4 mb-16">
-            <h2 className="text-3xl font-black text-white uppercase">Our <span className="text-[#FF6600]">Services</span></h2>
+            <h2 className="text-3xl font-bold text-white uppercase">Our <span className="text-[#FF6600]">Services</span></h2>
             <div className="w-12 h-1 bg-[#4634F8] opacity-50"></div>
           </div>
           {services.map((s, idx) => (
@@ -396,8 +359,8 @@ export default function OurServices() {
               </div>
               <h3 className="text-2xl font-bold text-white uppercase tracking-tight">{s.title}</h3>
               <p className="text-white/50 text-base leading-relaxed">{s.description}</p>
-              <a href={s.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[#FF6600] font-bold text-sm">
-                LEARN MORE <ArrowRight className="w-4 h-4" />
+              <a href={s.link} target="_blank" rel="noopener noreferrer" className="btn-sale-kit w-full justify-center">
+                SALE KITS <ArrowRight className="w-5 h-5" />
               </a>
             </div>
           ))}

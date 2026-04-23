@@ -16,6 +16,7 @@ const navLinks = [
       { label: "Website Design", id: "website" },
       { label: "EDM", id: "edm" },
       { label: "Ticket Event", id: "ticket" },
+      { label: "Festival Tech", id: "festival" },
       { label: "IOT & Hardware Design", id: "iot" },
       { label: "Event Organizer", id: "organizer" },
       { label: "Graphic Design", id: "graphic" },
@@ -29,7 +30,7 @@ const navLinks = [
     hasDropdown: true,
     items: [
       { label: "NFC / Digital BADGES", id: "nfc" },
-      { label: "Social Media Tools for Event", id: "social" },
+      { label: "Social Media Tools for Event", id: "social-product" },
       { label: "Photobooth / Kiosk", id: "photobooth" },
     ],
   },

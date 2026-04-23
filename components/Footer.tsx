@@ -22,7 +22,7 @@ const footerLinks = {
     href: "#products",
     items: [
       { label: "NFC / DIGITAL BADGES (Customizable)", id: "nfc" },
-      { label: "Social Media Tools for Event", id: "social" },
+      { label: "Social Media Tools for Event", id: "social-product" },
       { label: "Photobooth / Kiosk (Customizable)", id: "photobooth" },
     ]
   },

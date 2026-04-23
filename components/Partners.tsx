@@ -2,50 +2,52 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 
-const logos = [
-  "/partners/AMATA.png",
-  "/partners/Abbott.png",
-  "/partners/Amazing TH.jpg",
-  "/partners/Blackitch.png",
-  "/partners/CMU.png",
-  "/partners/CRU.jpeg",
-  "/partners/DBP.png",
-  "/partners/DELTA.jpg",
-  "/partners/Don Creative Agency.png",
-  "/partners/IACIO.png",
-  "/partners/ICIRD7.png",
-  "/partners/IFEAT.png",
-  "/partners/Idext.png",
-  "/partners/Indeed.jpg",
-  "/partners/Indego Idea.jpg",
-  "/partners/KX.png",
-  "/partners/Kenan.png",
-  "/partners/Logo1.png",
-  "/partners/Logo2.png",
-  "/partners/MIMS.png",
-  "/partners/Med CMU.png",
-  "/partners/Menarini.jpeg",
-  "/partners/Meta.png",
-  "/partners/Motor Expo.png",
-  "/partners/Otsuka.png",
-  "/partners/PATA.png",
-  "/partners/Proflex.png",
-  "/partners/SAKE Merchant.png",
-  "/partners/SWIRE.png",
-  "/partners/Site.png",
-  "/partners/TAT.png",
-  "/partners/TCEB.png",
-  "/partners/TEA.png",
-  "/partners/TH MICE.png",
-  "/partners/TICA.webp",
-  "/partners/TechSauce.png",
-  "/partners/Thai Directors.png",
-  "/partners/Thammasat_University.svg",
-  "/partners/WRG.png",
-  "/partners/Yindee.png",
-  "/partners/iNorway.png",
-  "/partners/vnu.png",
+const partnerLogos = [
+  { src: "/partners/AMATA.png", alt: "AMATA" },
+  { src: "/partners/Abbott.png", alt: "Abbott" },
+  { src: "/partners/Amazing TH.jpg", alt: "Amazing TH" },
+  { src: "/partners/Blackitch.png", alt: "Blackitch" },
+  { src: "/partners/CMU.png", alt: "CMU" },
+  { src: "/partners/CRU.jpeg", alt: "CRU" },
+  { src: "/partners/DBP.png", alt: "DBP" },
+  { src: "/partners/DELTA.jpg", alt: "DELTA" },
+  { src: "/partners/Don Creative Agency.png", alt: "Don Creative Agency" },
+  { src: "/partners/IACIO.png", alt: "IACIO" },
+  { src: "/partners/ICIRD7.png", alt: "ICIRD7" },
+  { src: "/partners/IFEAT.png", alt: "IFEAT" },
+  { src: "/partners/Idext.png", alt: "Idext" },
+  { src: "/partners/Indeed.jpg", alt: "Indeed" },
+  { src: "/partners/Indego Idea.jpg", alt: "Indego Idea" },
+  { src: "/partners/KX.png", alt: "KX" },
+  { src: "/partners/Kenan.png", alt: "Kenan" },
+  { src: "/partners/Logo1.png", alt: "Logo1" },
+  { src: "/partners/Logo2.png", alt: "Logo2" },
+  { src: "/partners/MIMS.png", alt: "MIMS" },
+  { src: "/partners/Med CMU.png", alt: "Med CMU" },
+  { src: "/partners/Menarini.jpeg", alt: "Menarini" },
+  { src: "/partners/Meta.png", alt: "Meta" },
+  { src: "/partners/Motor Expo.png", alt: "Motor Expo" },
+  { src: "/partners/Otsuka.png", alt: "Otsuka" },
+  { src: "/partners/PATA.png", alt: "PATA" },
+  { src: "/partners/Proflex.png", alt: "Proflex" },
+  { src: "/partners/SAKE Merchant.png", alt: "SAKE Merchant" },
+  { src: "/partners/SWIRE.png", alt: "SWIRE" },
+  { src: "/partners/Site.png", alt: "Site" },
+  { src: "/partners/TAT.png", alt: "TAT" },
+  { src: "/partners/TCEB.png", alt: "TCEB" },
+  { src: "/partners/TEA.png", alt: "TEA" },
+  { src: "/partners/TH MICE.png", alt: "TH MICE" },
+  { src: "/partners/TICA.webp", alt: "TICA" },
+  { src: "/partners/TechSauce.png", alt: "TechSauce" },
+  { src: "/partners/Thai Directors.png", alt: "Thai Directors" },
+  { src: "/partners/Thammasat_University.svg", alt: "Thammasat University" },
+  { src: "/partners/WRG.png", alt: "WRG" },
+  { src: "/partners/Yindee.png", alt: "Yindee" },
+  { src: "/partners/iNorway.png", alt: "iNorway" },
+  { src: "/partners/vnu.png", alt: "vnu" },
 ];
 
 export default function Partners() {
@@ -55,7 +57,7 @@ export default function Partners() {
   const isDragging = useRef(false);
 
   // Base speed for auto-scroll
-  const baseVelocity = -1.5; // Negative to scroll left
+  const baseVelocity = 3; // Slower for smoother cinematic look
 
   useEffect(() => {
     if (trackRef.current) {
@@ -79,63 +81,56 @@ export default function Partners() {
     x.set(currentX);
   });
 
-  // Double logos for seamlessness
-  const fullLogos = [...logos, ...logos];
+  const fullLogos = [...partnerLogos, ...partnerLogos];
 
   return (
-    <section className="bg-white py-14 overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-5%" }}
-        transition={{ duration: 0.4, ease: "linear" }}
-      >
-        <div className="max-w-[1280px] mx-auto px-8 mb-10">
-          <h2 className="text-center text-sm font-bold tracking-[0.4em] text-gray-400 uppercase">
-            TRUSTED PARTNERS
-          </h2>
-        </div>
+    <section className="relative w-full py-4 overflow-hidden bg-black">
+      {/* Top Glowing Blue Line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-screen h-[2px] bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20" />
 
-        {/* Fade edges */}
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, white, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, white, transparent)" }} />
+      {/* Center White Strip (Backdrop) */}
+      <div className="bg-white/100 py-5 shadow-2xl relative z-10 overflow-hidden">
 
-          {/* Draggable & Constant Auto-scrolling Track */}
-          <div className="flex overflow-hidden cursor-grab active:cursor-grabbing">
-            <motion.div
-              ref={trackRef}
-              drag="x"
-              dragMomentum={false}
-              style={{ x }}
-              onDragStart={() => { isDragging.current = true; }}
-              onDragEnd={() => { isDragging.current = false; }}
-              onDrag={(event, info) => {
-                // Manual wrap-around check during drag
-                let currentX = x.get();
-                if (currentX < -trackWidth) {
-                  x.set(currentX + trackWidth);
-                } else if (currentX > 0) {
-                  x.set(currentX - trackWidth);
-                }
-              }}
-              whileTap={{ cursor: "grabbing" }}
-              className="flex shrink-0 gap-16 items-center"
-            >
-              {fullLogos.map((src, i) => (
-                <div
-                  key={i}
-                  className="shrink-0 h-24 flex items-center justify-center px-4 transition-all duration-300 hover:scale-110"
-                >
-                  <img src={src} alt={`Partner ${i}`} className="h-14 md:h-18 w-auto object-contain pointer-events-none" loading="lazy" />
-                </div>
-              ))}
-            </motion.div>
-          </div>
+
+        {/* Draggable & Constant Auto-scrolling Track */}
+        <div className="flex overflow-hidden cursor-grab active:cursor-grabbing">
+          <motion.div
+            ref={trackRef}
+            drag="x"
+            dragMomentum={false}
+            style={{ x }}
+            onDragStart={() => { isDragging.current = true; }}
+            onDragEnd={() => { isDragging.current = false; }}
+            onDrag={(event, info) => {
+              let currentX = x.get();
+              if (currentX < -trackWidth) {
+                x.set(currentX + trackWidth);
+              } else if (currentX > 0) {
+                x.set(currentX - trackWidth);
+              }
+            }}
+            whileTap={{ cursor: "grabbing" }}
+            className="flex shrink-0 gap-20 items-center"
+          >
+            {fullLogos.map((logo, i) => (
+              <div
+                key={`${logo.alt}-${i}`}
+                className="shrink-0 h-16 flex items-center justify-center px-4 transition-all duration-300 hover:scale-110"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-12 md:h-14 w-auto object-contain pointer-events-none select-none"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
+
+      {/* Bottom Glowing Blue Line */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-screen h-[2px] bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20" />
     </section>
   );
 }

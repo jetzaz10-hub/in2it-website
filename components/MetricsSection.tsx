@@ -10,7 +10,7 @@ export default function MetricsSection() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}
       transition={{ duration: 0.4, delay: 0.1, ease: "linear" }}
-      className="w-full relative z-20 py-16" 
+      className="w-full relative z-20 py-10" 
       style={{ background: "linear-gradient(to right, #4A32FF, #8A2BE2)" }}
     >
       <div className="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row items-center justify-around gap-12 text-center text-white">

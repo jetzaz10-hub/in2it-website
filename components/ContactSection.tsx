@@ -102,8 +102,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 rounded-none overflow-hidden h-[320px] lg:h-[380px] w-full"
-            style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)" }}
+            className="flex-1 rounded-[2.5rem] overflow-hidden h-[320px] lg:h-[380px] w-full border border-white/10 shadow-2xl"
           >
             <iframe
               title="IN2IT Company Location"

@@ -21,7 +21,7 @@ const products = [
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
   },
   {
-    id: "social",
+    id: "social-product",
     title: "Social Media Tools",
     subtitle: "Integrated Marketing",
     description: "Improve your marketing campaign with integrated social media tools including Line OA, Facebook, and Instagram.",
@@ -33,7 +33,8 @@ const products = [
       "Global Metrics",
     ],
     color: "#4A32FF",
-    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56"
+    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
+    imgPosition: "object-top"
   },
   {
     id: "photobooth",
@@ -70,16 +71,31 @@ export default function FeaturedProducts() {
     }
   }, []);
 
+  // Handle nav-jump event from Navbar/Footer
+  useEffect(() => {
+    const handleJump = (e: any) => {
+      const targetId = e.detail?.targetId;
+      const isProduct = products.some(p => p.id === targetId);
+      
+      if (isProduct) {
+        const section = document.getElementById('products');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    };
+
+    window.addEventListener('nav-jump', handleJump);
+    return () => window.removeEventListener('nav-jump', handleJump);
+  }, []);
+
   return (
-    <section id="products" className="py-32 bg-[#030303] text-white overflow-hidden relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#4634F8] rounded-full blur-[120px] mix-blend-screen animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#FF6600] rounded-full blur-[120px] mix-blend-screen animate-pulse delay-700" />
-      </div>
+    <section id="products" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-transparent text-white overflow-hidden relative">
+      {/* Background layer removed for unified look */}
 
       <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
         {/* Balanced Heading */}
-        <div className="flex flex-col items-center mb-24">
+        <div className="flex flex-col items-center mb-12">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,11 +103,11 @@ export default function FeaturedProducts() {
             transition={{ duration: 0.4, ease: "linear" }}
             className="text-center inline-block"
           >
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-4 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase mb-2 leading-tight">
               Featured <span className="text-[#FF6600]">Products</span>
             </h2>
             {/* Adaptive Underline */}
-            <div className="w-full h-1 bg-gradient-to-r from-[#4634F8] to-[#FF6600] opacity-40 mt-2"></div>
+            <div className="w-full h-1 bg-gradient-to-r from-[#4634F8] to-[#FF6600] opacity-40 mt-1"></div>
           </motion.div>
         </div>
 
@@ -126,6 +142,7 @@ export default function FeaturedProducts() {
                   color={product.color}
                   link={product.link}
                   imgSrc={product.image}
+                  imgPosition={(product as any).imgPosition}
                 />
               </motion.div>
             ))}

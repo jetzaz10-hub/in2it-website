@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import { cn } from "../lib/utils";
-import Counter from "./ui/Counter";
 
 export default function OurExperiences() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -47,27 +46,27 @@ export default function OurExperiences() {
   };
 
   return (
-    <section id="experiences" className="py-24 bg-black overflow-hidden relative">
+    <section id="experiences" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-transparent overflow-hidden relative">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-5%" }}
         transition={{ duration: 0.4, ease: "linear" }}
-        className="max-w-[1440px] mx-auto px-6 sm:px-12"
+        className="max-w-[1440px] mx-auto px-6 sm:px-12 w-full"
       >
         {/* Heading */}
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter">
+        <div className="mb-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white uppercase tracking-tighter">
             Our <span className="text-[#F97316]">Experiences</span>
           </h2>
-          <p className="mt-4 text-white/50 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-2 text-white/50 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
             We partner with corporate, government, and international organizations,
-            supporting events up to <Counter value={100000} className="font-bold text-white" />+ participants.
+            supporting events up to <span className="text-white font-bold">100,000+</span> participants.
           </p>
         </div>
 
         {/* Large Video Frame */}
-        <div className="relative w-full aspect-video lg:aspect-[21/8] rounded-[2.5rem] overflow-hidden group shadow-[0_0_100px_rgba(249,115,22,0.1)] border border-white/10 bg-zinc-950">
+        <div className="relative w-full aspect-video lg:aspect-[21/7] rounded-[2.5rem] overflow-hidden group shadow-[0_0_100px_rgba(249,115,22,0.1)] border border-white/10 bg-zinc-950">
           <video
             ref={videoRef}
             src="/videos/beyond_the_elephant.mp4"
@@ -107,16 +106,16 @@ export default function OurExperiences() {
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-16">
+        <div className="text-center mt-10">
           <a
             href="https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-black text-white text-base tracking-tight transition-all hover:scale-[1.05]"
+            className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-white text-base tracking-tight transition-all hover:scale-[1.05]"
           >
             {/* Glossy Button Background */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#FF6600] to-[#FF9900] rounded-full shadow-[0_0_30px_rgba(255,102,0,0.3)] transition-all group-hover:shadow-[0_0_50px_rgba(255,102,0,0.5)]" />
-            
+
             <span className="relative z-10">VIEW FULL PORTFOLIO</span>
             <svg className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

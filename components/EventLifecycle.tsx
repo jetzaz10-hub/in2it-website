@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 /* ─── Helpers ─────────────────────────────────────────── */
 
@@ -32,6 +32,26 @@ function donutSlice(
     `A ${innerR} ${innerR} 0 ${large} 0 ${i1.x.toFixed(2)} ${i1.y.toFixed(2)}`,
     "Z",
   ].join(" ");
+}
+
+function getTextArcPath(cx: number, cy: number, r: number, startDeg: number, endDeg: number) {
+  const mid = (startDeg + endDeg) / 2;
+  const reverse = mid > 90 && mid < 270;
+
+  let sDeg = startDeg;
+  let eDeg = endDeg;
+
+  if (reverse) {
+    sDeg = endDeg;
+    eDeg = startDeg;
+  }
+
+  const s = polarToCartesian(cx, cy, r, sDeg);
+  const e = polarToCartesian(cx, cy, r, eDeg);
+  const large = Math.abs(eDeg - sDeg) > 180 ? 1 : 0;
+  const sweep = reverse ? 0 : 1;
+
+  return `M ${s.x.toFixed(2)} ${s.y.toFixed(2)} A ${r} ${r} 0 ${large} ${sweep} ${e.x.toFixed(2)} ${e.y.toFixed(2)}`;
 }
 
 /* ─── Data ────────────────────────────────────────────── */
@@ -242,19 +262,29 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
           {phases.map((p) => {
             const startPt = polarToCartesian(CX, CY, OUTER, p.startDeg);
             const endPt = polarToCartesian(CX, CY, OUTER, p.endDeg);
+            const isSelected = p.id === activeId;
+            const isHovered = p.id === hoverId;
+            const isEnlarged = isHovered || isSelected;
+            const textR = isEnlarged ? 123 : 115;
+
             return (
-              <linearGradient
-                key={`grad-${p.id}`}
-                id={`grad-${p.id}`}
-                gradientUnits="userSpaceOnUse"
-                x1={startPt.x}
-                y1={startPt.y}
-                x2={endPt.x}
-                y2={endPt.y}
-              >
-                <stop offset="0%" stopColor={p.gradFrom} />
-                <stop offset="100%" stopColor={p.gradTo} />
-              </linearGradient>
+              <g key={`defs-${p.id}`}>
+                <linearGradient
+                  id={`grad-${p.id}`}
+                  gradientUnits="userSpaceOnUse"
+                  x1={startPt.x}
+                  y1={startPt.y}
+                  x2={endPt.x}
+                  y2={endPt.y}
+                >
+                  <stop offset="0%" stopColor={p.gradFrom} />
+                  <stop offset="100%" stopColor={p.gradTo} />
+                </linearGradient>
+                <path
+                  id={`textPath-${p.id}`}
+                  d={getTextArcPath(CX, CY, textR, p.startDeg, p.endDeg)}
+                />
+              </g>
             );
           })}
         </defs>
@@ -305,6 +335,30 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
                   ease: "easeInOut"
                 }}
               />
+
+              {/* Curved Text Label */}
+              <text
+                fill={isBright ? "white" : "rgba(255,255,255,0.75)"}
+                fontSize={isEnlarged ? "13" : "11"}
+                fontWeight="800"
+                letterSpacing="0.05em"
+                className="transition-all duration-300 pointer-events-none"
+                style={{
+                  textShadow: isBright
+                    ? '0px 2px 8px rgba(0,0,0,0.8)'
+                    : '0px 2px 4px rgba(0,0,0,0.5)'
+                }}
+              >
+                <textPath
+                  href={`#textPath-${phase.id}`}
+                  startOffset="50%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                >
+                  {phase.label.join(" ")}
+                </textPath>
+              </text>
+
               <path
                 d={donutSlice(CX, CY, OUTER + 16, INNER, phase.startDeg, phase.endDeg)}
                 fill="transparent"
@@ -323,46 +377,6 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
         <circle cx={CX} cy={CY} r={INNER} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" className="pointer-events-none" />
       </svg>
 
-      <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-        {phases.map((phase) => {
-          const isSelected = phase.id === activeId;
-          const isHovered = phase.id === hoverId;
-          const isEnlarged = hoverId ? isHovered : isSelected;
-          const isBright = isEnlarged || isSelected;
-
-          const r = isEnlarged ? 122 : 115;
-          const pos = polarToCartesian(CX, CY, r, phase.midDeg);
-
-          const extrudeDist = isSelected ? 18 : (isHovered ? 4 : 0);
-          const offset = polarToCartesian(0, 0, extrudeDist, phase.midDeg);
-
-          return (
-            <text
-              key={phase.id}
-              x={pos.x} y={pos.y}
-              textAnchor="middle" alignmentBaseline="middle"
-              fill={isBright ? "white" : "rgba(255,255,255,0.75)"}
-              fontSize={isEnlarged ? "13" : "11"}
-              fontWeight="800" letterSpacing="0.5"
-              className="transition-all duration-300 pointer-events-none"
-              style={{
-                transform: `translate(${offset.x}px, ${offset.y}px)`,
-                transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
-                textShadow: isBright
-                  ? '0px 2px 8px rgba(0,0,0,0.8), 0px 0px 3px rgba(0,0,0,1)'
-                  : '0px 2px 4px rgba(0,0,0,0.5)'
-              }}
-            >
-              {phase.label.map((line, i) => (
-                <tspan key={i} x={pos.x} dy={i === 0 ? (phase.label.length === 1 ? "0.3em" : "-0.2em") : "1.2em"}>
-                  {line}
-                </tspan>
-              ))}
-            </text>
-          );
-        })}
-      </svg>
-
       <div
         className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         style={{
@@ -373,7 +387,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
         }}
       >
         <div
-          className="absolute inset-0 rounded-full bg-black pointer-events-auto cursor-pointer"
+          className="absolute inset-0 rounded-full bg-black pointer-events-none"
           style={{
             transform: `rotate(${glowRotation}deg)`,
             boxShadow: glowShadow,
@@ -381,13 +395,11 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
               ? 'transform 0.1s linear, box-shadow 0.2s ease-out'
               : 'transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease-out'
           }}
-          onClick={() => { setActiveId(null); setOpenItems({}); }}
         />
         <div className="relative z-10 flex flex-col items-center justify-center p-4">
           <Image
             src="/logo.svg" alt="IN2IT Logo" width={100} height={50}
-            className="object-contain cursor-pointer pointer-events-auto"
-            onClick={() => { setActiveId(null); setOpenItems({}); }}
+            className="object-contain"
           />
         </div>
       </div>
@@ -486,6 +498,14 @@ export default function EventLifecycle() {
   }
 
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.4, once: true });
+
+  useEffect(() => {
+    if (isInView && !activeId) {
+      setActiveId("planning");
+    }
+  }, [isInView, activeId]);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -530,7 +550,7 @@ export default function EventLifecycle() {
       >
         {/* Heading */}
         <div className="text-center mb-4">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -540,15 +560,14 @@ export default function EventLifecycle() {
             Your event lifecycle,{" "}
             <span style={{ color: "#4A32FF" }}>from start to finish</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-2 text-white/60 text-sm mb-2 max-w-2xl mx-auto"
+            className="mt-7 text-white/60 text-sm mb-10 max-w-1xl mx-auto"
           >
-            A structured, end-to-end workflow where we plan, think and execute
-            every detail to ensure seamless results.
+            A structured, end-to-end workflow where we plan, think and execute every detail to ensure seamless results.
           </motion.p>
 
           {/* Interactive Instruction Badge */}
@@ -572,7 +591,7 @@ export default function EventLifecycle() {
               viewport={{ once: true }}
               animate={{
                 x: activePhase
-                  ? (isReverse ? 220 : -220)
+                  ? (isReverse ? 280 : -280)
                   : 0
               }}
               transition={{
