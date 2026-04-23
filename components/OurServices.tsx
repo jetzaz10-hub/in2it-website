@@ -132,13 +132,13 @@ const ServiceImageSlider = ({ images, title, isActive }: { images: string[], tit
         <>
           <button
             onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all z-20 hover:bg-black/50"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all z-20 hover:bg-black/50"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all z-20 hover:bg-black/50"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all z-20 hover:bg-black/50"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -227,8 +227,13 @@ export default function OurServices() {
     <section
       id="services"
       ref={containerRef}
-      className="relative h-[550vh] bg-transparent"
+      className="relative h-[550vh] bg-black rounded-t-[40px] md:rounded-t-[60px] mt-0.3 pt-11 z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]"
     >
+      {/* Top Curved Orange Glow Divider */}
+      <div className="absolute top-0 left-0 w-full h-[100px] z-40 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full border-t-[4px] border-[#FF6600]/80 rounded-t-[40px] md:rounded-t-[60px] shadow-[0_-12px_40px_rgba(255,102,0,0.6)]" />
+        <div className="absolute top-[-20px] left-1/2 -translate-x-1/2 w-[90%] h-[60px] bg-[#FF6600]/15 blur-[45px] rounded-full" />
+      </div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -238,8 +243,21 @@ export default function OurServices() {
       >
         {/* PC Sticky Viewport */}
         <div className="sticky top-0 h-screen w-full overflow-hidden hidden lg:block">
-
-          {/* Background Layer removed as it is now in UnifiedBackgroundWrapper */}
+          {/* Background Video */}
+          <div className="absolute inset-0 z-0">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover opacity-90"
+            >
+              <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
+            </video>
+            {/* Dark Overlay for Readability */}
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-transparent to-[#030303]" />
+          </div>
 
           {/* Content Layer */}
           <motion.div
@@ -254,7 +272,7 @@ export default function OurServices() {
               {/* Left Column: Heading + Service Info */}
               <div className="relative h-[550px] flex flex-col justify-center space-y-12">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter">
+                  <h2 className="text-3xl md:text-6xl font-bold text-white uppercase tracking-tighter">
                     Our <span className="text-[#FF6600]">Services</span>
                   </h2>
                   <div className="w-16 h-1 bg-[#4634F8] opacity-50"></div>
@@ -276,7 +294,7 @@ export default function OurServices() {
                         <span className="text-white/20">10</span>
                       </div>
 
-                      <h3 className="text-4xl lg:text-6xl font-bold text-white tracking-tighter leading-tight uppercase">
+                      <h3 className="text-4xl lg:text-[40px] font-bold text-white tracking-tighter leading-tight uppercase">
                         {services[activeIndex].title}
                       </h3>
 
@@ -346,8 +364,23 @@ export default function OurServices() {
         </div>
 
         {/* Mobile Fallback with Slider */}
-        <div className="lg:hidden block bg-black py-20 px-8 space-y-16">
-          <div className="space-y-4 mb-16">
+        <div className="lg:hidden block relative bg-black py-20 px-8 space-y-16 overflow-hidden">
+          {/* Background Video for Mobile */}
+          <div className="absolute inset-0 z-0">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover opacity-80"
+            >
+              <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
+
+          <div className="relative z-10 space-y-16">
+            <div className="space-y-4 mb-16">
             <h2 className="text-3xl font-bold text-white uppercase">Our <span className="text-[#FF6600]">Services</span></h2>
             <div className="w-12 h-1 bg-[#4634F8] opacity-50"></div>
           </div>
@@ -364,6 +397,7 @@ export default function OurServices() {
               </a>
             </div>
           ))}
+          </div>
         </div>
       </motion.div>
     </section>

@@ -123,6 +123,11 @@ export default function OurExperiences() {
           </a>
         </div>
       </motion.div>
+      {/* Bottom Purple Glow Divider */}
+      <div className="absolute bottom-0 left-0 w-full h-[4px] z-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[4px] shadow-[0_0_30px_rgba(168,85,247,0.8),0_0_60px_rgba(168,85,247,0.5)]" />
+        <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-full h-[120px] bg-purple-600/25 blur-[70px] rounded-[100%] pointer-events-none" />
+      </div>
     </section>
   );
 }

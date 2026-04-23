@@ -12,7 +12,7 @@ interface Message {
 export default function ChatbotWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, text: "Hi! This is IN2IT Chatbot. How can I help you today?", sender: "bot" },
+    { id: 1, text: "Hi! This is IN2IT Lead Consultant. How can I help you today?", sender: "bot" },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -195,7 +195,7 @@ export default function ChatbotWidget() {
               </div>
               <div className="flex flex-col">
                 <span className="text-white font-bold text-[10px] tracking-[0.2em] leading-none opacity-60">IN2IT</span>
-                <span className="text-white font-black text-xs tracking-widest leading-none mt-1">CHATBOT</span>
+                <span className="text-white font-bold text-xs tracking-widest leading-none mt-1">LEAD CONSULTANT</span>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -221,10 +221,14 @@ export default function ChatbotWidget() {
             {messages.map((msg) => (
               <div key={msg.id} className={`flex items-start gap-2 ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
                 {msg.sender === "bot" && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "#4A32FF" }}>
-                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2a2 2 0 012 2v1h3a2 2 0 012 2v9a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zm0 5.5a1 1 0 100 2 1 1 0 000-2zM9 9.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z" />
-                    </svg>
+                  <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-lg border-2 border-white">
+                    <Image 
+                      src="/chatbot/P'poi 1.jpg" 
+                      alt="P'poi" 
+                      width={40} 
+                      height={40} 
+                      className="object-cover w-full h-full"
+                    />
                   </div>
                 )}
                 <div
@@ -240,10 +244,14 @@ export default function ChatbotWidget() {
 
             {isTyping && (
               <div className="flex items-start gap-2">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "#4A32FF" }}>
-                  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2a2 2 0 012 2v1h3a2 2 0 012 2v9a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zm0 5.5a1 1 0 100 2 1 1 0 000-2zM9 9.5a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z" />
-                  </svg>
+                <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-lg border-2 border-white">
+                  <Image 
+                    src="/chatbot/P'poi 1.jpg" 
+                    alt="P'poi" 
+                    width={40} 
+                    height={40} 
+                    className="object-cover w-full h-full"
+                  />
                 </div>
                 <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-white flex items-center gap-1 shadow-sm border border-gray-100">
                   <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: "0ms" }} />
@@ -287,8 +295,8 @@ export default function ChatbotWidget() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group"
-        style={{ background: "#4A32FF" }}
+        className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group overflow-hidden border-2 border-[#4A32FF]"
+        style={{ background: open ? "#4A32FF" : "white" }}
         aria-label="Open chatbot"
       >
         {open ? (
@@ -296,9 +304,14 @@ export default function ChatbotWidget() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg className="w-7 h-7 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 11H7v-2h6v2zm3-4H7V7h9v2z" />
-          </svg>
+          <div className="w-full h-full relative">
+            <Image 
+              src="/chatbot/P'poi 1.jpg" 
+              alt="P'poi" 
+              fill
+              className="object-cover"
+            />
+          </div>
         )}
       </button>
     </div>

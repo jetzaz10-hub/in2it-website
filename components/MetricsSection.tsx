@@ -33,6 +33,12 @@ export default function MetricsSection() {
           <div className="text-xs tracking-[0.15em] uppercase font-semibold text-white/90">Years Expertise</div>
         </div>
       </div>
+
+      {/* Bottom Purple Glow Divider */}
+      <div className="absolute bottom-0 left-0 w-full h-[4px] z-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[4px] shadow-[0_0_20px_rgba(168,85,247,0.6)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[80px] bg-purple-600/15 blur-[50px] rounded-[100%] pointer-events-none" />
+      </div>
     </motion.div>
   );
 }

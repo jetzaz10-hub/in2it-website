@@ -25,10 +25,10 @@ export default function MeetTeam() {
           MEET OUR{" "}
           <span style={{ color: "#4A32FF" }}>TEAM</span>
         </h2>
-        <p className="mt-4 text-white/60 text-base max-w-lg mx-auto px-4">
+        <p className="mt-4 text-white/70 text-base max-w-lg mx-auto px-1">
           Where creativity meets event technology.
           <br />
-          One team. All solutions. From planning to post-event success.
+          One team, All solutions, From planning to post-event success.
         </p>
       </motion.div>
 

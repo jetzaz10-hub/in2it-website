@@ -132,7 +132,7 @@ export default function Navbar() {
             href="https://in2it-service.com/registration/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-[11px] font-black uppercase tracking-widest px-6 py-2.5 rounded-full transition-all hover:scale-[1.05] active:scale-95 shadow-[0_0_20px_rgba(255,102,0,0.3)]"
+            className="text-white text-[11px] font-bold uppercase tracking-widest px-6 py-2.5 rounded-full transition-all hover:scale-[1.05] active:scale-95 shadow-[0_0_20px_rgba(255,102,0,0.3)]"
             style={{ background: "linear-gradient(to right, #FF6600, #FF3366)" }}
           >
             Sale Site

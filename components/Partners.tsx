@@ -57,7 +57,7 @@ export default function Partners() {
   const isDragging = useRef(false);
 
   // Base speed for auto-scroll
-  const baseVelocity = 3; // Slower for smoother cinematic look
+  const baseVelocity = 1; // Slower for smoother cinematic look
 
   useEffect(() => {
     if (trackRef.current) {
@@ -86,7 +86,10 @@ export default function Partners() {
   return (
     <section className="relative w-full py-4 overflow-hidden bg-black">
       {/* Top Glowing Blue Line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-screen h-[2px] bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20" />
+      <div className="absolute top-0 left-0 w-full h-[2px] z-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_#3b82f6]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[30px] bg-purple-600/20 blur-[20px] rounded-[100%] pointer-events-none" />
+      </div>
 
       {/* Center White Strip (Backdrop) */}
       <div className="bg-white/100 py-5 shadow-2xl relative z-10 overflow-hidden">
@@ -130,7 +133,10 @@ export default function Partners() {
       </div>
 
       {/* Bottom Glowing Blue Line */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-screen h-[2px] bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20" />
+      <div className="absolute bottom-0 left-0 w-full h-[2px] z-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_#3b82f6]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[30px] bg-purple-600/20 blur-[20px] rounded-[100%] pointer-events-none" />
+      </div>
     </section>
   );
 }

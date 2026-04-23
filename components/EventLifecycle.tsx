@@ -148,7 +148,7 @@ function PhaseDetail({
           className="w-3 h-3 rounded-full"
           style={{ background: phase.colorActive }}
         />
-        <h3 className="text-2xl font-black text-white tracking-tight">
+        <h3 className="text-2xl font-bold text-white tracking-tight">
           {phase.label.join(" ")}
         </h3>
       </div>
@@ -340,7 +340,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
               <text
                 fill={isBright ? "white" : "rgba(255,255,255,0.75)"}
                 fontSize={isEnlarged ? "13" : "11"}
-                fontWeight="800"
+                fontWeight="600"
                 letterSpacing="0.05em"
                 className="transition-all duration-300 pointer-events-none"
                 style={{
@@ -421,8 +421,8 @@ function TimelineProgress({ activeId, setActiveId, setOpenItems }: TimelineProgr
     <div className="mt-0 lg:mt-0 w-full max-w-[1100px] mx-auto px-10 relative z-30">
       <div className="relative flex justify-between items-center mb-8 pt-6">
         {/* START/FINISH Absolute Labels */}
-        <div className="absolute top-0 left-0 text-[10px] font-black tracking-[0.3em] text-white/40">START</div>
-        <div className="absolute top-0 right-0 text-[10px] font-black tracking-[0.3em] text-white/40 text-right">FINISH</div>
+        <div className="absolute top-0 left-0 text-[10px] font-bold tracking-[0.3em] text-white/40">START</div>
+        <div className="absolute top-0 right-0 text-[10px] font-bold tracking-[0.3em] text-white/40 text-right">FINISH</div>
 
         {/* Background Track */}
         <div className="absolute top-1.5/2 left-0 right-0 h-[1.5px] bg-white/5 -translate-y-1.5/2 z-0" />
@@ -529,20 +529,20 @@ export default function EventLifecycle() {
           background: linear-gradient(
             -45deg, 
             #000000,
-            #08051a, 
-            #0f0729, 
-            #1a0b3b, 
+            #0d0a2b, 
+            #1a0f4a, 
+            #2d1466, 
             #0a041f, 
             #000000
           );
           background-size: 400% 400%;
-          animation: lifecycleGradientPan 35s ease-in-out infinite;
+          animation: lifecycleGradientPan 25s ease-in-out infinite;
         }
       `}</style>
-      <div className="absolute inset-0 lifecycle-bg-animated opacity-70" />
+      <div className="absolute inset-0 lifecycle-bg-animated opacity-90" />
 
-      {/* Warm glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[380px] bg-[#F97316]/5 blur-[130px] rounded-full pointer-events-none" />
+      {/* Intense IN2IT Orange Transition Gradient */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#FF6600]/50 via-[#FF6600]/10 to-transparent z-10 pointer-events-none" />
 
       <motion.div
         style={{ scale: sectionScale, opacity: sectionOpacity }}
@@ -565,7 +565,7 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-7 text-white/60 text-sm mb-10 max-w-1xl mx-auto"
+            className="mt-7 text-white/70 text-lg md:text-xl mb-10 max-w-none mx-auto"
           >
             A structured, end-to-end workflow where we plan, think and execute every detail to ensure seamless results.
           </motion.p>
@@ -584,7 +584,7 @@ export default function EventLifecycle() {
         <div className="hidden lg:block relative min-h-[350px] w-full max-w-[980px] mx-auto">
 
           {/* Slider Donut Wrapper (Handles Centering) */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[340px] aspect-square z-20">
+          <div className="absolute top-[-30px] left-1/2 -translate-x-1/2 w-[340px] aspect-square z-20">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
