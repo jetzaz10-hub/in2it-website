@@ -56,6 +56,7 @@ export default function MeetTeam() {
           fill
           className="object-cover object-center"
           style={{ filter: "grayscale(100%)" }}
+          draggable={false}
         />
 
         {/* Dark fade at bottom */}

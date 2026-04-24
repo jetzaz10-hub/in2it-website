@@ -6,48 +6,48 @@ import { cn } from "@/lib/utils";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 
 const partnerLogos = [
-  { src: "/partners/AMATA.png", alt: "AMATA" },
   { src: "/partners/Abbott.png", alt: "Abbott" },
-  { src: "/partners/Amazing TH.jpg", alt: "Amazing TH" },
-  { src: "/partners/Blackitch.png", alt: "Blackitch" },
-  { src: "/partners/CMU.png", alt: "CMU" },
-  { src: "/partners/CRU.jpeg", alt: "CRU" },
-  { src: "/partners/DBP.png", alt: "DBP" },
-  { src: "/partners/DELTA.jpg", alt: "DELTA" },
-  { src: "/partners/Don Creative Agency.png", alt: "Don Creative Agency" },
-  { src: "/partners/IACIO.png", alt: "IACIO" },
-  { src: "/partners/ICIRD7.png", alt: "ICIRD7" },
-  { src: "/partners/IFEAT.png", alt: "IFEAT" },
-  { src: "/partners/Idext.png", alt: "Idext" },
-  { src: "/partners/Indeed.jpg", alt: "Indeed" },
-  { src: "/partners/Indego Idea.jpg", alt: "Indego Idea" },
-  { src: "/partners/KX.png", alt: "KX" },
-  { src: "/partners/Kenan.png", alt: "Kenan" },
-  { src: "/partners/Logo1.png", alt: "Logo1" },
-  { src: "/partners/Logo2.png", alt: "Logo2" },
-  { src: "/partners/MIMS.png", alt: "MIMS" },
-  { src: "/partners/Med CMU.png", alt: "Med CMU" },
-  { src: "/partners/Menarini.jpeg", alt: "Menarini" },
+  { src: "/partners/AMATA.png", alt: "AMATA" },
+  { src: "/partners/Amazing_Thailand.png", alt: "Amazing Thailand" },
+  { src: "/partners/Blackitch.png", alt: "Blackitch Artisan Kitchen" },
+  { src: "/partners/CMU.png", alt: "Chiang Mai University" },
+  { src: "/partners/CRU.png", alt: "Chiang Rai Rajabhat University" },
+  { src: "/partners/Child_Development_Foundation.png", alt: "Child Development Foundation" },
+  { src: "/partners/Delta.png", alt: "Delta Electronics" },
+  { src: "/partners/DON_Creative.png", alt: "DON Creative Agency" },
+  { src: "/partners/IACIO.png", alt: "International Academy of CIO" },
+  { src: "/partners/ICIRD.png", alt: "ICIRD" },
+  { src: "/partners/idext.png", alt: "idext MICE" },
+  { src: "/partners/iFEAT.png", alt: "iFEAT" },
+  { src: "/partners/Indeed_Creation.png", alt: "Indeed Creation" },
+  { src: "/partners/Indego_Idea.png", alt: "Indego Idea" },
+  { src: "/partners/Thai_Norwegian_Chamber.png", alt: "Thai-Norwegian Chamber of Commerce" },
+  { src: "/partners/Kenan.png", alt: "Kenan Foundation Asia" },
+  { src: "/partners/KX.png", alt: "Knowledge Exchange" },
+  { src: "/partners/MSDHS.png", alt: "MSDHS" },
+  { src: "/partners/MOPH.png", alt: "Ministry of Public Health" },
+  { src: "/partners/MedCMU.png", alt: "MedCMU" },
+  { src: "/partners/Menarini.png", alt: "Menarini" },
   { src: "/partners/Meta.png", alt: "Meta" },
-  { src: "/partners/Motor Expo.png", alt: "Motor Expo" },
+  { src: "/partners/MIMS.png", alt: "MIMS Thailand" },
+  { src: "/partners/Motor_Expo.png", alt: "Motor Expo" },
   { src: "/partners/Otsuka.png", alt: "Otsuka" },
   { src: "/partners/PATA.png", alt: "PATA" },
-  { src: "/partners/Proflex.png", alt: "Proflex" },
-  { src: "/partners/SAKE Merchant.png", alt: "SAKE Merchant" },
-  { src: "/partners/SWIRE.png", alt: "SWIRE" },
-  { src: "/partners/Site.png", alt: "Site" },
-  { src: "/partners/TAT.png", alt: "TAT" },
+  { src: "/partners/Proflex.png", alt: "Pro Flex Consult" },
+  { src: "/partners/Sake_Merchant.png", alt: "The Sake Merchant" },
+  { src: "/partners/Site_Thailand.png", alt: "site Thailand" },
+  { src: "/partners/Swire_Coca_Cola.png", alt: "Swire Coca-Cola" },
+  { src: "/partners/TAT.png", alt: "Tourism Authority of Thailand" },
   { src: "/partners/TCEB.png", alt: "TCEB" },
-  { src: "/partners/TEA.png", alt: "TEA" },
-  { src: "/partners/TH MICE.png", alt: "TH MICE" },
-  { src: "/partners/TICA.webp", alt: "TICA" },
-  { src: "/partners/TechSauce.png", alt: "TechSauce" },
-  { src: "/partners/Thai Directors.png", alt: "Thai Directors" },
-  { src: "/partners/Thammasat_University.svg", alt: "Thammasat University" },
-  { src: "/partners/WRG.png", alt: "WRG" },
-  { src: "/partners/Yindee.png", alt: "Yindee" },
-  { src: "/partners/iNorway.png", alt: "iNorway" },
-  { src: "/partners/vnu.png", alt: "vnu" },
+  { src: "/partners/TEA.png", alt: "Thai Exhibition Association" },
+  { src: "/partners/Techsauce.png", alt: "Techsauce" },
+  { src: "/partners/MICE_Youth_Challenge.png", alt: "MICE Youth Challenge" },
+  { src: "/partners/Thai_IOD.png", alt: "Thai Institute of Directors" },
+  { src: "/partners/Thammasat_University.png", alt: "Thammasat University" },
+  { src: "/partners/TICA.png", alt: "TICA" },
+  { src: "/partners/vnu.png", alt: "VNU Exhibitions" },
+  { src: "/partners/WRG.png", alt: "World Robot Games" },
+  { src: "/partners/Yindee.png", alt: "Yindee Agency" },
 ];
 
 export default function Partners() {
@@ -61,7 +61,7 @@ export default function Partners() {
 
   useEffect(() => {
     if (trackRef.current) {
-      setTrackWidth(trackRef.current.scrollWidth / 2);
+      setTrackWidth(trackRef.current.scrollWidth / 3);
     }
   }, []);
 
@@ -69,10 +69,10 @@ export default function Partners() {
     if (isDragging.current || trackWidth === 0) return;
 
     let currentX = x.get();
-    currentX += baseVelocity;
+    currentX -= baseVelocity;
 
-    // Wrap-around logic for infinity
-    if (currentX < -trackWidth) {
+    // Wrap-around logic for seamless infinity (leftwards)
+    if (currentX <= -trackWidth) {
       currentX += trackWidth;
     } else if (currentX > 0) {
       currentX -= trackWidth;
@@ -81,7 +81,7 @@ export default function Partners() {
     x.set(currentX);
   });
 
-  const fullLogos = [...partnerLogos, ...partnerLogos];
+  const fullLogos = [...partnerLogos, ...partnerLogos, ...partnerLogos];
 
   return (
     <section className="relative w-full py-4 overflow-hidden bg-black">
@@ -92,9 +92,7 @@ export default function Partners() {
       </div>
 
       {/* Center White Strip (Backdrop) */}
-      <div className="bg-white/100 py-5 shadow-2xl relative z-10 overflow-hidden">
-
-
+      <div className="bg-white py-6 shadow-2xl relative z-10 overflow-hidden">
         {/* Draggable & Constant Auto-scrolling Track */}
         <div className="flex overflow-hidden cursor-grab active:cursor-grabbing">
           <motion.div
@@ -113,18 +111,19 @@ export default function Partners() {
               }
             }}
             whileTap={{ cursor: "grabbing" }}
-            className="flex shrink-0 gap-20 items-center"
+            className="flex shrink-0 gap-8 md:gap-12 items-center"
           >
             {fullLogos.map((logo, i) => (
               <div
                 key={`${logo.alt}-${i}`}
-                className="shrink-0 h-16 flex items-center justify-center px-4 transition-all duration-300 hover:scale-110"
+                className="shrink-0 w-[150px] md:w-[200px] h-20 flex items-center justify-center transition-all duration-300 hover:scale-110"
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-12 md:h-14 w-auto object-contain pointer-events-none select-none"
+                  className="max-h-14 md:max-h-16 max-w-[90%] object-contain pointer-events-none select-none transition-all duration-300"
                   loading="lazy"
+                  draggable={false}
                 />
               </div>
             ))}

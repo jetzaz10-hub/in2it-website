@@ -76,10 +76,11 @@ export default function CardFlip({
               <img
                 src={imgSrc}
                 alt={title}
-                className={cn("w-full h-full opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out", imgPosition)}
+                className={cn("w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out brightness-[1.1] group-hover:brightness-[1.2]", imgPosition)}
+                draggable={false}
               />
               {/* Lighter Vignette for Text Clarity */}
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
             </div>
           )}
 
@@ -87,7 +88,7 @@ export default function CardFlip({
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/20 via-transparent to-blue-500/10 pointer-events-none z-10" />
 
           {/* Bottom content with ORIGINAL SCALE typography */}
-          <div className="absolute right-0 bottom-0 left-0 p-8 z-30 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent">
+          <div className="absolute right-0 bottom-0 left-0 p-8 z-30 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent">
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-2">
                 <h3 className="text-[26px] leading-tight font-bold tracking-tight text-white transition-all duration-500 ease-out group-hover:translate-y-[-4px]">

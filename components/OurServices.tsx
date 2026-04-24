@@ -11,14 +11,14 @@ const services = [
     id: "registration",
     title: "Registration System",
     description: "End-to-end event registration solutions. We handle everything from customized online forms to high-capacity onsite check-ins.",
-    images: ["/services/regis/regis1.png", "/services/regis/regis2.png", "/services/regis/regis 3.png"],
+    images: ["/services/regis/reg1.png", "/services/regis/reg2.png", "/services/regis/reg3.png", "/services/regis/reg4.png", "/services/regis/reg5.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#6"
   },
   {
     id: "website",
     title: "Website Design",
     description: "Professional event microsites and corporate landing pages designed to convert visitors flawlessly.",
-    images: ["/services/web/web1.png", "/services/web/web 2.png"],
+    images: ["/services/web/web1.png", "/services/web/web2.png", "/services/web/web3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#13"
   },
   {
@@ -32,7 +32,7 @@ const services = [
     id: "ticket",
     title: "Ticket Event",
     description: "Secure and scalable ticketing infrastructure with QR code entry, mobile scanning, and real-time reporting dashboards.",
-    images: ["/services/ticket/ticket2.png", "/services/ticket/ticket 2.png", "/services/ticket/ticket 3.png"],
+    images: ["/services/ticket/ticket1.png", "/services/ticket/ticket2.png", "/services/ticket/ticket3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#29"
   },
   {
@@ -46,14 +46,14 @@ const services = [
     id: "iot",
     title: "IOT & Hardware",
     description: "Specially engineered hardware for the MICE industry: RFID systems, check-in kiosks, and IOT integrations for seamless management.",
-    images: ["/services/iot/iot 1.png", "/services/iot/iot2.png"],
+    images: ["/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45"
   },
   {
     id: "organizer",
     title: "Event Organizer",
     description: "Full-service event management from concept to wrap-up, including logistics, vendor management and on-site coordination.",
-    images: ["/services/org/org 1.png", "/services/org/org 2.png", "/services/org/org 3.png"],
+    images: ["/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#31"
   },
   {
@@ -89,19 +89,28 @@ const ServiceImageSlider = ({ images, title, isActive }: { images: string[], tit
 
   useEffect(() => {
     if (!isActive || images.length <= 1) return;
-    const interval = setInterval(next, 5000); // 5s auto-play
+    const interval = setInterval(() => {
+      setImgIdx((prev) => (prev + 1) % images.length);
+    }, 4000); 
     return () => clearInterval(interval);
   }, [isActive, images.length]);
 
   return (
-    <div className="relative w-full h-full group overflow-hidden cursor-grab active:cursor-grabbing">
+    <div 
+      className="relative w-full h-full group overflow-hidden cursor-grab active:cursor-grabbing"
+      style={{
+        maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
+      }}
+    >
       {/* Draggable Image Track */}
       <motion.div
-        className="flex w-full h-full"
+        className="flex h-full w-full"
         animate={{ x: `-${imgIdx * 100}%` }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         drag={images.length > 1 ? "x" : false}
         dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
         onDragEnd={(_, info) => {
           if (info.offset.x < -dragThreshold) {
             next();
@@ -111,21 +120,22 @@ const ServiceImageSlider = ({ images, title, isActive }: { images: string[], tit
         }}
       >
         {images.map((src, i) => (
-          <div key={i} className="relative min-w-full h-full shrink-0">
+          <div key={src} className="relative min-w-full h-full shrink-0">
             <Image
               src={src}
               alt={`${title} - image ${i + 1}`}
               fill
-              className="object-cover pointer-events-none" // prevent ghosting during drag
+              className="object-cover pointer-events-none brightness-[1.1]"
               sizes="(max-width: 1024px) 100vw, 50vw"
-              priority={isActive && i === imgIdx}
+              priority={isActive && i === 0} // Only priority load the first one
+              draggable={false}
             />
           </div>
         ))}
       </motion.div>
 
-      {/* Cinematic Fade Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80 z-10 pointer-events-none" />
+      {/* Subtle depth overlay */}
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/20" />
 
       {/* Controls (Only if multiple images) */}
       {images.length > 1 && (
@@ -250,7 +260,8 @@ export default function OurServices() {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover opacity-90"
+              preload="none"
+              className="w-full h-full object-cover opacity-90 will-change-transform"
             >
               <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
             </video>
@@ -291,7 +302,7 @@ export default function OurServices() {
                       <div className="flex items-center gap-3 text-[#FF6600] text-xl font-bold">
                         <span>{(activeIndex + 1).toString().padStart(2, '0')}</span>
                         <div className="w-10 h-px bg-[#FF6600]/30" />
-                        <span className="text-white/20">10</span>
+                        <span className="text-white/20">{services.length.toString().padStart(2, '0')}</span>
                       </div>
 
                       <h3 className="text-4xl lg:text-[40px] font-bold text-white tracking-tighter leading-tight uppercase">
@@ -317,7 +328,7 @@ export default function OurServices() {
               </div>
 
               {/* Right Column: Image Mockup with Slider */}
-              <div className="relative aspect-square lg:aspect-[4/5] overflow-hidden border border-white/10 bg-transparent shadow-2xl">
+              <div className="relative aspect-square lg:aspect-[4/5] overflow-hidden bg-transparent shadow-2xl">
                 <AnimatePresence mode="popLayout" custom={direction}>
                   <motion.div
                     key={activeIndex}
@@ -365,7 +376,8 @@ export default function OurServices() {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover opacity-80"
+              preload="none"
+              className="w-full h-full object-cover opacity-80 will-change-transform"
             >
               <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
             </video>
@@ -379,8 +391,14 @@ export default function OurServices() {
           </div>
           {services.map((s, idx) => (
             <div key={s.id} className="space-y-6">
-              <div className="text-[#FF6600] font-bold">{(idx + 1).toString().padStart(2, '0')} / 10</div>
-              <div className="relative aspect-video overflow-hidden border border-white/10">
+              <div className="text-[#FF6600] font-bold">{(idx + 1).toString().padStart(2, '0')} / {services.length.toString().padStart(2, '0')}</div>
+              <div 
+                className="relative aspect-video overflow-hidden"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
+                }}
+              >
                 <ServiceImageSlider images={s.images} title={s.title} isActive={true} />
               </div>
               <h3 className="text-2xl font-bold text-white uppercase tracking-tight">{s.title}</h3>

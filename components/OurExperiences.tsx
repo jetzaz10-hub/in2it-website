@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, Volume1, VolumeX } from "lucide-react";
 import { cn } from "../lib/utils";
 
 export default function OurExperiences() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [volume, setVolume] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showVolume, setShowVolume] = useState(false);
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,13 +40,45 @@ export default function OurExperiences() {
     return () => observer.disconnect();
   }, []);
 
-  const toggleMute = (e: React.MouseEvent) => {
+  const toggleMute = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
+      const newMuted = !videoRef.current.muted;
+      videoRef.current.muted = newMuted;
+      setIsMuted(newMuted);
+      if (!newMuted && videoRef.current.volume === 0) {
+        videoRef.current.volume = 0.5;
+        setVolume(0.5);
+      }
     }
-  };
+  }, []);
+
+  const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    const val = parseFloat(e.target.value);
+    setVolume(val);
+    if (videoRef.current) {
+      videoRef.current.volume = val;
+      if (val === 0) {
+        videoRef.current.muted = true;
+        setIsMuted(true);
+      } else if (videoRef.current.muted) {
+        videoRef.current.muted = false;
+        setIsMuted(false);
+      }
+    }
+  }, []);
+
+  const handleControlEnter = useCallback(() => {
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    setShowVolume(true);
+  }, []);
+
+  const handleControlLeave = useCallback(() => {
+    hideTimerRef.current = setTimeout(() => setShowVolume(false), 800);
+  }, []);
+
+  const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2;
 
   return (
     <section id="experiences" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-transparent overflow-hidden relative">
@@ -74,32 +109,67 @@ export default function OurExperiences() {
             loop
             muted={isMuted}
             playsInline
-            className="w-full h-full object-cover pointer-events-none"
+            preload="metadata"
+            poster="/videos/experience-poster.jpg"
+            className="w-full h-full object-cover pointer-events-none will-change-auto"
           />
 
           {/* Overlay & Controls */}
           <div className="absolute inset-x-0 bottom-0 p-8 flex justify-end z-20 pointer-events-none">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={toggleMute}
-              className="pointer-events-auto flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-white hover:bg-white/10 transition-all shadow-2xl"
+            <div
+              className="pointer-events-auto flex items-center gap-2"
+              onMouseEnter={handleControlEnter}
+              onMouseLeave={handleControlLeave}
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={isMuted ? "muted" : "unmuted"}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {isMuted ? <VolumeX className="w-5 h-5 text-zinc-400" /> : <Volume2 className="w-5 h-5 text-[#F97316]" />}
-                </motion.div>
+              {/* Volume Slider */}
+              <AnimatePresence>
+                {showVolume && (
+                  <motion.div
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: 120, opacity: 1 }}
+                    exit={{ width: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden flex items-center px-3 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10"
+                  >
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={isMuted ? 0 : volume}
+                      onChange={handleVolumeChange}
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-full h-1 appearance-none bg-white/20 rounded-full cursor-pointer accent-[#F97316] 
+                        [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#F97316] [&::-webkit-slider-thumb]:shadow-[0_0_8px_rgba(249,115,22,0.6)] [&::-webkit-slider-thumb]:cursor-pointer
+                        [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#F97316] [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
+                    />
+                  </motion.div>
+                )}
               </AnimatePresence>
-              <span className="text-sm font-bold uppercase tracking-wider">
-                {isMuted ? "Sound Off" : "Sound On"}
-              </span>
-            </motion.button>
+
+              {/* Mute/Unmute Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={toggleMute}
+                className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-white hover:bg-white/10 transition-all shadow-2xl"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={isMuted ? "muted" : "unmuted"}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <VolumeIcon className={cn("w-5 h-5", isMuted ? "text-zinc-400" : "text-[#F97316]")} />
+                  </motion.div>
+                </AnimatePresence>
+                <span className="text-sm font-bold uppercase tracking-wider">
+                  {isMuted ? "Sound Off" : "Sound On"}
+                </span>
+              </motion.button>
+            </div>
           </div>
 
           {/* Cinematic Vignette */}

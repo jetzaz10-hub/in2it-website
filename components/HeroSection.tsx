@@ -25,8 +25,9 @@ export default function HeroSection() {
           autoPlay
           muted
           playsInline
+          preload="auto"
           onTimeUpdate={handleTimeUpdate}
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 will-change-transform"
         >
           <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4" />
         </video>

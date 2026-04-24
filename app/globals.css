@@ -39,6 +39,30 @@
   h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select {
     font-family: var(--font-poppins), system-ui, sans-serif !important;
   }
+
+  /* Prevent image dragging and selection */
+  img, svg, video {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Defer rendering of below-fold sections for faster initial paint */
+  #why-in2it,
+  #event-lifecycle,
+  #services,
+  #products,
+  #experiences,
+  #team,
+  #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
 }
 
 @layer utilities {

@@ -135,6 +135,13 @@ export default function ChatbotWidget() {
         : "We handle everything from planning to post-event reporting. View our workflow and proposals in our Sale Site: https://in2it-service.com/registration/";
     }
 
+    // 15. Social Media (Facebook & LinkedIn)
+    if (text.includes("social") || text.includes("facebook") || text.includes("linkedin") || text.includes("เฟซบุ๊ก") || text.includes("ลิงก์อิน") || text.includes("เพจ") || text.includes("โซเชียล")) {
+      return isThai
+        ? "ติดตามเราได้ที่ Facebook: https://www.facebook.com/in2itservice/ และ LinkedIn: https://www.linkedin.com/company/in2it-service ครับ"
+        : "Follow us on Facebook: https://www.facebook.com/in2itservice/ and LinkedIn: https://www.linkedin.com/company/in2it-service";
+    }
+
     return isThai
       ? "เป็นคำถามที่ดีมากครับ! สำหรับรายละเอียดเพิ่มเติมหรือคำถามเฉพาะเจาะจง ติดต่อเราได้ที่ service@in2it.co.th หรือติดตามเราได้ที่ Facebook Page ครับ"
       : "That's a great question! For more details or specific inquiries, please reach out to us at service@in2it.co.th or follow our Facebook Page.";
@@ -187,12 +194,27 @@ export default function ChatbotWidget() {
 
         // Specific case for Facebook
         if (part.includes("facebook.com")) {
-          displayNode = "Facebook Page";
+          displayNode = "Facebook";
         }
 
         // Specific case for Google Maps
         if (part.includes("google.com/maps") || part.includes("maps.app.goo.gl")) {
           displayNode = "View on Google Maps";
+        }
+
+        // Specific case for LinkedIn
+        if (part.includes("linkedin.com")) {
+          displayNode = "LinkedIn";
+        }
+
+        // Specific case for Canva (Sale Kits)
+        if (part.includes("canva.com")) {
+          displayNode = "Sale Kits";
+        }
+
+        // Specific case for Sale Site
+        if (part.includes("in2it-service.com")) {
+          displayNode = "Sale Site";
         }
 
         return (
@@ -234,7 +256,7 @@ export default function ChatbotWidget() {
           >
             <div className="flex items-center gap-3">
               <div className="flex items-center bg-white/10 px-2 py-1.5 rounded-xl border border-white/10">
-                <Image src="/logo.svg" alt="IN2IT Logo" width={60} height={30} className="invert brightness-0" />
+                <Image src="/logo.svg" alt="IN2IT Logo" width={60} height={30} className="invert brightness-0" style={{ height: 'auto' }} draggable={false} />
               </div>
               <div className="flex flex-col">
                 <span className="text-white font-bold text-[10px] tracking-[0.2em] leading-none opacity-60">IN2IT</span>
@@ -258,26 +280,27 @@ export default function ChatbotWidget() {
           >
             {/* Watermark logo */}
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-[0.03]">
-              <Image src="/logo.svg" alt="IN2IT Logo" width={180} height={90} className="grayscale brightness-0" />
+              <Image src="/logo.svg" alt="IN2IT Logo" width={180} height={90} className="grayscale brightness-0" style={{ height: 'auto' }} draggable={false} />
             </div>
 
             {messages.map((msg) => (
               <div key={msg.id} className={`flex items-start gap-2 ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
                 {msg.sender === "bot" && (
                   <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-lg border-2 border-white">
-                    <Image 
-                      src="/chatbot/P'poi 1.jpg" 
-                      alt="P'poi" 
-                      width={40} 
-                      height={40} 
+                    <Image
+                      src="/chatbot/P'poi 1.jpg"
+                      alt="P'poi"
+                      width={40}
+                      height={40}
                       className="object-cover w-full h-full"
+                      draggable={false}
                     />
                   </div>
                 )}
                 <div
                   className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm max-w-[80%] ${msg.sender === "user"
-                      ? "bg-[#4A32FF] text-white rounded-tr-sm"
-                      : "bg-white text-gray-800 rounded-tl-sm border border-gray-200"
+                    ? "bg-[#4A32FF] text-white rounded-tr-sm"
+                    : "bg-white text-gray-800 rounded-tl-sm border border-gray-200"
                     }`}
                 >
                   {renderMessageText(msg.text)}
@@ -288,12 +311,13 @@ export default function ChatbotWidget() {
             {isTyping && (
               <div className="flex items-start gap-2">
                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-lg border-2 border-white">
-                  <Image 
-                    src="/chatbot/P'poi 1.jpg" 
-                    alt="P'poi" 
-                    width={40} 
-                    height={40} 
+                  <Image
+                    src="/chatbot/P'poi 1.jpg"
+                    alt="P'poi"
+                    width={40}
+                    height={40}
                     className="object-cover w-full h-full"
+                    draggable={false}
                   />
                 </div>
                 <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-white flex items-center gap-1 shadow-sm border border-gray-100">
@@ -356,21 +380,23 @@ export default function ChatbotWidget() {
         {/* Trigger button */}
         <button
           onClick={() => setOpen(!open)}
-          className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group overflow-hidden border-2 border-[#4A32FF] relative z-10"
+          className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group overflow-hidden border-2 border-[#4A32FF]"
           style={{ background: open ? "#4A32FF" : "white" }}
           aria-label="Open chatbot"
         >
           {open ? (
-            <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-7 h-7 text-white relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
             <div className="w-full h-full relative">
-              <Image 
-                src="/chatbot/P'poi 1.jpg" 
-                alt="P'poi" 
+              <Image
+                src="/chatbot/P'poi 1.jpg"
+                alt="P'poi"
                 fill
+                sizes="64px"
                 className="object-cover"
+                draggable={false}
               />
             </div>
           )}

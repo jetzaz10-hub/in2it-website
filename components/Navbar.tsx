@@ -46,7 +46,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -68,6 +68,8 @@ export default function Navbar() {
         <div 
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex items-center gap-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+          role="button"
+          aria-label="Scroll to top"
         >
           <Image
             src="/logo/in2it-logoo.png"
@@ -75,6 +77,7 @@ export default function Navbar() {
             width={120}
             height={40}
             className="w-auto h-10 object-contain"
+            draggable={false}
           />
         </div>
 
@@ -143,6 +146,7 @@ export default function Navbar() {
         <button
           className="lg:hidden p-2 text-white/80 hover:text-white"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>

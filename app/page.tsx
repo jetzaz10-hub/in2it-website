@@ -11,6 +11,7 @@ import ContactSection from "@/components/ContactSection";
 import MetricsSection from "@/components/MetricsSection";
 import Footer from "@/components/Footer";
 import ChatbotWidget from "@/components/ChatbotWidget";
+import ScrollToTop from "@/components/ScrollToTop";
 
 import UnifiedBackgroundWrapper from "@/components/UnifiedBackgroundWrapper";
 
@@ -36,6 +37,7 @@ export default function HomePage() {
       </main>
       <Footer />
       <ChatbotWidget />
+      <ScrollToTop />
     </>
   );
 }

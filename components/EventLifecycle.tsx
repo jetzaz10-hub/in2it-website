@@ -403,6 +403,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
           <Image
             src="/logo.svg" alt="IN2IT Logo" width={100} height={50}
             className="object-contain"
+            draggable={false}
           />
         </div>
       </div>
