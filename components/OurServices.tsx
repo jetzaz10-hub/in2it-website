@@ -340,13 +340,6 @@ export default function OurServices() {
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Progress Pillar */}
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 w-1 h-48 bg-white/5 rounded-full overflow-hidden z-20 pointer-events-none">
-                  <motion.div
-                    style={{ scaleY: scrollYProgress, originY: 0 }}
-                    className="absolute inset-0 w-full bg-gradient-to-b from-[#FF6600] to-[#4634F8] rounded-full"
-                  />
-                </div>
               </div>
 
             </div>

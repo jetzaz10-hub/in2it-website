@@ -49,10 +49,15 @@ const config: Config = {
           "0%":   { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        spinSlow: {
+          "0%":   { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         marquee:  "marquee 28s linear infinite",
         "fade-up": "fadeUp 0.6s ease forwards",
+        "spin-slow": "spinSlow 20s linear infinite",
       },
       backgroundImage: {
         /* Figma hero: radial black-to-#4634F8 diagonal */

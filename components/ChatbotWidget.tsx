@@ -31,13 +31,13 @@ export default function ChatbotWidget() {
 
     // 1. Greetings
     if (text.includes("hello") || text.includes("hi") || text.includes("สวัสดี") || text.includes("หวัดดี") || text.includes("ทักทาย")) {
-      return isThai 
+      return isThai
         ? "สวัสดีครับ! ยินดีต้อนรับสู่ IN2IT เราคือพาร์ทเนอร์ด้านเทคโนโลยีอีเวนต์แบบครบวงจร มีอะไรให้เราช่วยวันนี้บ้างครับ?"
         : "Hello! Welcome to IN2IT. We are your One-Stop Partner for Event Technology. How can I assist you today?";
     }
 
     // 2. Overview / What do we do
-    if (text.includes("do you do") || text.includes("overview") || text.includes("เกี่ยวกับ") || text.includes("ทำอะไร") || text.includes("คืออะไร") || text.includes("บริการอะไร")) {
+    if (text.includes("what you do") || text.includes("overview") || text.includes("เกี่ยวกับ") || text.includes("ทำอะไร") || text.includes("คืออะไร") || text.includes("บริการอะไร")) {
       return isThai
         ? "IN2IT เป็นบริการแบบ One-Stop สำหรับเทคโนโลยีอีเวนต์! เราเชี่ยวชาญด้านระบบลงทะเบียน, การออกแบบเว็บไซต์, โซลูชัน RFID/NFC และการถ่ายทอดสด ด้วยประสบการณ์กว่า 15 ปีและผลงานกว่า 500 อีเวนต์ เรามั่นใจว่าจะทำให้งานของคุณออกมาสมบูรณ์แบบครับ"
         : "IN2IT is a One-Stop Service for Event Tech! We specialize in Registration Systems, Website Design, RFID/NFC solutions, and Live Streaming. With 15+ years of experience and 500+ successful events, we ensure your event runs flawlessly.";
@@ -46,50 +46,93 @@ export default function ChatbotWidget() {
     // 3. Contact & Location
     if (text.includes("contact") || text.includes("email") || text.includes("phone") || text.includes("call") || text.includes("location") || text.includes("where") || text.includes("ติดต่อ") || text.includes("เบอร์") || text.includes("อีเมล") || text.includes("ที่อยู่") || text.includes("แผนที่")) {
       return isThai
-        ? "ติดต่อเราได้ที่ service@in2it.co.th หรือโทร +66 87 458 8833 สำนักงานใหญ่ของเราอยู่ที่เชียงใหม่ครับ (ดูแผนที่: https://www.google.com/maps/search/?api=1&query=IN2IT+Service+Chiang+Mai)"
-        : "You can reach us at service@in2it.co.th or call our hotline at +66 87 458 8833. Our main office is in Chiang Mai (View on Google Maps: https://www.google.com/maps/search/?api=1&query=IN2IT+Service+Chiang+Mai).";
+        ? "ติดต่อเราได้ที่ service@in2it.co.th หรือโทร +66 87 458 8833 สำนักงานใหญ่ของเราอยู่ที่เชียงใหม่ครับ (ดูแผนที่: https://maps.app.goo.gl/Ks9dDHsbVPWDeiRj9)"
+        : "You can reach us at service@in2it.co.th or call our hotline at +66 87 458 8833. Our main office is in Chiang Mai (View on Google Maps: https://maps.app.goo.gl/Ks9dDHsbVPWDeiRj9).";
     }
 
     // 4. Services - Registration & Ticketing
     if (text.includes("registration") || text.includes("ticket") || text.includes("ลงทะเบียน") || text.includes("จองตั๋ว") || text.includes("ซื้อตั๋ว") || text.includes("เช็คอิน")) {
       return isThai
-        ? "ระบบลงทะเบียนของเราครอบคลุมทั้งออนไลน์และหน้างาน รองรับคนได้มากกว่า 2,000 คน พร้อมระบบ QR Code และรายงานผลแบบ Real-time ครับ"
-        : "Our Registration System handles both Online and Onsite needs with high-capacity check-ins (2,000+ attendees). We offer custom forms, QR code entry, and real-time reporting.";
+        ? "ระบบลงทะเบียนของเราครอบคลุมทั้งออนไลน์และหน้างาน รองรับคนได้มากกว่า 2,000 คน พร้อมระบบ QR Code และรายงานผลแบบ Real-time ครับ ดูรายละเอียดแพ็กเกจได้ที่นี่: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#6"
+        : "Our Registration System handles both Online and Onsite needs with high-capacity check-ins (2,000+ attendees). Check our Sale Kits here: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#6";
     }
 
     // 5. Services - RFID / NFC / Festival
     if (text.includes("nfc") || text.includes("rfid") || text.includes("cashless") || text.includes("festival") || text.includes("บัตร") || text.includes("สายรัด") || text.includes("จ่ายเงิน")) {
       return isThai
-        ? "เราเป็นผู้เชี่ยวชาญด้าน Festival Tech! มีบริการสายรัดข้อมือ RFID, ระบบจ่ายเงิน Cashless และ Digital Badges เพื่อช่วยจัดการฝูงชนและเพิ่มการมีส่วนร่วมในงานครับ"
-        : "We are specialists in Festival Technology! Our services include RFID wristbands, Cashless payment systems, and Digital Badges to enhance attendee engagement and crowd management.";
+        ? "เราเป็นผู้เชี่ยวชาญด้าน Festival Tech! มีบริการสายรัดข้อมือ RFID และระบบจ่ายเงิน Cashless ดูรายละเอียดและรูปแบบงานที่นี่ครับ: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#30"
+        : "We are specialists in Festival Technology! Our services include RFID wristbands and Cashless systems. View our Sale Kits: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#30";
     }
 
     // 6. Services - Streaming / Virtual
     if (text.includes("stream") || text.includes("live") || text.includes("zoom") || text.includes("virtual") || text.includes("ถ่ายทอดสด") || text.includes("สตรีม")) {
       return isThai
-        ? "เรามีบริการ Live Streaming มืออาชีพแบบหลายกล้อง ส่งสัญญาณไปได้ทั้ง YouTube, Facebook หรือแพลตฟอร์มของคุณเอง พร้อมการบันทึกเทปและทีมซัพพอร์ตหน้างานครับ"
-        : "We provide professional multi-camera Live Streaming services to YouTube, Facebook, or custom platforms, including full recording and tech support.";
+        ? "เรามีบริการ Live Streaming มืออาชีพแบบหลายกล้อง ส่งสัญญาณไปได้ทุกแพลตฟอร์ม ดูแพ็กเกจสตรีมมิ่งได้ที่นี่ครับ: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#57"
+        : "We provide professional multi-camera Live Streaming services. View our Sale Kit here: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#57";
     }
 
-    // 7. Portfolio & Trust
+    // 7. Services - Website Design
+    if (text.includes("website") || text.includes("design") || text.includes("เว็บ") || text.includes("ออกแบบเว็บ")) {
+      return isThai
+        ? "เราออกแบบเว็บไซต์อีเวนต์และ Microsite ที่เน้น UX/UI สวยงามและใช้งานง่ายครับ ดูตัวอย่างและรายละเอียดได้ที่นี่: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#13"
+        : "We design high-converting event microsites and corporate landing pages. Check our Sale Kits: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#13";
+    }
+
+    // 8. Services - IoT & Hardware
+    if (text.includes("iot") || text.includes("hardware") || text.includes("kiosk") || text.includes("ฮาร์ดแวร์") || text.includes("ตู้")) {
+      return isThai
+        ? "เรามีอุปกรณ์ IoT และ Hardware สำหรับ MICE โดยเฉพาะ เช่น ตู้ลงทะเบียนอัตโนมัติ ดูข้อมูลเพิ่มเติมที่นี่ครับ: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45"
+        : "We offer specialized IoT and hardware for the MICE industry, including self-check-in kiosks. View our Sale Kits: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45";
+    }
+
+    // 9. Services - Graphic & Branding
+    if (text.includes("graphic") || text.includes("branding") || text.includes("กราฟิก") || text.includes("ออกแบบ")) {
+      return isThai
+        ? "ทีมดีไซน์ของเราพร้อมดูแล Branding ของงานคุณให้โดดเด่น ทั้งออนไลน์และออฟไลน์ ดูรายละเอียดที่นี่ครับ: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#55"
+        : "Our design team can handle your entire event branding, from logos to digital assets. View our Sale Kits: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#55";
+    }
+
+    // 10. Services - Social Tools
+    if (text.includes("social") || text.includes("line") || text.includes("oa") || text.includes("โซเชียล") || text.includes("ไลน์")) {
+      return isThai
+        ? "เพิ่มสีสันให้งานด้วย Social Tools เช่น Line OA, Photo Wall และระบบ Interactive ต่างๆ ดูรายละเอียดที่นี่ครับ: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56"
+        : "Enhance your event with Social Tools like Line OA integrations and Live Photo Walls. Check out our Sale Kits: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56";
+    }
+
+    // 11. Portfolio & Trust
     if (text.includes("portfolio") || text.includes("work") || text.includes("example") || text.includes("client") || text.includes("brand") || text.includes("ผลงาน") || text.includes("ลูกค้า") || text.includes("ประสบการณ์")) {
       return isThai
-        ? "เราดูแลอีเวนต์มาแล้วกว่า 500 งานให้แบรนด์ระดับโลกอย่าง Meta, Coca-Cola และพาร์ทเนอร์อย่าง Techsauce มั่นใจได้ในคุณภาพครับ ดูผลงานเพิ่มเติมที่: https://www.facebook.com/in2itservice/"
-        : "We've managed 500+ successful events for global brands like Meta, Coca-Cola, and major partners like Techsauce. Quality and reliability are our priorities! Check our experience here: https://www.facebook.com/in2itservice/";
+        ? "เราดูแลอีเวนต์มาแล้วกว่า 500 งานให้แบรนด์ระดับโลกอย่าง Meta และ Coca-Cola ดู Portfolio รวมผลงานล่าสุดของเราได้ที่นี่ครับ: https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1"
+        : "We've managed 500+ successful events for global brands like Meta and Coca-Cola. Check out our full Portfolio here: https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1";
     }
 
-    // 8. Pricing
-    if (text.includes("price") || text.includes("cost") || text.includes("how much") || text.includes("budget") || text.includes("ราคา") || text.includes("แพงไหม") || text.includes("งบ")) {
+    // 12. Pricing / Plans / Packages / Quotes (SALE SITE LINK)
+    if (
+      text.includes("price") || text.includes("cost") || text.includes("how much") ||
+      text.includes("budget") || text.includes("plan") || text.includes("package") ||
+      text.includes("quote") || text.includes("ราคา") || text.includes("แพงไหม") ||
+      text.includes("งบ") || text.includes("แผน") || text.includes("แพ็กเกจ") ||
+      text.includes("ใบเสนอราคา") || text.includes("view packages") ||
+      text.includes("view proposal") || text.includes("request quotation") ||
+      text.includes("ดูแพ็กเกจ") || text.includes("ดูข้อเสนอ") || text.includes("ขอใบเสนอราคา")
+    ) {
       return isThai
-        ? "ราคาของเราจะปรับตามความต้องการเฉพาะของแต่ละงานครับ รบกวนติดต่อผู้อำนวยการโครงการ คุณปอย (Poii) เพื่อขอใบเสนอราคาได้ที่ service@in2it.co.th ครับ"
-        : "Every event is unique! Our pricing is tailored to your specific requirements. Please contact our Project Director, Poii, for a custom quote at service@in2it.co.th.";
+        ? "สำหรับรายละเอียดแพ็กเกจ ราคา และใบเสนอราคาเบื้องต้น คุณสามารถดู Sale Site ของเราได้ที่นี่: https://in2it-service.com/registration/ หรือติดต่อ คุณปอย (Poii) เพื่อขอข้อมูลเพิ่มเติมได้ที่ service@in2it.co.th ครับ"
+        : "You can explore our packages, view proposals, and see pricing in our Sale Site here: https://in2it-service.com/registration/. For a custom quote, please contact our director Poii at service@in2it.co.th.";
     }
 
-    // 9. Process / How we work
+    // 13. More Info / General Links
+    if (text.includes("sale") || text.includes("site") || text.includes("deck") || text.includes("detail") || text.includes("info") || text.includes("ข้อมูล") || text.includes("รายละเอียด") || text.includes("ชุดข้อมูล")) {
+      return isThai
+        ? "ได้เลยครับ! หากคุณต้องการดูแพ็กเกจหลัก สามารถเข้าชม Sale Site ได้ที่ https://in2it-service.com/registration/ หรือดูรายละเอียดบริการย่อยผ่าน Sale Kits ของเราที่ https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view ครับ"
+        : "Certainly! You can visit our Sale Site for packages at https://in2it-service.com/registration/ or explore our specific service Sale Kits here: https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view";
+    }
+
+    // 14. Process / How we work
     if (text.includes("process") || text.includes("step") || text.includes("how") || text.includes("ขั้นตอน") || text.includes("ยังไง") || text.includes("กระบวนการ")) {
       return isThai
-        ? "เรามีขั้นตอนการทำงาน 4 ระยะ: การวางแผน (แบรนด์/ระบบ) -> การโปรโมท (มาร์เก็ตติ้ง/EDM) -> วันงาน (เทคโนโลยีหน้างาน) -> หลังจบงาน (สรุปผลและรายงาน) เราดูแลให้แบบไร้รอยต่อตั้งแต่ต้นจนจบครับ"
-        : "Our event lifecycle covers 4 phases: Planning (Branding/Setup) -> Promotion (Marketing/EDM) -> Day of Event (Onsite Tech) -> Post Event (Analytics & Recap). We ensure a seamless flow from start to finish!";
+        ? "เราดูแลให้แบบ One-Stop ตั้งแต่การวางแผนจนถึงสรุปผลงานครับ ดูขั้นตอนการทำงานและตัวอย่างข้อเสนอใน Sale Site ของเราได้เลย: https://in2it-service.com/registration/"
+        : "We handle everything from planning to post-event reporting. View our workflow and proposals in our Sale Site: https://in2it-service.com/registration/";
     }
 
     return isThai
@@ -285,35 +328,54 @@ export default function ChatbotWidget() {
                 </svg>
               </button>
             </div>
-            <div className="mt-2 text-[10px] text-center text-gray-400 tracking-wider font-medium uppercase">
-              Powered by IN2IT AI
-            </div>
           </div>
         </div>
       )}
 
-      {/* Trigger button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group overflow-hidden border-2 border-[#4A32FF]"
-        style={{ background: open ? "#4A32FF" : "white" }}
-        aria-label="Open chatbot"
-      >
-        {open ? (
-          <svg className="w-7 h-7 text-white relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <div className="w-full h-full relative">
-            <Image 
-              src="/chatbot/P'poi 1.jpg" 
-              alt="P'poi" 
-              fill
-              className="object-cover"
-            />
+      {/* Trigger button container */}
+      <div className="relative flex items-center justify-center w-24 h-24">
+        {/* Rotating Circular Text */}
+        {!open && (
+          <div className="absolute inset-0 pointer-events-none animate-spin-slow">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <defs>
+                <path
+                  id="circlePath"
+                  d="M 50, 50 m -45, 0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"
+                />
+              </defs>
+              <text className="text-[8px] font-bold fill-white/80 tracking-[0.3em] uppercase">
+                <textPath xlinkHref="#circlePath">
+                  LET'S TALK - FREE CONSULT - GET IN TOUCH -
+                </textPath>
+              </text>
+            </svg>
           </div>
         )}
-      </button>
+
+        {/* Trigger button */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group overflow-hidden border-2 border-[#4A32FF] relative z-10"
+          style={{ background: open ? "#4A32FF" : "white" }}
+          aria-label="Open chatbot"
+        >
+          {open ? (
+            <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <div className="w-full h-full relative">
+              <Image 
+                src="/chatbot/P'poi 1.jpg" 
+                alt="P'poi" 
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

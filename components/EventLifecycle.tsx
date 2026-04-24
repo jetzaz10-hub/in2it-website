@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 
 /* ─── Helpers ─────────────────────────────────────────── */
 
@@ -142,13 +142,13 @@ function PhaseDetail({
   toggleItem
 }: PhaseDetailProps) {
   return (
-    <div className="w-full lg:w-[540px] px-4 lg:px-0">
+    <div className="w-full px-4 lg:px-0">
       <div className="mb-5 flex items-center gap-3">
         <div
           className="w-3 h-3 rounded-full"
           style={{ background: phase.colorActive }}
         />
-        <h3 className="text-2xl font-bold text-white tracking-tight">
+        <h3 className="text-3xl font-bold text-white tracking-tight">
           {phase.label.join(" ")}
         </h3>
       </div>
@@ -159,14 +159,14 @@ function PhaseDetail({
           return (
             <div
               key={item}
-              className={`border-b border-gray-100 last:border-0 transition-colors ${isOpen ? "bg-[#EEF9F8]" : "bg-white hover:bg-gray-50"
+              className={`border-b border-gray-100 last:border-0 transition-colors duration-300 ${isOpen ? "bg-[#EEF9F8]" : "bg-white hover:bg-gray-50"
                 }`}
             >
               <button
                 onClick={() => toggleItem(item)}
                 className="w-full flex items-center justify-between px-6 py-4 text-left"
               >
-                <span className="text-gray-800 font-medium text-sm">{item}</span>
+                <span className="text-gray-800 font-bold text-base">{item}</span>
                 <svg
                   className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
                     }`}
@@ -180,25 +180,28 @@ function PhaseDetail({
                   />
                 </svg>
               </button>
-              <div
-                className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40" : "max-h-0"
-                  }`}
-              >
-                <p className="px-6 pb-4 text-sm text-gray-500 leading-relaxed">
-                  IN2IT provides expert handling of{" "}
-                  <span className="text-gray-700 font-medium">{item.toLowerCase()}</span>{" "}
-                  — ensuring every detail is planned and executed
-                  flawlessly for your event.
-                </p>
-              </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="px-6 pb-4 text-sm text-gray-500 leading-relaxed">
+                      IN2IT provides expert handling of{" "}
+                      <span className="text-gray-700 font-medium">{item.toLowerCase()}</span>{" "}
+                      — ensuring every detail is planned and executed
+                      flawlessly for your event.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}
       </div>
-
-      <p className="text-white/25 text-xs mt-4 text-center lg:text-left">
-        Click a segment on the diagram to switch phases
-      </p>
     </div>
   );
 }
@@ -305,7 +308,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
               key={phase.id}
               style={{
                 transform: `translate(${offset.x}px, ${offset.y}px)`,
-                transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)'
+                transition: 'transform 0.5s ease-out'
               }}
             >
               <motion.path
@@ -315,7 +318,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
                 stroke={isBright ? "white" : `url(#grad-${phase.id})`}
                 strokeWidth={isBright ? "1.5" : "2"}
                 strokeLinejoin="round"
-                className="transition-all duration-300"
+                className="transition-all duration-500 ease-out"
                 style={{
                   filter: isEnlarged
                     ? `drop-shadow(0 0 16px ${phase.colorActive})`
@@ -339,10 +342,10 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
               {/* Curved Text Label */}
               <text
                 fill={isBright ? "white" : "rgba(255,255,255,0.75)"}
-                fontSize={isEnlarged ? "13" : "11"}
-                fontWeight="600"
+                fontSize={isEnlarged ? "14" : "12"}
+                fontWeight="800"
                 letterSpacing="0.05em"
-                className="transition-all duration-300 pointer-events-none"
+                className="transition-all duration-500 ease-out pointer-events-none"
                 style={{
                   textShadow: isBright
                     ? '0px 2px 8px rgba(0,0,0,0.8)'
@@ -421,8 +424,8 @@ function TimelineProgress({ activeId, setActiveId, setOpenItems }: TimelineProgr
     <div className="mt-0 lg:mt-0 w-full max-w-[1100px] mx-auto px-10 relative z-30">
       <div className="relative flex justify-between items-center mb-8 pt-6">
         {/* START/FINISH Absolute Labels */}
-        <div className="absolute top-0 left-0 text-[10px] font-bold tracking-[0.3em] text-white/40">START</div>
-        <div className="absolute top-0 right-0 text-[10px] font-bold tracking-[0.3em] text-white/40 text-right">FINISH</div>
+        <div className="absolute -top-6 left-0 text-[11px] font-bold tracking-[0.3em] text-white/40">START</div>
+        <div className="absolute -top-6 right-0 text-[11px] font-bold tracking-[0.3em] text-white/40 text-right">FINISH</div>
 
         {/* Background Track */}
         <div className="absolute top-1.5/2 left-0 right-0 h-[1.5px] bg-white/5 -translate-y-1.5/2 z-0" />
@@ -491,7 +494,6 @@ export default function EventLifecycle() {
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
   const activePhase = activeId ? phases.find((p) => p.id === activeId) : null;
-  const isReverse = activeId === "post" || activeId === "day-of";
 
   function toggleItem(item: string) {
     setOpenItems((prev) => (prev[item] ? {} : { [item]: true }));
@@ -515,7 +517,7 @@ export default function EventLifecycle() {
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={sectionRef} className="relative pt-16 pb-20 bg-black overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-16 pb-24 bg-black overflow-hidden">
       {/* Top transition overlay */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
       {/* Subtle Animated Ambient Background */}
@@ -546,10 +548,10 @@ export default function EventLifecycle() {
 
       <motion.div
         style={{ scale: sectionScale, opacity: sectionOpacity }}
-        className="relative z-10 max-w-[1280px] mx-auto px-8 w-full"
+        className="relative z-10 max-w-[1280px] mx-auto px-8 w-full flex flex-col items-center"
       >
         {/* Heading */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-6">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -565,85 +567,31 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-7 text-white/70 text-lg md:text-xl mb-10 max-w-none mx-auto"
+            className="mt-4 text-white/70 text-lg md:text-xl max-w-none mx-auto"
           >
             A structured, end-to-end workflow where we plan, think and execute every detail to ensure seamless results.
           </motion.p>
-
-          {/* Interactive Instruction Badge */}
-          <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-[#4A32FF]/30 backdrop-blur-md transition-all duration-700 ${activePhase ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 shadow-[0_0_30px_rgba(74,50,255,0.2)]'}`}>
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4A32FF] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4A32FF]"></span>
-            </span>
-            <span className="text-white/80 font-medium text-[11px] tracking-wide uppercase">Click on segments to explore</span>
-          </div>
         </div>
 
-        {/* ─── GPU Accelerated Desktop Layout ─── */}
-        <div className="hidden lg:block relative min-h-[350px] w-full max-w-[980px] mx-auto">
-
-          {/* Slider Donut Wrapper (Handles Centering) */}
-          <div className="absolute top-[-30px] left-1/2 -translate-x-1/2 w-[340px] aspect-square z-20">
+        {/* ─── Locked Layout (Donut + Details) ─── */}
+        <div className="relative w-full max-w-[1000px] flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 mb-10 mt-6">
+          {/* Donut Graphic (Always Left on Desktop) */}
+          <div className="relative shrink-0 w-[340px] md:w-[420px] aspect-square flex items-center justify-center">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
-              animate={{
-                x: activePhase
-                  ? (isReverse ? 280 : -280)
-                  : 0
-              }}
               transition={{
                 scale: { type: "spring", damping: 12, stiffness: 100, delay: 0.1 },
-                opacity: { duration: 0.4 },
-                x: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+                opacity: { duration: 0.4 }
               }}
               className="w-full h-full"
             >
               <DonutGraphic activeId={activeId} hoverId={hoverId} setHoverId={setHoverId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
             </motion.div>
-          </div>
-
-          {/* Left Content Box */}
-          <div
-            className="absolute top-2 left-0 w-[500px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
-            style={{
-              opacity: activePhase && isReverse ? 1 : 0,
-              pointerEvents: activePhase && isReverse ? 'auto' : 'none',
-              transform: activePhase && isReverse ? 'translateX(0)' : 'translateX(30px)'
-            }}
-          >
-            {activePhase && isReverse && (
-              <div className="animate-in fade-in zoom-in-95 duration-500">
-                <PhaseDetail phase={activePhase} openItems={openItems} toggleItem={toggleItem} />
-              </div>
-            )}
-          </div>
-
-          {/* Right Content Box */}
-          <div
-            className="absolute top-2 right-0 w-[500px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-10"
-            style={{
-              opacity: activePhase && !isReverse ? 1 : 0,
-              pointerEvents: activePhase && !isReverse ? 'auto' : 'none',
-              transform: activePhase && !isReverse ? 'translateX(0)' : 'translateX(-30px)'
-            }}
-          >
-            {activePhase && !isReverse && (
-              <div className="animate-in fade-in zoom-in-95 duration-500">
-                <PhaseDetail phase={activePhase} openItems={openItems} toggleItem={toggleItem} />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ─── Mobile Stack Layout ─── */}
-        <div className="flex lg:hidden flex-col items-center">
-          <div className="relative shrink-0 w-full max-w-[340px] md:max-w-[380px] aspect-square mx-auto">
-            <DonutGraphic activeId={activeId} hoverId={hoverId} setHoverId={setHoverId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
-            {/* Mobile Tabs */}
-            <div className="flex gap-2 justify-center mt-6 flex-wrap">
+            
+            {/* Mobile Tabs (Hidden on LG) */}
+            <div className="flex lg:hidden gap-2 justify-center mt-6 flex-wrap absolute -bottom-16 w-[120%] left-[-10%] z-20">
               {phases.map((phase) => (
                 <button
                   key={phase.id}
@@ -660,15 +608,20 @@ export default function EventLifecycle() {
             </div>
           </div>
 
-          <div className="mt-20 w-full px-4">
+          {/* Phase Details (Always Right on Desktop) */}
+          <div className="w-full lg:w-[480px] mt-16 flex shrink-0 justify-center min-h-[360px]">
             {activePhase && (
-              <PhaseDetail phase={activePhase} openItems={openItems} toggleItem={toggleItem} />
+              <div className="w-full animate-in fade-in zoom-in-95 duration-500">
+                <PhaseDetail phase={activePhase} openItems={openItems} toggleItem={toggleItem} />
+              </div>
             )}
           </div>
         </div>
 
         {/* ─── Shared Progress Timeline ─── */}
-        <TimelineProgress activeId={activeId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
+        <div className="w-full mt-10 lg:mt-0 pb-8">
+          <TimelineProgress activeId={activeId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
+        </div>
       </motion.div>
     </section>
   );

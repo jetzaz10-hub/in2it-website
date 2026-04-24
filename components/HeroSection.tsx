@@ -69,7 +69,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-white/60 text-sm lg:text-base leading-relaxed max-w-1xl mx-auto mb-6"
+              className="text-white/60 text-xs lg:text-base leading-relaxed max-w-1xl mx-auto mb-6"
             >
               We deliver end-to-end event technology solutions for the MICE industry with cutting-edge expertise.
             </motion.p>
