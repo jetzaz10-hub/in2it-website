@@ -67,10 +67,22 @@ const phases = [
     gradTo: "#9933FF",
     colorActive: "#4A32FF",
     items: [
-      "Venue Sourcing & Negotiation",
-      "Budget & Resource Management",
-      "Event Branding & Concept Design",
-      "Ticketing & Registration Setup",
+      {
+        title: "Website • Branding • Conversion",
+        description: "Your definitive digital presence. Custom UX/UI, unforgettable branding, and seamless content management—designed for flawless conversion."
+      },
+      {
+        title: "Tickets • Gateways • Frictionless",
+        description: "Secure ticketing and scalable payment gateways for maximized sales and zero-friction entry."
+      },
+      {
+        title: "EDM • Social • Register",
+        description: "Targeted digital activation utilizing Line OA, Facebook, and Instagram for unmatched pre-event buzz and registration drive."
+      },
+      {
+        title: "3D Visuals • Space • Impact",
+        description: "High-fidelity 3D production designs, essential print collateral (badges, lanyards), and dynamic motion graphics—defining your physical presence."
+      },
     ],
   },
   {
@@ -83,10 +95,22 @@ const phases = [
     gradTo: "#FF3366",
     colorActive: "#FF3366",
     items: [
-      "On-site Registration Kiosks",
-      "NFC Badge & Access Control",
-      "Live Streaming Setup",
-      "Tech Support Staff",
+      {
+        title: "Check-In • Kiosks • Rapid",
+        description: "Self-service digital kiosks and customized IoT hardware for rapid, seamless attendee registration and entry."
+      },
+      {
+        title: "NFC • Control • Seamless",
+        description: "Advanced smart technology for door scanning and badge tracking, delivering seamless crowd management."
+      },
+      {
+        title: "Broadcast • Live • Global",
+        description: "High-fidelity video broadcasting platforms with guaranteed suitable bandwidth for a flawless digital audience experience."
+      },
+      {
+        title: "Stage • Tech • Flawless",
+        description: "Dedicated on-ground technical staff ensuring flawless execution of stage production, product displays, and light and sound setups."
+      },
     ],
   },
   {
@@ -99,10 +123,22 @@ const phases = [
     gradTo: "#FF8833",
     colorActive: "#FF6600",
     items: [
-      "Attendee Analytics Report",
-      "Social Media Recap Content",
-      "CRM Data Export",
-      "Post-Event Survey",
+      {
+        title: "Data • Success • Measure",
+        description: "Granular, real-time reporting drawn directly from the registration system to measure attendee behavior and event success."
+      },
+      {
+        title: "ROI • Digital • Track",
+        description: "Precision measurement of your event's exact ROI and digital footprint through social media and EDM engagement analytics."
+      },
+      {
+        title: "Recaps • Motion • Sustain",
+        description: "Rapid-turnaround video editing and dynamic motion graphics to instantly package the event's best moments and sustain momentum."
+      },
+      {
+        title: "Follow-Up • Trust • Connect",
+        description: "Targeted email follow-ups and data management designed to build long-term customer trust and enduring connection."
+      },
     ],
   },
 ];
@@ -114,8 +150,13 @@ const OUTER = 140, INNER = 90;
 
 /* ─── Detail Component ────────────────────────────────── */
 
+interface PhaseItem {
+  title: string;
+  description: string;
+}
+
 interface PhaseDetailProps {
-  phase: (typeof phases)[0];
+  phase: Omit<(typeof phases)[0], 'items'> & { items: PhaseItem[] };
   openItems: Record<string, boolean>;
   toggleItem: (i: string) => void;
 }
@@ -138,19 +179,19 @@ function PhaseDetail({
       </div>
 
       <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
-        {phase.items.map((item: string) => {
-          const isOpen = !!openItems[item];
+        {phase.items.map((item: PhaseItem) => {
+          const isOpen = !!openItems[item.title];
           return (
             <div
-              key={item}
+              key={item.title}
               className={`border-b border-gray-100 last:border-0 transition-colors duration-300 ${isOpen ? "bg-[#EEF9F8]" : "bg-white hover:bg-gray-50"
                 }`}
             >
               <button
-                onClick={() => toggleItem(item)}
+                onClick={() => toggleItem(item.title)}
                 className="w-full flex items-center justify-between px-6 py-4 text-left"
               >
-                <span className="text-gray-800 font-bold text-base">{item}</span>
+                <span className="text-gray-800 font-bold text-base">{item.title}</span>
                 <svg
                   className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
                     }`}
@@ -174,10 +215,7 @@ function PhaseDetail({
                     className="overflow-hidden"
                   >
                     <p className="px-6 pb-4 text-sm text-gray-500 leading-relaxed">
-                      IN2IT provides expert handling of{" "}
-                      <span className="text-gray-700 font-medium">{item.toLowerCase()}</span>{" "}
-                      — ensuring every detail is planned and executed
-                      flawlessly for your event.
+                      {item.description}
                     </p>
                   </motion.div>
                 )}
