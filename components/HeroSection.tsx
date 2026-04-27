@@ -16,6 +16,12 @@ export default function HeroSection() {
     }
   };
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.6; // Slow down video smoothly
+    }
+  }, []);
+
   return (
     <section id="hero" className="relative h-screen min-h-[600px] w-full bg-black overflow-hidden flex flex-col justify-center">
       {/* 1. Background Video */}
@@ -27,12 +33,12 @@ export default function HeroSection() {
           playsInline
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
-          className="absolute inset-0 w-full h-full object-cover opacity-50 will-change-transform"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.25] will-change-transform"
         >
           <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4" />
         </video>
-        {/* Dark Overlay Gradient - Stronger bottom fade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent via-70% to-black" />
+        {/* Dark Overlay Gradient - Stronger fade to make it more opaque */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 via-70% to-black" />
       </div>
 
       {/* 2. Content Container */}

@@ -39,13 +39,28 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 30);
+
+      // Hide on scroll down, show on scroll up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+        setOpenMenu(null); // Close dropdowns when hiding
+      } else if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -57,7 +72,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 py-6 pointer-events-none">
+    <nav className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-6 py-6 pointer-events-none transition-transform duration-500 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}>
       <div className={`
         relative w-full max-w-7xl flex items-center justify-between px-8 py-3.5
         bg-gray-900/40 backdrop-blur-md border border-gray-700/50 rounded-full

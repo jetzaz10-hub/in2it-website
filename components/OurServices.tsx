@@ -79,91 +79,30 @@ const services = [
   }
 ];
 
-// --- Internal Image Slider Component ---
+// --- Internal Image Component ---
 const ServiceImageSlider = ({ images, title, isActive }: { images: string[], title: string, isActive: boolean }) => {
-  const [imgIdx, setImgIdx] = useState(0);
-  const dragThreshold = 50;
-
-  const next = () => setImgIdx((prev) => (prev + 1) % images.length);
-  const prev = () => setImgIdx((prev) => (prev - 1 + images.length) % images.length);
-
-  useEffect(() => {
-    if (!isActive || images.length <= 1) return;
-    const interval = setInterval(() => {
-      setImgIdx((prev) => (prev + 1) % images.length);
-    }, 4000); 
-    return () => clearInterval(interval);
-  }, [isActive, images.length]);
-
   return (
     <div 
-      className="relative w-full h-full group overflow-hidden cursor-grab active:cursor-grabbing"
+      className="relative w-full h-full overflow-hidden"
       style={{
         maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
         WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
       }}
     >
-      {/* Draggable Image Track */}
-      <motion.div
-        className="flex h-full w-full"
-        animate={{ x: `-${imgIdx * 100}%` }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        drag={images.length > 1 ? "x" : false}
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragEnd={(_, info) => {
-          if (info.offset.x < -dragThreshold) {
-            next();
-          } else if (info.offset.x > dragThreshold) {
-            prev();
-          }
-        }}
-      >
-        {images.map((src, i) => (
-          <div key={src} className="relative min-w-full h-full shrink-0">
-            <Image
-              src={src}
-              alt={`${title} - image ${i + 1}`}
-              fill
-              className="object-cover pointer-events-none brightness-[1.1]"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority={isActive && i === 0} // Only priority load the first one
-              draggable={false}
-            />
-          </div>
-        ))}
-      </motion.div>
+      <div className="relative w-full h-full">
+        <Image
+          src={images[0]}
+          alt={title}
+          fill
+          className="object-cover pointer-events-none brightness-[1.1]"
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          priority={isActive}
+          draggable={false}
+        />
+      </div>
 
       {/* Subtle depth overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/20" />
-
-      {/* Controls (Only if multiple images) */}
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all z-20 hover:bg-black/50"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all z-20 hover:bg-black/50"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          {/* Dots */}
-          <div className="absolute bottom-6 left-0 w-full flex justify-center gap-1.5 z-20">
-            {images.map((_, i) => (
-              <div
-                key={i}
-                className={`h-1 rounded-full transition-all duration-300 ${i === imgIdx ? "w-4 bg-white" : "w-1 bg-white/40"}`}
-              />
-            ))}
-          </div>
-        </>
-      )}
     </div>
   );
 };
@@ -261,12 +200,13 @@ export default function OurServices() {
               muted
               playsInline
               preload="none"
-              className="w-full h-full object-cover opacity-90 will-change-transform"
+              onCanPlay={(e) => { e.currentTarget.playbackRate = 0.6; }}
+              className="w-full h-full object-cover opacity-30 will-change-transform"
             >
               <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
             </video>
             {/* Dark Overlay for Readability */}
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-black/28" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-transparent to-[#030303]" />
           </div>
 
@@ -377,11 +317,12 @@ export default function OurServices() {
               muted
               playsInline
               preload="none"
-              className="w-full h-full object-cover opacity-80 will-change-transform"
+              onCanPlay={(e) => { e.currentTarget.playbackRate = 0.6; }}
+              className="w-full h-full object-cover opacity-30 will-change-transform"
             >
               <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-black/60" />
           </div>
 
           <div className="relative z-10 space-y-16">
