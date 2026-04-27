@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { GradientCard } from "./ui/gradient-card";
 
 const whyFeatures = [
   {
@@ -102,44 +103,35 @@ export default function WhyIN2IT() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {whyFeatures.map((feature, i) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group relative rounded-[32px] p-12 md:p-14 flex flex-col gap-6 overflow-hidden transition-all duration-500 bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:-translate-y-4 hover:bg-white/[0.07] hover:shadow-[0_20px_60px_rgba(74,50,255,0.15)]"
-            >
-              {/* Blue Border Stroke with Glow */}
-              <div className="absolute inset-0 rounded-[32px] border-2 border-[#4A32FF]/20 group-hover:border-[#4A32FF]/60 shadow-[0_0_10px_rgba(74,50,255,0.1)] group-hover:shadow-[0_0_20px_rgba(74,50,255,0.3)] transition-all duration-500" />
-
-              {/* Dreamy Blue Shimmer Layer */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(74,50,255,0.15)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4A32FF]/5 via-transparent to-[#4A32FF]/5 opacity-40" />
-
-              {/* Card Glow Layer */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4A32FF]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Icon Container */}
-              <div className="relative w-16 h-16 rounded-2xl bg-[#4A32FF]/10 flex items-center justify-center text-[#4A32FF] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
-                {feature.icon}
-              </div>
-
-              {/* Text Content */}
-              <div className="relative">
-                <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-[#4A32FF] transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-white/50 text-base leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-
-              {/* Decorative Corner Accent */}
-              <div className="absolute bottom-[-10px] right-[-10px] w-20 h-20 bg-[#4A32FF]/10 rounded-full blur-2xl group-hover:bg-[#4A32FF]/20 transition-all duration-500" />
-            </motion.div>
-          ))}
+          {whyFeatures.map((feature, i) => {
+            const cardColors = [
+              { right: "rgba(172, 92, 255, 0.7)", left: "rgba(56, 189, 248, 0.7)", center: "rgba(161, 58, 229, 0.7)" }, // Purple/Blue
+              { right: "rgba(249, 115, 22, 0.7)", left: "rgba(234, 179, 8, 0.7)", center: "rgba(239, 68, 68, 0.7)" },    // Orange/Yellow/Red
+              { right: "rgba(34, 197, 94, 0.7)", left: "rgba(6, 182, 212, 0.7)", center: "rgba(16, 185, 129, 0.7)" },    // Green/Cyan
+              { right: "rgba(236, 72, 153, 0.7)", left: "rgba(168, 85, 247, 0.7)", center: "rgba(219, 39, 119, 0.7)" },  // Pink/Purple
+              { right: "rgba(59, 130, 246, 0.7)", left: "rgba(139, 92, 246, 0.7)", center: "rgba(37, 99, 235, 0.7)" },    // Blue/Indigo
+            ];
+            const color = cardColors[i % cardColors.length];
+            return (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="h-full"
+              >
+                <GradientCard 
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                  colorRight={color.right}
+                  colorLeft={color.left}
+                  colorCenter={color.center}
+                />
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
