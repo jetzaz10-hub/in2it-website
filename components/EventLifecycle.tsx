@@ -331,11 +331,16 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
                     `drop-shadow(0 0 10px ${phase.colorActive}77)`
                   ],
                   strokeWidth: [1.5, 2.5, 1.5]
-                } : {}}
-                transition={{
+                } : {
+                  filter: "none",
+                  strokeWidth: 2
+                }}
+                transition={isBright ? {
                   repeat: Infinity,
                   duration: 4,
                   ease: "easeInOut"
+                } : {
+                  duration: 0.3
                 }}
               />
 

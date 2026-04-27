@@ -24,7 +24,7 @@ export default function HomePage() {
         <Partners />
         <WhyIN2IT />
         <EventLifecycle />
-        
+
         <UnifiedBackgroundWrapper>
           <OurServices />
           <FeaturedProducts />

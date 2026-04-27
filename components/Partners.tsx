@@ -116,13 +116,16 @@ export default function Partners() {
             {fullLogos.map((logo, i) => (
               <div
                 key={`${logo.alt}-${i}`}
-                className="shrink-0 w-[150px] md:w-[200px] h-20 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className="shrink-0 w-[150px] md:w-[200px] h-20 flex items-center justify-center"
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="max-h-14 md:max-h-16 max-w-[90%] object-contain pointer-events-none select-none transition-all duration-300"
+                  width={160}
+                  height={64}
+                  className="max-h-14 md:max-h-16 max-w-[90%] object-contain pointer-events-none select-none"
                   loading="lazy"
+                  decoding="async"
                   draggable={false}
                 />
               </div>
