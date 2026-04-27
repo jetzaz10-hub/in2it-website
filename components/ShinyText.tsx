@@ -21,7 +21,7 @@ export default function ShinyText({ text, className = "" }: ShinyTextProps) {
         backgroundPosition: ["100% 0", "-100% 0"],
       }}
       transition={{
-        duration: 3,
+        duration: 10,
         repeat: Infinity,
         ease: "linear",
       }}

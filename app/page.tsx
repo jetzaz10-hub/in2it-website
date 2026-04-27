@@ -6,7 +6,6 @@ import OurServices from "@/components/OurServices";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import OurExperiences from "@/components/OurExperiences";
 import Partners from "@/components/Partners";
-import MeetTeam from "@/components/MeetTeam";
 import ContactSection from "@/components/ContactSection";
 import MetricsSection from "@/components/MetricsSection";
 import Footer from "@/components/Footer";
@@ -32,7 +31,6 @@ export default function HomePage() {
         </UnifiedBackgroundWrapper>
 
         <MetricsSection />
-        <MeetTeam />
         <ContactSection />
       </main>
       <Footer />
