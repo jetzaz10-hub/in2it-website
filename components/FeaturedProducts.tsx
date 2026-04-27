@@ -54,23 +54,6 @@ const products = [
 ];
 
 export default function FeaturedProducts() {
-  const [constraints, setConstraints] = useState({ left: 0, right: 0 });
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (sliderRef.current && trackRef.current) {
-      const sliderWidth = sliderRef.current.offsetWidth;
-      const trackWidth = trackRef.current.scrollWidth;
-      
-      if (trackWidth > sliderWidth) {
-        setConstraints({ left: -(trackWidth - sliderWidth + 48), right: 48 });
-      } else {
-        setConstraints({ left: 0, right: 0 });
-      }
-    }
-  }, []);
-
   // Handle nav-jump event from Navbar/Footer
   useEffect(() => {
     const handleJump = (e: any) => {
@@ -111,20 +94,9 @@ export default function FeaturedProducts() {
           </motion.div>
         </div>
 
-        {/* Centered Draggable Track */}
-        <div 
-          ref={sliderRef} 
-          className="cursor-grab active:cursor-grabbing w-full flex justify-center"
-        >
-          <motion.div 
-            ref={trackRef}
-            drag="x"
-            dragConstraints={constraints}
-            dragElastic={0.1}
-            whileTap={{ cursor: "grabbing" }}
-            className="flex gap-8 md:gap-12 lg:gap-16 items-center px-4"
-            style={{ width: "max-content", minWidth: "fit-content" }}
-          >
+        {/* Centered Track */}
+        <div className="w-full flex justify-center">
+          <div className="flex flex-wrap gap-8 md:gap-12 lg:gap-16 items-center justify-center px-4">
             {products.map((product, idx) => (
               <motion.div
                 key={product.id}
@@ -146,7 +118,7 @@ export default function FeaturedProducts() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

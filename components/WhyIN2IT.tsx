@@ -93,8 +93,8 @@ export default function WhyIN2IT() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl md:text-5xl font-bold text-white mb-8 uppercase tracking-tighter">
-              Why <span className="text-[#4A32FF]">IN2IT</span> ?
+            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 uppercase tracking-tighter">
+              Why <span className="text-[#FF3366]">IN2IT</span> ?
             </h2>
             <p className="text-white/60 text-lg md:text-xl max-w-none mx-auto leading-relaxed">
               We combine cutting-edge technology with decade-long event expertise to deliver flawless experiences.

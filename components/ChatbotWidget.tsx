@@ -265,16 +265,16 @@ export default function ChatbotWidget() {
             </div>
             <div className="flex items-center gap-3">
               <a 
-                href="https://www.facebook.com/in2itservice/" 
+                href="https://m.me/in2itservice" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-[#1877F2] text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 hover:bg-[#166FE5] transition-colors shadow-sm"
-                title="Contact Admin on Facebook"
+                className="bg-[#0084FF] text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 hover:bg-[#0073E6] transition-colors shadow-sm"
+                title="Chat with Admin on Messenger"
               >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.477 2 2 6.145 2 11.26c0 2.915 1.503 5.508 3.82 7.158V22l3.493-1.924c.854.237 1.754.364 2.687.364 5.523 0 10-4.145 10-9.26C22 6.145 17.523 2 12 2zm1.096 12.39-3.043-3.25-5.94 3.25 6.516-6.91 3.14 3.25 5.84-3.25-6.513 6.91z"/>
                 </svg>
-                Facebook
+                Messenger
               </a>
               <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white transition-colors" aria-label="Close">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>

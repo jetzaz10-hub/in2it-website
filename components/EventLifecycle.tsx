@@ -566,7 +566,7 @@ export default function EventLifecycle() {
             className="section-heading text-white text-3xl lg:text-4xl"
           >
             Your event lifecycle,{" "}
-            <span style={{ color: "#4A32FF" }}>from start to finish</span>
+            <span style={{ color: "#FF3366" }}>from start to finish</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -595,7 +595,7 @@ export default function EventLifecycle() {
             >
               <DonutGraphic activeId={activeId} hoverId={hoverId} setHoverId={setHoverId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
             </motion.div>
-            
+
             {/* Mobile Tabs (Hidden on LG) */}
             <div className="flex lg:hidden gap-2 justify-center mt-6 flex-wrap absolute -bottom-16 w-[120%] left-[-10%] z-20">
               {phases.map((phase) => (

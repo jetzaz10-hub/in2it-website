@@ -7,7 +7,7 @@ export default function MeetTeam() {
   return (
     <section id="team" className="bg-black overflow-hidden">
       {/* Text header — centered, black bg */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
@@ -23,7 +23,7 @@ export default function MeetTeam() {
           }}
         >
           MEET OUR{" "}
-          <span style={{ color: "#4A32FF" }}>TEAM</span>
+          <span style={{ color: "#FF3366" }}>TEAM</span>
         </h2>
         <p className="mt-4 text-white/70 text-base max-w-lg mx-auto px-1">
           Where creativity meets event technology.
@@ -33,12 +33,12 @@ export default function MeetTeam() {
       </motion.div>
 
       {/* Team photo — full width, black & white style with blue glow on left */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 1.05 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "-5%" }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full" 
+        className="relative w-full"
         style={{ height: "clamp(340px, 45vw, 550px)" }}
       >
         {/* Blue glow on left — matches Figma's indigo radial on left */}

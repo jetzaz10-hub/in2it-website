@@ -300,9 +300,9 @@ export default function OurServices() {
                       className="space-y-8"
                     >
                       <div className="flex items-center gap-3 text-[#FF6600] text-xl font-bold">
-                        <span>{(activeIndex + 1).toString().padStart(2, '0')}</span>
-                        <div className="w-10 h-px bg-[#FF6600]/30" />
-                        <span className="text-white/20">{services.length.toString().padStart(2, '0')}</span>
+                        <span className="drop-shadow-[0_0_8px_rgba(255,102,0,0.8)]">{(activeIndex + 1).toString().padStart(2, '0')}</span>
+                        <div className="w-10 h-px bg-[#FF6600]/50" />
+                        <span className="text-white/80">{services.length.toString().padStart(2, '0')}</span>
                       </div>
 
                       <h3 className="text-4xl lg:text-[40px] font-bold text-white tracking-tighter leading-tight uppercase">
@@ -391,7 +391,11 @@ export default function OurServices() {
           </div>
           {services.map((s, idx) => (
             <div key={s.id} className="space-y-6">
-              <div className="text-[#FF6600] font-bold">{(idx + 1).toString().padStart(2, '0')} / {services.length.toString().padStart(2, '0')}</div>
+              <div className="text-xl font-bold flex items-center gap-2">
+                <span className="text-[#FF6600] drop-shadow-[0_0_8px_rgba(255,102,0,0.8)]">{(idx + 1).toString().padStart(2, '0')}</span>
+                <span className="text-white/30">/</span>
+                <span className="text-white/80">{services.length.toString().padStart(2, '0')}</span>
+              </div>
               <div 
                 className="relative aspect-video overflow-hidden"
                 style={{
