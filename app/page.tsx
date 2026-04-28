@@ -5,7 +5,7 @@ import EventLifecycle from "@/components/EventLifecycle";
 import OurServices from "@/components/OurServices";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import OurExperiences from "@/components/OurExperiences";
-import Partners from "@/components/Partners";
+import IntegrationsSection from "@/components/ui/integrations-section";
 import ContactSection from "@/components/ContactSection";
 import MetricsSection from "@/components/MetricsSection";
 import Footer from "@/components/Footer";
@@ -20,7 +20,7 @@ export default function HomePage() {
       <Navbar />
       <main>
         <HeroSection />
-        <Partners />
+        <IntegrationsSection />
         <WhyIN2IT />
         <EventLifecycle />
 
@@ -29,7 +29,6 @@ export default function HomePage() {
           <FeaturedProducts />
           <OurExperiences />
         </UnifiedBackgroundWrapper>
-
         <MetricsSection />
         <ContactSection />
       </main>
