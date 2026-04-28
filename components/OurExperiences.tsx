@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, Volume1, VolumeX } from "lucide-react";
 import { cn } from "../lib/utils";
+import MetricsSection from "./MetricsSection";
 
 export default function OurExperiences() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -81,13 +82,13 @@ export default function OurExperiences() {
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2;
 
   return (
-    <section id="experiences" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-transparent overflow-hidden relative">
+    <section id="experiences" className="pt-20 bg-black overflow-hidden relative">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-5%" }}
         transition={{ duration: 0.4, ease: "linear" }}
-        className="max-w-[1440px] mx-auto px-6 sm:px-12 w-full"
+        className="max-w-[1200px] mx-auto px-8 w-full"
       >
         {/* Heading */}
         <div className="mb-8 text-center">
@@ -102,7 +103,7 @@ export default function OurExperiences() {
         </div>
 
         {/* Large Video Frame */}
-        <div className="relative w-full aspect-video lg:aspect-[21/7] rounded-[2.5rem] overflow-hidden group shadow-[0_0_100px_rgba(249,115,22,0.1)] border border-white/10 bg-zinc-950">
+        <div className="relative w-full h-[350px] md:h-[450px] lg:h-[550px] rounded-[2.5rem] overflow-hidden group shadow-[0_0_100px_rgba(249,115,22,0.1)] border border-white/10 bg-zinc-950">
           <video
             ref={videoRef}
             src="/videos/beyond_the_elephant.mp4"
@@ -175,28 +176,33 @@ export default function OurExperiences() {
           {/* Cinematic Vignette */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
         </div>
-
-        {/* CTA */}
-        <div className="text-center mt-10">
-          <a
-            href="https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-white text-base tracking-tight transition-all hover:scale-[1.05]"
-          >
-            {/* Glossy Button Background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FF6600] to-[#FF9900] rounded-full shadow-[0_0_30px_rgba(255,102,0,0.3)] transition-all group-hover:shadow-[0_0_50px_rgba(255,102,0,0.5)]" />
-
-            <span className="relative z-10">VIEW FULL PORTFOLIO</span>
-            <svg className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </a>
-        </div>
       </motion.div>
+
+      {/* Metrics Section Full Width */}
+      <div className="w-full">
+        <MetricsSection />
+      </div>
+
+      {/* CTA Button */}
+      <div className="w-full flex justify-center mt-12 mb-20 relative z-20">
+        <a
+          href="https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-white text-base tracking-tight transition-all hover:scale-[1.05]"
+        >
+          {/* Glossy Button Background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FF6600] to-[#FF9900] rounded-full shadow-[0_0_30px_rgba(255,102,0,0.3)] transition-all group-hover:shadow-[0_0_50px_rgba(255,102,0,0.5)]" />
+
+          <span className="relative z-10">VIEW FULL PORTFOLIO</span>
+          <svg className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+
       {/* Bottom Purple Glow Divider */}
       <div className="absolute bottom-0 left-0 w-full h-[4px] z-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[4px] shadow-[0_0_30px_rgba(168,85,247,0.8),0_0_60px_rgba(168,85,247,0.5)]" />
         <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-full h-[120px] bg-purple-600/25 blur-[70px] rounded-[100%] pointer-events-none" />
       </div>
     </section>

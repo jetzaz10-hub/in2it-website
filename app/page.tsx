@@ -7,7 +7,7 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import OurExperiences from "@/components/OurExperiences";
 import Partners from "@/components/Partners";
 import ContactSection from "@/components/ContactSection";
-import MetricsSection from "@/components/MetricsSection";
+
 import Footer from "@/components/Footer";
 import ChatbotWidget from "@/components/ChatbotWidget";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -30,7 +30,7 @@ export default function HomePage() {
           <OurExperiences />
         </UnifiedBackgroundWrapper>
 
-        <MetricsSection />
+
         <ContactSection />
       </main>
       <Footer />
