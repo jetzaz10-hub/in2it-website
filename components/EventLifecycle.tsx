@@ -58,8 +58,8 @@ function getTextArcPath(cx: number, cy: number, r: number, startDeg: number, end
 
 const phases = [
   {
-    id: "planning",
-    label: ["Planning"],
+    id: "pre",
+    label: ["Pre", "Event"],
     startDeg: 0,
     endDeg: 120,
     midDeg: 60,
@@ -189,9 +189,9 @@ function PhaseDetail({
             >
               <button
                 onClick={() => toggleItem(item.title)}
-                className="w-full flex items-center justify-between px-6 py-4 text-left"
+                className="w-full flex items-center justify-between px-8 py-5 text-left"
               >
-                <span className="text-gray-800 font-bold text-base">{item.title}</span>
+                <span className="text-gray-800 font-extrabold text-lg tracking-wide">{item.title}</span>
                 <svg
                   className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
                     }`}
@@ -214,7 +214,7 @@ function PhaseDetail({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="px-6 pb-4 text-sm text-gray-500 leading-relaxed">
+                    <p className="px-8 pb-6 text-[15px] text-gray-500 leading-relaxed">
                       {item.description}
                     </p>
                   </motion.div>
@@ -230,6 +230,11 @@ function PhaseDetail({
 
 /* ─── Donut Component ─────────────────────────────────── */
 
+function getClosestAngle(current: number, target: number) {
+  const diff = ((target - current + 180) % 360 + 360) % 360 - 180;
+  return current + diff;
+}
+
 interface DonutGraphicProps {
   activeId: string | null;
   hoverId: string | null;
@@ -239,6 +244,7 @@ interface DonutGraphicProps {
 }
 
 function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems }: DonutGraphicProps) {
+  const prevAngleRef = useRef(0);
   const [mouseData, setMouseData] = useState<{ angle: number, color: string } | null>(null);
 
   const targetId = hoverId || activeId;
@@ -251,13 +257,30 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
     const centerY = rect.top + rect.height / 2;
     const dx = e.clientX - centerX;
     const dy = e.clientY - centerY;
-    const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
 
-    let clockAngle = angle + 90;
+    // Fix: Ignore mouse movements in the empty corners of the SVG square
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const scale = rect.width / 340; // 340 is the SVG viewBox width
+    const maxRadius = 165 * scale; // 165 limits it closely to the outer edge of the donut
+
+    if (distance > maxRadius) {
+      setMouseData(null); // Clear the gradient tracking
+      return; // Stop running the rest of the function
+    }
+
+    const rawAngle = (Math.atan2(dy, dx) * 180) / Math.PI;
+
+    let delta = rawAngle - (prevAngleRef.current % 360);
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    const continuousAngle = prevAngleRef.current + delta;
+    prevAngleRef.current = continuousAngle;
+
+    let clockAngle = rawAngle + 90;
     if (clockAngle < 0) clockAngle += 360;
 
     const virtualPhase = phases.find(p => clockAngle >= p.startDeg && clockAngle < p.endDeg) || phases[phases.length - 1];
-    setMouseData({ angle, color: virtualPhase.colorActive });
+    setMouseData({ angle: continuousAngle, color: virtualPhase.colorActive });
   };
 
   const handleMouseLeave = () => {
@@ -265,9 +288,18 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
     setMouseData(null);
   };
 
-  const glowRotation = mouseData
+  // Determine where we want to go
+  const rawTargetAngle = mouseData
     ? mouseData.angle
     : (targetPhase ? targetPhase.midDeg - 90 : 0);
+
+  // Find the shortest path from our last known angle to prevent multi-spins
+  const glowRotation = getClosestAngle(prevAngleRef.current || 0, rawTargetAngle);
+
+  // Save the new continuous angle for the next frame
+  if (prevAngleRef) {
+    prevAngleRef.current = glowRotation;
+  }
 
   const glowShadow = mouseData
     ? `inset -24px 0px 35px -12px ${mouseData.color}`
@@ -288,9 +320,8 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
             const startPt = polarToCartesian(CX, CY, OUTER, p.startDeg);
             const endPt = polarToCartesian(CX, CY, OUTER, p.endDeg);
             const isSelected = p.id === activeId;
-            const isHovered = p.id === hoverId;
-            const isEnlarged = isHovered || isSelected;
-            const textR = isEnlarged ? 123 : 115;
+            const isHovered = p.id === hoverId && !isSelected;
+            const textR = isSelected ? 123 : (isHovered ? 119 : 115);
 
             return (
               <g key={`defs-${p.id}`}>
@@ -315,15 +346,16 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
         </defs>
         {phases.map((phase) => {
           const isSelected = phase.id === activeId;
-          const isHovered = phase.id === hoverId;
-          const isEnlarged = hoverId ? isHovered : isSelected;
-          const isBright = isEnlarged || isSelected;
+          const isHovered = phase.id === hoverId && !isSelected;
+          const isBright = isHovered || isSelected;
+          const isEnlarged = isBright;
 
-          const activeOuterR = isEnlarged ? OUTER + 16 : OUTER;
+          const activeOuterR = isSelected ? OUTER + 16 : (isHovered ? OUTER + 8 : OUTER);
           const path = donutSlice(CX, CY, activeOuterR, INNER, phase.startDeg, phase.endDeg);
 
-          const extrudeDist = isSelected ? 24 : (isHovered ? 4 : 0);
+          const extrudeDist = isSelected ? 16 : (isHovered ? 8 : 0);
           const offset = polarToCartesian(0, 0, extrudeDist, phase.midDeg);
+          const fontSize = isSelected ? "14" : (isHovered ? "13" : "12");
 
           return (
             <g
@@ -369,7 +401,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
               {/* Curved Text Label */}
               <text
                 fill={isBright ? "white" : "rgba(255,255,255,0.75)"}
-                fontSize={isEnlarged ? "14" : "12"}
+                fontSize={fontSize}
                 fontWeight="800"
                 letterSpacing="0.05em"
                 className="transition-all duration-500 ease-out pointer-events-none"
@@ -394,6 +426,7 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
                 fill="transparent"
                 className="cursor-pointer"
                 onMouseEnter={() => setHoverId(phase.id)}
+                onMouseLeave={() => setHoverId(null)}
                 onClick={() => {
                   setActiveId(phase.id);
                   setOpenItems({});
@@ -416,14 +449,15 @@ function DonutGraphic({ activeId, hoverId, setHoverId, setActiveId, setOpenItems
           right: `${((340 - CX - INNER) / 340) * 100}%`,
         }}
       >
-        <div
+        <motion.div
           className="absolute inset-0 rounded-full bg-black pointer-events-none"
-          style={{
-            transform: `rotate(${glowRotation}deg)`,
-            boxShadow: glowShadow,
-            transition: mouseData
-              ? 'transform 0.1s linear, box-shadow 0.2s ease-out'
-              : 'transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease-out'
+          animate={{
+            rotate: glowRotation,
+            boxShadow: glowShadow
+          }}
+          transition={{
+            rotate: { type: "spring", stiffness: 300, damping: 30, mass: 0.8 },
+            boxShadow: { duration: 0.2 }
           }}
         />
         <div className="relative z-10 flex flex-col items-center justify-center p-4">
@@ -532,7 +566,7 @@ export default function EventLifecycle() {
 
   useEffect(() => {
     if (isInView && !activeId) {
-      setActiveId("planning");
+      setActiveId("pre");
     }
   }, [isInView, activeId]);
 
@@ -602,7 +636,7 @@ export default function EventLifecycle() {
         </div>
 
         {/* ─── Locked Layout (Donut + Details) ─── */}
-        <div className="relative w-full max-w-[1000px] flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 mb-10 mt-6">
+        <div className="relative w-full max-w-[1000px] flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-20 mb-10 mt-6">
           {/* Donut Graphic (Always Left on Desktop) */}
           <div className="relative shrink-0 w-[340px] md:w-[420px] aspect-square flex items-center justify-center">
             <motion.div
@@ -637,7 +671,7 @@ export default function EventLifecycle() {
           </div>
 
           {/* Phase Details (Always Right on Desktop) */}
-          <div className="w-full lg:w-[480px] mt-16 flex shrink-0 justify-center min-h-[360px]">
+          <div className="w-full lg:w-[420px] mt-10 lg:mt-0 flex flex-col justify-center shrink-0 lg:min-h-[420px]">
             {activePhase && (
               <div className="w-full animate-in fade-in zoom-in-95 duration-500">
                 <PhaseDetail phase={activePhase} openItems={openItems} toggleItem={toggleItem} />
