@@ -31,12 +31,7 @@ export default function HomePage() {
           <OurExperiences />
           <Gallery />
         </UnifiedBackgroundWrapper>
-<<<<<<< HEAD
 
-
-=======
-        <MetricsSection />
->>>>>>> ccd55f42f96f48f0677b1dedb54fbf08d7716052
         <ContactSection />
       </main>
       <Footer />
