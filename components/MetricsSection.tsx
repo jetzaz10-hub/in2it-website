@@ -6,6 +6,7 @@ import Counter from "./ui/Counter";
 export default function MetricsSection() {
   return (
     <motion.div 
+      id="metrics-section"
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}

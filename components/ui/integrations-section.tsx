@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { motion, useAnimationFrame, useMotionValue, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 const allLogos = [
+  // ... existing logos ...
   { src: "/partners/Abbott.png", alt: "Abbott" },
   { src: "/partners/AMATA.png", alt: "AMATA" },
   { src: "/partners/Amazing_Thailand.png", alt: "Amazing Thailand" },
@@ -51,14 +52,24 @@ const allLogos = [
 
 export default function IntegrationsSection() {
   const [trackWidth, setTrackWidth] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const isDragging = useRef(false);
   const baseVelocity = 0.5;
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Scale and fade effect: It shrinks to 70% and fades slightly when out of center,
+  // then smoothly expands to 100% when exactly in the middle of the screen.
+  const scale = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [0.7, 1, 1, 0.7]);
+  const opacity = useTransform(scrollYProgress, [0.1, 0.35, 0.65, 0.9], [0.2, 1, 1, 0.2]);
+
   useEffect(() => {
     if (trackRef.current) {
-      // The track width is the full scrollWidth divided by 3 (because we duplicate the array 3 times)
       setTrackWidth(trackRef.current.scrollWidth / 3);
     }
   }, []);
@@ -67,93 +78,89 @@ export default function IntegrationsSection() {
     if (isDragging.current || trackWidth === 0) return;
     let currentX = x.get();
     currentX -= baseVelocity;
-
-    if (currentX <= -trackWidth) {
-      currentX += trackWidth;
-    } else if (currentX > 0) {
-      currentX -= trackWidth;
-    }
+    if (currentX <= -trackWidth) currentX += trackWidth;
+    else if (currentX > 0) currentX -= trackWidth;
     x.set(currentX);
   });
 
-  // Duplicate the array to create the infinite scroll effect
   const marqueeLogos = [...allLogos, ...allLogos, ...allLogos];
 
   return (
-    <section className="w-full bg-white py-16 relative overflow-hidden">
-      {/* Top Glowing Line */}
-      <div className="absolute top-0 left-0 w-full h-[2px] z-10">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_#3b82f6]" />
-      </div>
+    <section ref={sectionRef} className="w-full py-20 relative overflow-hidden bg-black flex justify-center">
+      <motion.div
+        style={{
+          scale,
+          opacity,
+          willChange: "transform, opacity",
+          transform: "translateZ(0)"
+        }}
+        className="w-[calc(100%-2rem)] max-w-[1440px] bg-zinc-950 shadow-[0_0_80px_rgba(255,102,0,0.15)] border border-white/5 rounded-[2rem] md:rounded-[3rem]"
+      >
+        <div className="w-full px-8 py-16 md:py-24 grid lg:grid-cols-[1fr_2fr] gap-10 items-center">
+          {/* Left Side — Text */}
+          <div className="text-center lg:text-left z-20 lg:pl-10">
+            <p className="uppercase text-sm font-semibold text-[#FF6600] tracking-widest mb-2">
+              Trusted Partners
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter leading-tight mb-4">
+              Powering Events{" "}
+              <br className="hidden lg:block" />
+              <span className="text-[#FF3366]">Worldwide</span>
+            </h2>
+            <p className="text-white/40 text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
+              We partner with leading global brands, government agencies, and
+              international organizations — delivering cutting-edge event technology
+              across <span className="text-white font-bold">500+</span> events.
+            </p>
+          </div>
 
-      <div className="max-w-7xl mx-auto px-8 grid lg:grid-cols-[1fr_2fr] gap-10 items-center">
-        {/* Left Side — Text */}
-        <div className="text-center lg:text-left z-20">
-          <p className="uppercase text-sm font-semibold text-[#FF6600] tracking-widest mb-2">
-            Trusted Partners
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tighter leading-tight mb-4">
-            Powering Events{" "}
-            <br className="hidden lg:block" />
-            <span className="text-[#FF3366]">Worldwide</span>
-          </h2>
-          <p className="text-gray-500 text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
-            We partner with leading global brands, government agencies, and
-            international organizations — delivering cutting-edge event technology
-            across <span className="text-gray-900 font-bold">500+</span> events.
-          </p>
+          {/* Right Side — Draggable Auto-scrolling Grid */}
+          <div className="w-full overflow-hidden cursor-grab active:cursor-grabbing relative">
+            {/* Dark Mask Edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
+
+            <motion.div
+              ref={trackRef}
+              drag="x"
+              dragMomentum={false}
+              style={{
+                x,
+                willChange: "transform",
+                transform: "translateZ(0)"
+              }}
+              onDragStart={() => { isDragging.current = true; }}
+              onDragEnd={() => { isDragging.current = false; }}
+              onDrag={() => {
+                let currentX = x.get();
+                if (currentX < -trackWidth) x.set(currentX + trackWidth);
+                else if (currentX > 0) x.set(currentX - trackWidth);
+              }}
+              whileTap={{ cursor: "grabbing" }}
+              className="flex w-max"
+            >
+              <div className="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-8 px-4">
+                {marqueeLogos.map((logo, idx) => (
+                  <div
+                    key={`${logo.alt}-${idx}`}
+                    className="relative w-24 h-16 md:w-32 md:h-20 flex items-center justify-center transition-transform duration-300 hover:scale-105 bg-white rounded-xl p-3 md:p-4 shadow-sm"
+                  >
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="object-contain p-2 pointer-events-none select-none"
+                      sizes="128px"
+                      draggable={false}
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
-
-        {/* Right Side — Draggable Auto-scrolling Grid (3 Rows) */}
-        <div className="w-full overflow-hidden cursor-grab active:cursor-grabbing relative mask-edges">
-          {/* Fading edges for the scrolling area */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-          <motion.div
-            ref={trackRef}
-            drag="x"
-            dragMomentum={false}
-            style={{ x }}
-            onDragStart={() => { isDragging.current = true; }}
-            onDragEnd={() => { isDragging.current = false; }}
-            onDrag={() => {
-              let currentX = x.get();
-              if (currentX < -trackWidth) {
-                x.set(currentX + trackWidth);
-              } else if (currentX > 0) {
-                x.set(currentX - trackWidth);
-              }
-            }}
-            whileTap={{ cursor: "grabbing" }}
-            className="flex w-max"
-          >
-            {/* We use CSS grid with grid-flow-col and 3 rows so the logos fill out vertically first, creating 3 continuous rows */}
-            <div className="grid grid-rows-4 grid-flow-col gap-x-8 gap-y-6 px-4">
-              {marqueeLogos.map((logo, idx) => (
-                <div
-                  key={`${logo.alt}-${idx}`}
-                  className="relative w-20 h-16 md:w-28 md:h-20 flex items-center justify-center transition-transform duration-300 hover:scale-110"
-                >
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    fill
-                    className="object-contain pointer-events-none select-none"
-                    sizes="112px"
-                    draggable={false}
-                  />
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Bottom Glowing Line */}
-      <div className="absolute bottom-0 left-0 w-full h-[2px] z-10">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_#3b82f6]" />
-      </div>
+      </motion.div>
     </section>
   );
 }
