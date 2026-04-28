@@ -160,7 +160,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
 
           <p
             className="text-base leading-relaxed transition-colors duration-300"
-            style={{ color: isHovered ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.5)" }}
+            style={{ color: isHovered ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.8)" }}
           >
             {description}
           </p>

@@ -22,7 +22,7 @@ const services = [
     id: "registration",
     title: "Registration System",
     description: "End-to-end event registration solutions. We handle everything from customized online forms to high-capacity onsite check-ins.",
-    images: ["/services/regis/reg1.png", "/services/regis/reg2.png", "/services/regis/reg3.png", "/services/regis/reg4.png", "/services/regis/reg5.png"],
+    images: ["/services/regis/regis.png", "/services/regis/reg1.png", "/services/regis/reg2.png", "/services/regis/reg3.png", "/services/regis/reg4.png", "/services/regis/reg5.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#6",
     icon: ClipboardCheck
   },
@@ -30,7 +30,7 @@ const services = [
     id: "website",
     title: "Website Design",
     description: "Professional event microsites and corporate landing pages designed to convert visitors flawlessly.",
-    images: ["/services/web/web1.png", "/services/web/web2.png", "/services/web/web3.png"],
+    images: ["/services/web/web.png", "/services/web/web-madmonkey.png", "/services/web/web1.png", "/services/web/web2.png", "/services/web/web3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#13",
     icon: Globe
   },
@@ -38,7 +38,7 @@ const services = [
     id: "edm",
     title: "EDM Solution",
     description: "Professional electronic direct mail campaigns designed to drive registrations, boost attendance, and keep participants engaged.",
-    images: ["/services/edm/edm1.png", "/services/edm/edm2.png", "/services/edm/edm3.png"],
+    images: ["/services/edm/edm_celebrate.png", "/services/edm/edm_gmail.png", "/services/edm/edm-tica.png", "/services/edm/edm1.png", "/services/edm/edm2.png", "/services/edm/edm3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#24",
     icon: Mail
   },
@@ -46,7 +46,7 @@ const services = [
     id: "ticket",
     title: "Ticket Event",
     description: "Secure and scalable ticketing infrastructure with QR code entry, mobile scanning, and real-time reporting dashboards.",
-    images: ["/services/ticket/ticket1.png", "/services/ticket/ticket2.png", "/services/ticket/ticket3.png"],
+    images: ["/services/ticket/ticket-event.png", "/services/ticket/ticket1.png", "/services/ticket/ticket2.png", "/services/ticket/ticket3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#29",
     icon: Ticket
   },
@@ -54,7 +54,7 @@ const services = [
     id: "festival",
     title: "Festival Tech",
     description: "Robust infrastructure for large-scale festivals: cashless payments, RFID wristbands, and live crowd management dashboards.",
-    images: ["/services/fest/fes1.png", "/services/fest/fes2.png"],
+    images: ["/services/fest/fest.png", "/services/fest/fes1.png", "/services/fest/fes2.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#30",
     icon: Tent
   },
@@ -62,7 +62,7 @@ const services = [
     id: "iot",
     title: "IOT & Hardware",
     description: "Specially engineered hardware for the MICE industry: RFID systems, check-in kiosks, and IOT integrations for seamless management.",
-    images: ["/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
+    images: ["/services/iot/iot.png", "/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45",
     icon: Cpu
   },
@@ -70,7 +70,7 @@ const services = [
     id: "organizer",
     title: "Event Organizer",
     description: "Full-service event management from concept to wrap-up, including logistics, vendor management and on-site coordination.",
-    images: ["/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
+    images: ["/services/org/org.png", "/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#31",
     icon: CalendarDays
   },
@@ -78,7 +78,7 @@ const services = [
     id: "graphic",
     title: "Graphic Design",
     description: "Visually stunning event branding — from logo and print materials to digital assets and stage backdrops.",
-    images: ["/services/graph/graph1.jpg", "/services/graph/graph2.png"],
+    images: ["/services/graph/graph.png", "/services/graph/graph1.jpg", "/services/graph/graph2.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#55",
     icon: PenTool
   },
@@ -94,7 +94,7 @@ const services = [
     id: "streaming",
     title: "Live Streaming",
     description: "Professional multi-camera live production with encoding and high-fidelity streaming to multiple global platforms.",
-    images: ["/services/stream/stream1.png", "/services/stream/stream2.png", "/services/stream/stream3.png"],
+    images: ["/services/stream/live-stream.png", "/services/stream/stream1.png", "/services/stream/stream2.png", "/services/stream/stream3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#57",
     icon: Video
   }

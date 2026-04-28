@@ -582,28 +582,6 @@ export default function EventLifecycle() {
     <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-16 pb-24 bg-black overflow-hidden">
       {/* Top transition overlay */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
-      {/* Subtle Animated Ambient Background */}
-      <style>{`
-        @keyframes lifecycleGradientPan {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .lifecycle-bg-animated {
-          background: linear-gradient(
-            -45deg, 
-            #000000,
-            #0d0a2b, 
-            #1a0f4a, 
-            #2d1466, 
-            #0a041f, 
-            #000000
-          );
-          background-size: 400% 400%;
-          animation: lifecycleGradientPan 25s ease-in-out infinite;
-        }
-      `}</style>
-      <div className="absolute inset-0 lifecycle-bg-animated opacity-90" />
 
       {/* Intense IN2IT Orange Transition Gradient */}
       <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#FF6600]/50 via-[#FF6600]/10 to-transparent z-10 pointer-events-none" />

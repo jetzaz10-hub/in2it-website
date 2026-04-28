@@ -16,8 +16,9 @@ const products = [
       text: "text-[#FF6600]",
       textHover: "group-hover:text-[#FF8833]",
       iconBg: "bg-[#FF6600]/10",
-      shadow: "group-hover:shadow-[0_0_30px_rgba(255,102,0,0.15)]",
-      glow: "bg-[#FF6600]"
+      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(255,102,0,0.15)]",
+      glow: "bg-[#FF6600]",
+      hex: "#FF6600"
     },
     rotate: "-rotate-3",
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
@@ -33,8 +34,9 @@ const products = [
       text: "text-[#6A5AF9]",
       textHover: "group-hover:text-[#887DFB]",
       iconBg: "bg-[#4634F8]/10",
-      shadow: "group-hover:shadow-[0_0_30px_rgba(70,52,248,0.15)]",
-      glow: "bg-[#4634F8]"
+      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(70,52,248,0.15)]",
+      glow: "bg-[#4634F8]",
+      hex: "#4634F8"
     },
     rotate: "rotate-2",
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
@@ -50,8 +52,9 @@ const products = [
       text: "text-[#E60039]",
       textHover: "group-hover:text-[#FF3366]",
       iconBg: "bg-[#E60039]/10",
-      shadow: "group-hover:shadow-[0_0_30px_rgba(230,0,57,0.15)]",
-      glow: "bg-[#E60039]"
+      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(230,0,57,0.15)]",
+      glow: "bg-[#E60039]",
+      hex: "#E60039"
     },
     rotate: "-rotate-2",
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46"
@@ -128,12 +131,34 @@ export default function FeaturedProducts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className={`relative w-full sm:w-[320px] md:w-[350px] bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} hover:rotate-0 hover:-translate-y-4 transition-all duration-500 cursor-pointer group ${product.colors.shadow}`}
+                className="relative w-full sm:w-[320px] md:w-[350px] cursor-pointer group"
                 onClick={() => window.open(product.link, "_blank")}
               >
-                {/* Inner Colored Box */}
-                <div className={`w-full h-full min-h-[340px] rounded-[20px] ${product.colors.inner} p-8 flex flex-col border relative overflow-hidden transition-colors duration-300`}>
+                <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 ${product.colors.shadow}`}>
+                  {/* Inner Colored Box */}
+                <div 
+                  className={`w-full h-full min-h-[340px] rounded-[20px] ${product.colors.inner} p-8 flex flex-col border relative overflow-hidden transition-colors duration-300`}
+                  style={{ '--card-glow': product.colors.hex } as React.CSSProperties}
+                >
                   
+                  {/* Bottom Gradient Glow like Why IN2IT */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-3/4 z-0 pointer-events-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
+                    style={{
+                      background: `radial-gradient(circle at bottom center, var(--card-glow) -20%, transparent 65%)`,
+                      filter: "blur(35px)",
+                    }}
+                  />
+                  
+                  {/* Bottom border line glow */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-[2px] z-[5] pointer-events-none opacity-90 group-hover:opacity-100 transition-all duration-500"
+                    style={{
+                      background: "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%)",
+                      boxShadow: `0 0 20px 3px var(--card-glow)`,
+                    }}
+                  />
+
                   {/* Big Number & Icon */}
                   <div className="flex items-start justify-between mb-8 relative z-10">
                     <motion.h1 
@@ -172,6 +197,7 @@ export default function FeaturedProducts() {
                   
                   {/* Subtle Background Glow inside the note */}
                   <div className={`absolute -bottom-20 -right-20 w-48 h-48 rounded-full blur-[60px] opacity-20 pointer-events-none ${product.colors.glow}`} />
+                </div>
                 </div>
               </motion.div>
             ))}
