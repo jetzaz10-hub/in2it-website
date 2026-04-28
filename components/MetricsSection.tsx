@@ -5,6 +5,7 @@ import Counter from "./ui/Counter";
 
 export default function MetricsSection() {
   return (
+<<<<<<< HEAD
     <section className="w-full relative z-20 py-16 bg-black">
       <div className="max-w-[1200px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-3 gap-5">
         
@@ -26,6 +27,21 @@ export default function MetricsSection() {
             <div className="text-sm font-medium tracking-[0.2em] text-white/50 uppercase mt-4">
               Events Delivered
             </div>
+=======
+    <motion.div 
+      id="metrics-section"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-5%" }}
+      transition={{ duration: 0.4, delay: 0.1, ease: "linear" }}
+      className="w-full relative z-20 py-10" 
+      style={{ background: "linear-gradient(to right, #4A32FF, #8A2BE2)" }}
+    >
+      <div className="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row items-center justify-around gap-12 text-center text-white">
+        <div>
+          <div className="text-5xl md:text-6xl font-extrabold mb-3">
+            <Counter value={500} />+
+>>>>>>> ccd55f42f96f48f0677b1dedb54fbf08d7716052
           </div>
         </motion.div>
 
