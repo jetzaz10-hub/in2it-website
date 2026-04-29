@@ -191,7 +191,7 @@ function PhaseDetail({
                 onClick={() => toggleItem(item.title)}
                 className="w-full flex items-center justify-between px-8 py-5 text-left"
               >
-                <span className="text-gray-800 font-extrabold text-lg tracking-wide">{item.title}</span>
+                <span className="text-gray-800 font-semibold text-lg tracking-wide">{item.title}</span>
                 <svg
                   className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
                     }`}
