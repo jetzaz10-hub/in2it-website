@@ -89,69 +89,22 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-wrap justify-center gap-4 lg:gap-9 mt-10"
           >
-            <motion.a
-              initial={{ "--x": "100%" } as any}
-              animate={{ "--x": "-100%" } as any}
-              whileTap={{ scale: 0.95 }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "loop",
-                repeatDelay: 1,
-                type: "spring",
-                stiffness: 20,
-                damping: 15,
-                mass: 2,
-                scale: {
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 5,
-                  mass: 0.5,
-                },
-              }}
+            <a
               href="#contact"
-              className="group relative inline-flex items-center gap-2 px-10 lg:px-12 py-5 rounded-full font-bold text-white text-base transition-all duration-300 hover:scale-[1.05] active:scale-95 shadow-xl hover:shadow-[0_10px_30px_rgba(74,50,255,0.4)]"
+              className="inline-flex items-center gap-2 px-10 lg:px-12 py-5 rounded-full font-bold text-white text-base transition-all duration-300 hover:scale-[1.05] active:scale-95 shadow-xl hover:shadow-[0_10px_30px_rgba(74,50,255,0.4)]"
               style={{ background: "linear-gradient(to right, #4A32FF, #9933FF)" }}
             >
-              {/* Shiny Sweep Layer */}
-              <span 
-                className="absolute inset-0 block rounded-[inherit] bg-[linear-gradient(-75deg,transparent_calc(var(--x)+20%),rgba(255,255,255,0.35)_calc(var(--x)+25%),transparent_calc(var(--x)+100%))] z-10 pointer-events-none"
-              />
-              <span className="relative z-10 font-bold flex items-center gap-2">
-                Contact Us
-                <ArrowRight className="w-5 h-5" />
-              </span>
-            </motion.a>
-
-            <motion.a
-              initial={{ "--x": "100%" } as any}
-              animate={{ "--x": "-100%" } as any}
-              whileTap={{ scale: 0.95 }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "loop",
-                repeatDelay: 1,
-                type: "spring",
-                stiffness: 20,
-                damping: 15,
-                mass: 2,
-                scale: {
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 5,
-                  mass: 0.5,
-                },
-              }}
+              Contact Us
+              <ArrowRight className="w-5 h-5" />
+            </a>
+            <a
               href="https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-2 px-10 lg:px-12 py-5 rounded-full font-bold text-white text-base border border-white/30 hover:bg-white/10 transition-all duration-300 hover:border-white/60 hover:scale-[1.05]"
+              className="inline-flex items-center gap-2 px-10 lg:px-12 py-5 rounded-full font-bold text-white text-base border border-white/30 hover:bg-white/10 transition-all duration-300 hover:border-white/60"
             >
-              {/* Shiny Sweep Layer */}
-              <span 
-                className="absolute inset-0 block rounded-[inherit] bg-[linear-gradient(-75deg,transparent_calc(var(--x)+20%),rgba(255,255,255,0.25)_calc(var(--x)+25%),transparent_calc(var(--x)+100%))] z-10 pointer-events-none"
-              />
-              <span className="relative z-10 font-bold">View Portfolio</span>
-            </motion.a>
+              View Portfolio
+            </a>
           </motion.div>
         </div>
       </div>
