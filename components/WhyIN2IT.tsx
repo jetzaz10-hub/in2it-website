@@ -96,7 +96,7 @@ export default function WhyIN2IT() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 uppercase tracking-tighter">
               Why <span className="text-[#FF3366]">IN2IT</span> ?
             </h2>
-            <p className="text-white/60 text-lg md:text-xl max-w-none mx-auto leading-relaxed">
+            <p className="text-white/70 text-lg md:text-xl max-w-none mx-auto leading-relaxed">
               We combine cutting-edge technology with decade-long event expertise to deliver flawless experiences.
             </p>
           </motion.div>
