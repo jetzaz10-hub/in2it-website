@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Nfc, Share2, Camera, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 const products = [
   {
@@ -11,17 +12,17 @@ const products = [
     title: "NFC & Digital Badges",
     description: "Customizable smart badges for fast check-in, access control, and real-time tracking.",
     icon: Nfc,
+    image: "/products/products/nfc.png",
     colors: {
       inner: "bg-[#140800] border-[#FF6600]/20",
       text: "text-[#FF6600]",
-      textHover: "group-hover:text-[#FF8833]",
       iconBg: "bg-[#FF6600]/10",
-      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(255,102,0,0.15)]",
+      shadow: "shadow-[0_20px_50px_rgba(255,102,0,0.2)]",
       glow: "bg-[#FF6600]",
-      hex: "#FF6600"
+      hex: "#FF6600",
     },
-    rotate: "-rotate-3",
-    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
+    rotate: -5,
+    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12",
   },
   {
     id: "social-product",
@@ -29,16 +30,16 @@ const products = [
     title: "Social Media Tools",
     description: "Improve your marketing campaign with integrated social media tools including Line OA, Facebook, and Instagram.",
     icon: Share2,
+    image: "/products/products/scm.png",
     colors: {
       inner: "bg-[#050314] border-[#4634F8]/20",
       text: "text-[#6A5AF9]",
-      textHover: "group-hover:text-[#887DFB]",
       iconBg: "bg-[#4634F8]/10",
-      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(70,52,248,0.15)]",
+      shadow: "shadow-[0_20px_50px_rgba(70,52,248,0.2)]",
       glow: "bg-[#4634F8]",
-      hex: "#4634F8"
+      hex: "#4634F8",
     },
-    rotate: "rotate-2",
+    rotate: 5,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
   },
   {
@@ -47,164 +48,165 @@ const products = [
     title: "Interactive Photobooths",
     description: "Photobooths make your event more outstanding by allowing users to take pictures and print instantly.",
     icon: Camera,
+    image: "/products/products/kiosk.png",
     colors: {
       inner: "bg-[#140005] border-[#E60039]/20",
       text: "text-[#E60039]",
-      textHover: "group-hover:text-[#FF3366]",
       iconBg: "bg-[#E60039]/10",
-      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(230,0,57,0.15)]",
+      shadow: "shadow-[0_20px_50px_rgba(230,0,57,0.2)]",
       glow: "bg-[#E60039]",
-      hex: "#E60039"
+      hex: "#E60039",
     },
-    rotate: "-rotate-2",
-    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46"
+    rotate: -3,
+    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46",
   },
 ];
+
+const cardVariants: Variants = {
+  offscreen: {
+    y: 300,
+    rotate: 0,
+    opacity: 0,
+  },
+  onscreen: (customRotate: number) => ({
+    y: 0,
+    rotate: customRotate,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      bounce: 0.35,
+      duration: 1.0,
+    },
+  }),
+};
 
 export default function FeaturedProducts() {
   // Handle nav-jump event from Navbar/Footer
   useEffect(() => {
     const handleJump = (e: any) => {
       const targetId = e.detail?.targetId;
-      const isProduct = products.some(p => p.id === targetId);
-      
+      const isProduct = products.some((p) => p.id === targetId);
+
       if (isProduct) {
-        const section = document.getElementById('products');
+        const section = document.getElementById("products");
         if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
     };
 
-    window.addEventListener('nav-jump', handleJump);
-    return () => window.removeEventListener('nav-jump', handleJump);
+    window.addEventListener("nav-jump", handleJump);
+    return () => window.removeEventListener("nav-jump", handleJump);
   }, []);
 
   return (
-    <section id="products" className="py-24 lg:min-h-screen lg:flex lg:items-center bg-transparent text-white overflow-hidden relative">
-      
-      {/* Background Ambient Glows (Breathing Animation) */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-[#FF6600]/30 rounded-full blur-[130px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.5, 0.2] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[5%] right-[10%] w-[600px] h-[600px] bg-[#4634F8]/20 rounded-full blur-[150px]" 
-        />
+    <section
+      id="products"
+      className="py-32 bg-transparent text-white overflow-hidden relative"
+    >
+      {/* Background Ambient Glows */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute top-[20%] left-[5%] w-[600px] h-[600px] bg-[#FF6600]/20 rounded-full blur-[140px]" />
+        <div className="absolute bottom-[20%] right-[5%] w-[600px] h-[600px] bg-[#4634F8]/20 rounded-full blur-[140px]" />
       </div>
 
-      <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
-        
+      <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         {/* Heading Section */}
         <div className="flex flex-col items-center mb-24">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center inline-block max-w-2xl"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase text-white mb-6">
               Featured <span className="text-[#FF6600]">Products</span>
             </h2>
-            <motion.div 
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 0.4 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="w-full h-1 bg-gradient-to-r from-[#4634F8] via-[#E60039] to-[#FF6600] mt-1 mx-auto origin-center"
-            ></motion.div>
+            <div className="w-full h-1 bg-gradient-to-r from-[#4634F8] via-[#E60039] to-[#FF6600] mt-1 mx-auto opacity-50 rounded-full" />
           </motion.div>
         </div>
 
-        {/* Sticky Notes Track */}
-        <div className="w-full flex justify-center mt-10">
-          <div className="flex flex-wrap gap-12 md:gap-16 lg:gap-20 items-center justify-center px-2">
-            {products.map((product, idx) => (
+        {/* Overlapping Stack Cards Track */}
+        <div className="w-full flex flex-col items-center relative max-w-[600px] mx-auto pb-32">
+          {products.map((product, i) => {
+            return (
               <motion.div
                 key={product.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full sm:w-[320px] md:w-[350px] cursor-pointer group"
-                onClick={() => window.open(product.link, "_blank")}
+                className="relative flex justify-center items-center w-full"
+                style={{
+                  height: "480px",
+                  marginBottom: i === products.length - 1 ? "0px" : "-260px",
+                  zIndex: i + 10,
+                }}
+                initial="offscreen"
+                whileInView="onscreen"
+                viewport={{ amount: 0.6, margin: "0px 0px -10% 0px" }}
+                custom={product.rotate}
+                variants={cardVariants}
               >
-                <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 ${product.colors.shadow}`}>
-                  {/* Inner Colored Box */}
-                <div 
-                  className={`w-full h-full min-h-[340px] rounded-[20px] ${product.colors.inner} p-8 flex flex-col border relative overflow-hidden transition-colors duration-300`}
-                  style={{ '--card-glow': product.colors.hex } as React.CSSProperties}
+                {/* Card Splash Glow */}
+                <div
+                  className="absolute inset-4 z-0 opacity-40 blur-[60px] rounded-full pointer-events-none transition-all duration-500"
+                  style={{
+                    background: `radial-gradient(circle at center, ${product.colors.hex}, transparent 70%)`,
+                  }}
+                />
+
+                {/* The Card Frame */}
+                <div
+                  onClick={() => window.open(product.link, "_blank")}
+                  className={`relative w-[90%] sm:w-[480px] h-[450px] cursor-pointer group rounded-[2.5rem] p-8 border border-white/10 overflow-hidden backdrop-blur-xl ${product.colors.inner} ${product.colors.shadow} transition-all duration-500 hover:border-white/20 hover:-translate-y-2`}
                 >
-                  
-                  {/* Bottom Gradient Glow like Why IN2IT */}
+                  {/* Subtle lines/glows */}
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-3/4 z-0 pointer-events-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] z-10 opacity-60 group-hover:opacity-100 transition-all duration-500"
                     style={{
-                      background: `radial-gradient(circle at bottom center, var(--card-glow) -20%, transparent 65%)`,
-                      filter: "blur(35px)",
-                    }}
-                  />
-                  
-                  {/* Bottom border line glow */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-[2px] z-[5] pointer-events-none opacity-90 group-hover:opacity-100 transition-all duration-500"
-                    style={{
-                      background: "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%)",
-                      boxShadow: `0 0 20px 3px var(--card-glow)`,
+                      background: `linear-gradient(90deg, transparent, ${product.colors.hex}, transparent)`,
+                      boxShadow: `0 0 15px 2px ${product.colors.hex}`,
                     }}
                   />
 
-                  {/* Big Number & Icon */}
-                  <div className="flex items-start justify-between mb-8 relative z-10">
-                    <motion.h1 
-                      initial={{ opacity: 0, x: -15, filter: "blur(8px)" }}
-                      whileInView={{ opacity: 0.9, x: 0, filter: "blur(0px)" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: idx * 0.15 + 0.3 }}
-                      className={`text-[64px] leading-none font-bold tracking-tighter ${product.colors.text} drop-shadow-[0_0_15px_currentColor] group-hover:opacity-100 transition-opacity`}
-                    >
-                      {product.num}
-                    </motion.h1>
-                    <div className={`p-3 rounded-2xl ${product.colors.iconBg} backdrop-blur-sm ${product.colors.text} opacity-60 group-hover:opacity-100 transition-all`}>
-                      <product.icon strokeWidth={2} className="w-8 h-8" />
+                  {/* Card Info Layer */}
+                  <div className="flex flex-col h-full relative z-10">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className={`text-5xl font-bold tracking-tighter ${product.colors.text} drop-shadow-[0_0_15px_rgba(255,102,0,0.3)]`}>
+                        {product.num}
+                      </span>
+                      <div className={`p-3 rounded-2xl ${product.colors.iconBg} ${product.colors.text}`}>
+                        <product.icon strokeWidth={2.5} className="w-6 h-6" />
+                      </div>
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">
+                      {product.title}
+                    </h3>
+                    <p className="text-white/60 text-sm leading-relaxed font-light max-w-[280px] mb-6">
+                      {product.description}
+                    </p>
+
+                    <div className={`mt-auto inline-flex items-center gap-2 font-bold text-xs tracking-widest uppercase ${product.colors.text} opacity-80 group-hover:opacity-100 transition-all`}>
+                      SALE KITS
+                      <ArrowRight strokeWidth={3} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
 
-                  {/* Title & Description */}
-                  <div className="mb-auto relative z-10">
-                    <h3 className={`text-2xl font-bold text-white mb-4 leading-tight transition-colors ${product.colors.textHover}`}>
-                      {product.title}
-                    </h3>
-                    <p className="text-white/60 text-[15px] leading-relaxed font-light group-hover:text-white/80 transition-colors">
-                      {product.description}
-                    </p>
+                  {/* Card Image Layer (positioned dynamically on the bottom-right) */}
+                  <div className="absolute right-[-20px] bottom-[-20px] w-[240px] h-[240px] z-0 opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 pointer-events-none">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
+                      sizes="240px"
+                    />
                   </div>
-
-                  {/* Interactive Button */}
-                  <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`mt-8 inline-flex items-center gap-2 font-bold text-sm tracking-widest uppercase ${product.colors.text} opacity-70 group-hover:opacity-100 transition-all relative z-10 origin-left`}
-                  >
-                    SALE KITS
-                    <ArrowRight strokeWidth={3} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </motion.div>
-                  
-                  {/* Subtle Background Glow inside the note */}
-                  <div className={`absolute -bottom-20 -right-20 w-48 h-48 rounded-full blur-[60px] opacity-20 pointer-events-none ${product.colors.glow}`} />
-                </div>
                 </div>
               </motion.div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
-
