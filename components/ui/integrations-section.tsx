@@ -9,7 +9,7 @@ const SphereImageGrid = dynamic(() => import("./img-sphere"), { ssr: false });
 
 const sphereLogos: ImageData[] = Array.from({ length: 42 }, (_, i) => ({
   id: `partner-${i + 1}`,
-  src: `/partners/partner logo/${i + 1}.png`,
+  src: `/partners/partner logo/${i + 1}.png?v=2`,
   alt: `Partner ${i + 1}`,
 }));
 
