@@ -297,7 +297,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
             <img
               src={img.src}
               alt={img.alt}
-              className="w-[72%] h-[72%] object-contain pointer-events-none select-none"
+              className="w-full h-full object-contain pointer-events-none select-none"
               draggable={false}
               loading="lazy"
             />
