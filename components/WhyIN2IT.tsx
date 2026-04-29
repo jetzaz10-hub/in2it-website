@@ -105,11 +105,11 @@ export default function WhyIN2IT() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {whyFeatures.map((feature, i) => {
             const cardColors = [
-              { right: "rgba(172, 92, 255, 0.7)", left: "rgba(56, 189, 248, 0.7)", center: "rgba(161, 58, 229, 0.7)" }, // Purple/Blue
-              { right: "rgba(249, 115, 22, 0.7)", left: "rgba(234, 179, 8, 0.7)", center: "rgba(239, 68, 68, 0.7)" },    // Orange/Yellow/Red
-              { right: "rgba(34, 197, 94, 0.7)", left: "rgba(6, 182, 212, 0.7)", center: "rgba(16, 185, 129, 0.7)" },    // Green/Cyan
-              { right: "rgba(236, 72, 153, 0.7)", left: "rgba(168, 85, 247, 0.7)", center: "rgba(219, 39, 119, 0.7)" },  // Pink/Purple
-              { right: "rgba(59, 130, 246, 0.7)", left: "rgba(139, 92, 246, 0.7)", center: "rgba(37, 99, 235, 0.7)" },    // Blue/Indigo
+              { right: "rgba(172, 92, 255, 0.95)", left: "rgba(56, 189, 248, 0.95)", center: "rgba(161, 58, 229, 0.95)" }, // Purple/Blue
+              { right: "rgba(249, 115, 22, 0.95)", left: "rgba(234, 179, 8, 0.95)", center: "rgba(239, 68, 68, 0.95)" },    // Orange/Yellow/Red
+              { right: "rgba(34, 197, 94, 0.95)", left: "rgba(6, 182, 212, 0.95)", center: "rgba(16, 185, 129, 0.95)" },    // Green/Cyan
+              { right: "rgba(236, 72, 153, 0.95)", left: "rgba(168, 85, 247, 0.95)", center: "rgba(219, 39, 119, 0.95)" },  // Pink/Purple
+              { right: "rgba(59, 130, 246, 0.95)", left: "rgba(139, 92, 246, 0.95)", center: "rgba(37, 99, 235, 0.95)" },    // Blue/Indigo
             ];
             const color = cardColors[i % cardColors.length];
             return (
