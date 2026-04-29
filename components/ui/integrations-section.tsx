@@ -163,7 +163,7 @@ export default function IntegrationsSection() {
               containerSize={560}
               sphereRadius={240}
               autoRotate={true}
-              autoRotateSpeed={0.06} // Slowed down rotation
+              autoRotateSpeed={0.2} // Reverted to original speed
               dragSensitivity={0.4}
             />
           </motion.div>
