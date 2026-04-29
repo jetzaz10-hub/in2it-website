@@ -301,6 +301,19 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
               draggable={false}
               loading="lazy"
             />
+            {/* Glassy Planet Overlay */}
+            <div 
+              className="absolute inset-0 rounded-full z-10 pointer-events-none"
+              style={{
+                background: `
+                  radial-gradient(circle at 35% 25%, rgba(255,255,255,0.7) 0%, transparent 25%),
+                  radial-gradient(circle at 75% 75%, rgba(0,0,0,0.15) 0%, transparent 50%),
+                  linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%, rgba(0,0,0,0.3) 100%)
+                `,
+                boxShadow: "inset -6px -6px 14px rgba(0,0,0,0.3), inset 6px 6px 14px rgba(255,255,255,0.5)",
+                border: "1.5px solid rgba(255,255,255,0.35)",
+              }}
+            />
           </div>
         </div>
       ))}
