@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import type { ImageData } from "./img-sphere";
 
-// Dynamically import the sphere (it uses refs and pointer events — SSR-unsafe)
+// Dynamically import the sphere (uses refs and pointer events — SSR-unsafe)
 const SphereImageGrid = dynamic(() => import("./img-sphere"), { ssr: false });
 
-/* ─── All partner logos fed into the sphere ─── */
+/* ─── All partner logos fed into the sphere (Pruned broken files) ─── */
 const sphereLogos: ImageData[] = [
   { id: "abbott", src: "/partners/Abbott.png", alt: "Abbott" },
   { id: "amata", src: "/partners/AMATA.png", alt: "AMATA" },
@@ -51,12 +51,8 @@ const sphereLogos: ImageData[] = [
   { id: "vnu", src: "/partners/vnu.png", alt: "VNU Exhibitions" },
   { id: "wrg", src: "/partners/WRG.png", alt: "WRG" },
   { id: "yindee", src: "/partners/Yindee.png", alt: "Yindee" },
-  { id: "dbp", src: "/partners/DBP.png", alt: "DBP" },
-  { id: "swire2", src: "/partners/SWIRE.png", alt: "SWIRE" },
-  { id: "inorway", src: "/partners/iNorway.png", alt: "iNorway" },
 ];
 
-/* ─── Main Section ─── */
 export default function IntegrationsSection() {
   return (
     <section
@@ -64,7 +60,7 @@ export default function IntegrationsSection() {
       className="w-full relative overflow-hidden"
       style={{ background: "#000000" }}
     >
-      {/* ── Noise texture overlay ── */}
+      {/* Noise texture overlay */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none z-0"
         style={{
@@ -72,7 +68,7 @@ export default function IntegrationsSection() {
         }}
       />
 
-      {/* ── Subtle radial glow behind sphere ── */}
+      {/* Subtle radial glow behind sphere */}
       <div
         className="absolute top-1/2 right-[20%] -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0"
         style={{
@@ -82,116 +78,76 @@ export default function IntegrationsSection() {
         }}
       />
 
-      {/* ── Inner content ── */}
+      {/* Inner content */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-28">
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 items-center">
-          {/* ═══ LEFT COLUMN — Text ═══ */}
+          
+          {/* ═══ LEFT COLUMN — Text & Stats ═══ */}
           <div className="text-center lg:text-left">
-            {/* Pill badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
-              style={{
-                background: "rgba(139,92,246,0.08)",
-                border: "1px solid rgba(139,92,246,0.15)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-violet-300/90">
-                Trusted Partners
-              </span>
-            </motion.div>
-
-            {/* Headline */}
+            
+            {/* Main Headline */}
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-white tracking-tight leading-[1.1] mb-6"
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-white tracking-tight leading-[1.1] mb-8"
             >
-              Powering <br className="hidden lg:block" />
+              Trusted{" "}
               <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                hundreds
-              </span>{" "}
-              of events
+                Partners
+              </span>
             </motion.h2>
+
+            {/* Stats moved directly beneath Headline */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex gap-8 mb-10 justify-center lg:justify-start"
+            >
+              <div>
+                <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                  500+
+                </div>
+                <div className="text-xs text-white/40 uppercase tracking-wider font-medium mt-1">
+                  Events
+                </div>
+              </div>
+              <div className="w-px bg-white/10" />
+              <div>
+                <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                  60+
+                </div>
+                <div className="text-xs text-white/40 uppercase tracking-wider font-medium mt-1">
+                  Partners
+                </div>
+              </div>
+              <div className="w-px bg-white/10" />
+              <div>
+                <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                  10+
+                </div>
+                <div className="text-xs text-white/40 uppercase tracking-wider font-medium mt-1">
+                  Countries
+                </div>
+              </div>
+            </motion.div>
 
             {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[#A1A1AA] text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0 mb-10"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-[#A1A1AA] text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0"
             >
               Connect to the largest ecosystem of event technology partners. We
               collaborate with leading brands, government agencies, and
               international organizations.
             </motion.p>
 
-            {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex justify-center lg:justify-start"
-            >
-              <button
-                className="group relative px-7 py-3.5 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #7C3AED 0%, #4F46E5 50%, #3B82F6 100%)",
-                }}
-              >
-                <span className="relative z-10">View all integrations</span>
-                <div
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{ boxShadow: "0 0 40px rgba(139,92,246,0.4)" }}
-                />
-              </button>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex gap-8 mt-12 justify-center lg:justify-start"
-            >
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-white">
-                  500+
-                </div>
-                <div className="text-xs text-white/30 uppercase tracking-wider mt-1">
-                  Events
-                </div>
-              </div>
-              <div className="w-px bg-white/10" />
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-white">
-                  60+
-                </div>
-                <div className="text-xs text-white/30 uppercase tracking-wider mt-1">
-                  Partners
-                </div>
-              </div>
-              <div className="w-px bg-white/10" />
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-white">
-                  10+
-                </div>
-                <div className="text-xs text-white/30 uppercase tracking-wider mt-1">
-                  Countries
-                </div>
-              </div>
-            </motion.div>
           </div>
 
           {/* ═══ RIGHT COLUMN — 3D Logo Sphere ═══ */}
@@ -207,28 +163,28 @@ export default function IntegrationsSection() {
               containerSize={560}
               sphereRadius={240}
               autoRotate={true}
-              autoRotateSpeed={0.2}
+              autoRotateSpeed={0.06} // Slowed down rotation
               dragSensitivity={0.4}
             />
           </motion.div>
         </div>
       </div>
 
-      {/* ═══ IN2IT STYLE — Top Glowing Purple Border ═══ */}
+      {/* Top Glowing Purple Border */}
       <div className="absolute top-0 left-0 w-full h-[2px] z-30">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500 to-transparent h-[2px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_rgba(168,85,247,0.6),0_0_30px_rgba(168,85,247,0.3)]" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-purple-500/15 blur-[25px] rounded-full pointer-events-none" />
       </div>
 
-      {/* ═══ IN2IT STYLE — Bottom Glowing Purple Border ═══ */}
+      {/* Bottom Glowing Purple Border */}
       <div className="absolute bottom-0 left-0 w-full h-[2px] z-30">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500 to-transparent h-[2px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_rgba(168,85,247,0.6),0_0_30px_rgba(168,85,247,0.3)]" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-purple-500/15 blur-[25px] rounded-full pointer-events-none" />
       </div>
 
-      {/* ═══ IN2IT STYLE — Side Accent Glows ═══ */}
+      {/* Side Accent Glows */}
       <div className="absolute top-0 left-0 w-[2px] h-full z-30">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/40 to-transparent" />
       </div>
@@ -236,11 +192,6 @@ export default function IntegrationsSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/40 to-transparent" />
       </div>
 
-      {/* Corner glow accents */}
-      <div className="absolute top-0 left-0 w-32 h-32 bg-purple-600/5 blur-[40px] rounded-full pointer-events-none z-0" />
-      <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/5 blur-[40px] rounded-full pointer-events-none z-0" />
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-600/5 blur-[40px] rounded-full pointer-events-none z-0" />
-      <div className="absolute bottom-0 right-0 w-32 h-32 bg-purple-600/5 blur-[40px] rounded-full pointer-events-none z-0" />
     </section>
   );
 }
