@@ -79,7 +79,7 @@ export default function IntegrationsSection() {
       />
 
       {/* Inner content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-28">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 py-12 md:py-16">
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 items-center">
           
           {/* ═══ LEFT COLUMN — Text & Stats ═══ */}
@@ -91,7 +91,7 @@ export default function IntegrationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-white tracking-tight leading-[1.1] mb-8"
+              className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold text-white tracking-tight leading-[1.1] mb-8"
             >
               Trusted{" "}
               <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
