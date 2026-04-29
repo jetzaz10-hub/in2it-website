@@ -111,7 +111,7 @@ export default function IntegrationsSection() {
                 <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                   500+
                 </div>
-                <div className="text-xs text-white/40 uppercase tracking-wider font-medium mt-1">
+                <div className="text-xs text-white/70 uppercase tracking-wider font-medium mt-1">
                   Events
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function IntegrationsSection() {
                 <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                   60+
                 </div>
-                <div className="text-xs text-white/40 uppercase tracking-wider font-medium mt-1">
+                <div className="text-xs text-white/70 uppercase tracking-wider font-medium mt-1">
                   Partners
                 </div>
               </div>
@@ -129,7 +129,7 @@ export default function IntegrationsSection() {
                 <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                   10+
                 </div>
-                <div className="text-xs text-white/40 uppercase tracking-wider font-medium mt-1">
+                <div className="text-xs text-white/70 uppercase tracking-wider font-medium mt-1">
                   Countries
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function IntegrationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-[#A1A1AA] text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0"
+              className="text-zinc-200 text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0"
             >
               Connect to the largest ecosystem of event technology partners. We
               collaborate with leading brands, government agencies, and
