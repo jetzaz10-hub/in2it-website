@@ -48,7 +48,12 @@ const contactItems = [
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-24 bg-black">
+    <section id="contact" className="py-24 bg-black relative overflow-hidden">
+      {/* Subtle background gradient ambience */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/3 left-[-10%] w-[500px] h-[500px] bg-[#4A32FF]/20 rounded-full blur-[140px] opacity-30" />
+        <div className="absolute bottom-1/3 right-[-10%] w-[400px] h-[400px] bg-[#FF6600]/15 rounded-full blur-[120px] opacity-30" />
+      </div>
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
