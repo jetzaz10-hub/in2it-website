@@ -12,6 +12,11 @@ interface GradientCardProps {
 }
 
 export const GradientCard = ({ title, description, icon, colorRight, colorLeft, colorCenter }: GradientCardProps) => {
+  // Helper to reliably change the alpha channel of an rgba string
+  const setOpacity = (colorStr: string, alpha: string) => {
+    return colorStr.replace(/[\d.]+\)$/, `${alpha})`);
+  };
+
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
@@ -34,20 +39,20 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
   }, []);
 
   // Extract colors with different opacities for the border and glow
-  const borderColor = colorCenter.replace("0.95)", "0.2)").replace("0.7)", "0.2)");
-  const glowColor = colorCenter.replace("0.95)", "0.1)").replace("0.15)", "0.1)").replace("0.7)", "0.1)");
-  const insetGlow = colorCenter.replace("0.95)", "0.03)").replace("0.7)", "0.03)");
+  const borderColor = setOpacity(colorCenter, "0.2");
+  const glowColor = setOpacity(colorCenter, "0.1");
+  const insetGlow = setOpacity(colorCenter, "0.03");
   
-  const shadowRight = colorRight.replace("0.95)", "0.3)").replace("0.7)", "0.3)");
-  const shadowCenter = colorCenter.replace("0.95)", "0.3)").replace("0.7)", "0.3)");
-  const shadowLeft = colorLeft.replace("0.95)", "0.3)").replace("0.7)", "0.3)");
+  const shadowRight = setOpacity(colorRight, "0.3");
+  const shadowCenter = setOpacity(colorCenter, "0.3");
+  const shadowLeft = setOpacity(colorLeft, "0.3");
 
   return (
     <motion.div
       ref={cardRef}
       className="relative w-full h-full rounded-[32px] overflow-hidden group"
       style={{
-        "--card-color": colorCenter.replace("0.7)", "1)"),
+        "--card-color": setOpacity(colorCenter, "1"),
         border: `1px solid ${borderColor}`,
         transformStyle: "preserve-3d",
         backgroundColor: "rgba(255,255,255,0.03)",
@@ -59,7 +64,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         rotateX: rotation.x,
         rotateY: rotation.y,
         boxShadow: isHovered
-          ? `0 0 35px ${colorCenter.replace("0.7)", "0.3)")}, inset 0 0 25px ${colorCenter.replace("0.7)", "0.1)")}, 0 15px 40px 0 rgba(0,0,0,0.45)`
+          ? `0 0 35px ${setOpacity(colorCenter, "0.3")}, inset 0 0 25px ${setOpacity(colorCenter, "0.1")}, 0 15px 40px 0 rgba(0,0,0,0.45)`
           : `0 0 25px ${glowColor}, inset 0 0 15px ${insetGlow}, 0 8px 32px 0 rgba(0,0,0,0.37)`
       }}
       transition={{
@@ -143,12 +148,16 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
 
       {/* Card content */}
       <div className="relative flex flex-col h-full p-12 md:p-14 gap-6 z-40">
-        {/* Icon Container */}
+        {/* Icon Container - Glassmorphism Style */}
         <div
-          className="relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+          className="relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg"
           style={{
-            backgroundColor: isHovered ? colorCenter.replace("0.7)", "0.2)") : colorCenter.replace("0.7)", "0.1)"),
-            color: isHovered ? colorCenter.replace("0.7)", "1)") : colorCenter.replace("0.7)", "0.8)"),
+            backgroundColor: isHovered ? setOpacity(colorCenter, "0.2") : setOpacity(colorCenter, "0.1"),
+            color: isHovered ? setOpacity(colorCenter, "1") : setOpacity(colorCenter, "0.8"),
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: `1px solid ${isHovered ? setOpacity(colorCenter, "0.4") : setOpacity(colorCenter, "0.2")}`,
+            boxShadow: `inset 0 1px 1px ${setOpacity(colorCenter, "0.4")}`,
           }}
         >
           {icon}
@@ -157,7 +166,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         <div className="relative mb-auto">
           <h3
             className="text-2xl font-bold mb-3 tracking-tight transition-colors duration-300"
-            style={{ color: isHovered ? colorCenter.replace("0.7)", "1)") : "#ffffff" }}
+            style={{ color: isHovered ? setOpacity(colorCenter, "1") : "#ffffff" }}
           >
             {title}
           </h3>
