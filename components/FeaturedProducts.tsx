@@ -137,7 +137,7 @@ export default function FeaturedProducts() {
         </div>
 
         {/* Cards Grid */}
-        <div className="w-full flex justify-center mt-12">
+        <div className="w-full flex justify-center mt-20">
           <div className="flex flex-wrap gap-16 md:gap-20 lg:gap-24 items-center justify-center px-2">
             {products.map((product, idx) => (
               <motion.div
