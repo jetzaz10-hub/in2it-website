@@ -94,7 +94,7 @@ export default function IntegrationsSection() {
               className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold text-white tracking-tight leading-[1.1] mb-8"
             >
               Trusted{" "}
-              <span className="bg-gradient-to-r from-[#2563EB] via-[#7C3AED] to-[#D11A41] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FF2A54] via-[#D11A41] to-[#9E1030] bg-clip-text text-transparent">
                 Partners
               </span>
             </motion.h2>
