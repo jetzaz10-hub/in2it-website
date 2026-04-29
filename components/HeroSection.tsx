@@ -15,17 +15,25 @@ export default function HeroSection() {
 
     const streamUrl = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
 
+    const setSlowMotion = () => {
+      video.playbackRate = 0.5; // Smooth subtle slow motion
+    };
+
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       // Native Safari/iOS support
       video.src = streamUrl;
-      video.play().catch((e) => console.log("Auto-play prevented:", e));
+      video.play()
+        .then(setSlowMotion)
+        .catch((e) => console.log("Auto-play prevented:", e));
     } else if (Hls.isSupported()) {
       // HLS.js fallback for Chrome/Firefox/Edge
       const hls = new Hls();
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play().catch((e) => console.log("Auto-play prevented:", e));
+        video.play()
+          .then(setSlowMotion)
+          .catch((e) => console.log("Auto-play prevented:", e));
       });
     }
   }, []);
