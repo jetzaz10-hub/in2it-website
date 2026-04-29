@@ -75,7 +75,7 @@ const imageVariants: Variants = {
     rotate: 0,
   },
   onscreen: (customRotate: number) => ({
-    y: -100, // Bounces higher out from the top-back of the card
+    y: -80, 
     opacity: 1,
     scale: 1,
     rotate: customRotate,
@@ -125,8 +125,8 @@ export default function FeaturedProducts() {
 
       <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
         
-        {/* Heading Section */}
-        <div className="flex flex-col items-center mb-32">
+        {/* Heading Section (Increased margin to avoid overlap) */}
+        <div className="flex flex-col items-center mb-48">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +142,7 @@ export default function FeaturedProducts() {
         </div>
 
         {/* Cards Grid */}
-        <div className="w-full flex justify-center mt-32">
+        <div className="w-full flex justify-center mt-16">
           <div className="flex flex-wrap gap-16 md:gap-20 lg:gap-24 items-center justify-center px-2">
             {products.map((product, idx) => (
               <motion.div
@@ -154,8 +154,8 @@ export default function FeaturedProducts() {
                 className="relative w-full sm:w-[340px] md:w-[360px] cursor-pointer group mt-24"
                 onClick={() => window.open(product.link, "_blank")}
               >
-                {/* Bouncing Product Image (Tilted & positioned BEHIND the card) */}
-                <div className="absolute -top-[110px] left-1/2 -translate-x-1/2 z-0 w-[300px] h-[210px] pointer-events-none">
+                {/* Bouncing Product Image (Matching card rotation BEHIND the card) */}
+                <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 z-0 w-[280px] h-[180px] pointer-events-none">
                   <motion.div
                     initial="offscreen"
                     whileInView="onscreen"
@@ -168,7 +168,7 @@ export default function FeaturedProducts() {
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-contain bg-[#0D0D0D]"
+                      className="w-full h-full object-cover"
                     />
                   </motion.div>
                 </div>
