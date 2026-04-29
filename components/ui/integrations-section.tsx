@@ -104,7 +104,7 @@ export default function IntegrationsSection() {
               className="text-zinc-300 text-xl leading-relaxed max-w-[800px] mx-auto lg:mx-0"
             >
               <span className="block lg:whitespace-nowrap">Connect to the largest ecosystem of event technology partners.</span>
-              <span className="block lg:whitespace-nowrap">We collaborate with leading brands, government agencies, and international organizations.</span>
+              <span className="block lg:whitespace-nowrap">We collaborate with leading brands, government agencies and international organizations.</span>
             </motion.div>
 
           </div>
