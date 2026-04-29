@@ -104,18 +104,10 @@ export default function FeaturedProducts() {
   return (
     <section id="products" className="py-32 bg-transparent text-white overflow-hidden relative">
       
-      {/* Background Ambient Glows (Breathing Animation) */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-[#FF6600]/30 rounded-full blur-[130px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.5, 0.2] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[5%] right-[10%] w-[600px] h-[600px] bg-[#4634F8]/20 rounded-full blur-[150px]" 
-        />
+      {/* Background Ambient Glows (Static to prevent GPU layout lag) */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-[#FF6600]/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[5%] right-[10%] w-[600px] h-[600px] bg-[#4634F8]/15 rounded-full blur-[130px]" />
       </div>
 
       <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
@@ -150,7 +142,7 @@ export default function FeaturedProducts() {
                 onClick={() => window.open(product.link, "_blank")}
               >
                 {/* The Card Itself (Explicitly z-10 to overlay image) */}
-                <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 z-10 relative ${product.colors.shadow}`}>
+                <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 z-10 relative will-change-transform ${product.colors.shadow}`}>
                   
                   {/* Bouncing Product Icon & Glow (Nested inside, matching card center perfectly) */}
                   <div className="absolute -top-[120px] left-1/2 -translate-x-1/2 z-[-1] w-[200px] h-[200px] pointer-events-none">
@@ -160,7 +152,7 @@ export default function FeaturedProducts() {
                       exit="offscreen"
                       viewport={{ amount: 0.3 }}
                       variants={imageVariants}
-                      className="w-full h-full relative flex items-center justify-center"
+                      className="w-full h-full relative flex items-center justify-center will-change-transform"
                     >
                       {/* Soft colorful gradient shining down from top-center */}
                       <div 
