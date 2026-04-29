@@ -70,11 +70,13 @@ const imageVariants: Variants = {
     y: 40,
     opacity: 0,
     scale: 0.8,
+    rotate: 0,
   },
   onscreen: {
-    y: -50, // Bounces up above the card
+    y: -70, // Bounces up above the card
     opacity: 1,
     scale: 1,
+    rotate: -10, // Tilt as requested
     transition: {
       type: "spring",
       bounce: 0.4,
@@ -151,20 +153,31 @@ export default function FeaturedProducts() {
                 onClick={() => window.open(product.link, "_blank")}
               >
                 {/* Overlapping Bouncing Product Image */}
-                <div className="absolute -top-[100px] left-1/2 -translate-x-1/2 z-30 w-[220px] h-[140px] pointer-events-none">
+                <div className="absolute -top-[130px] left-1/2 -translate-x-1/2 z-30 w-[180px] h-[240px] pointer-events-none">
                   <motion.div
                     initial="offscreen"
                     whileInView="onscreen"
                     exit="offscreen"
                     viewport={{ amount: 0.5 }}
                     variants={imageVariants}
-                    className="w-full h-full relative shadow-[0_20px_40px_rgba(0,0,0,0.7)] rounded-[14px] overflow-hidden border border-white/10"
+                    style={{ borderColor: `${product.colors.hex}60` }}
+                    className="w-full h-full relative shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] rounded-[14px] border bg-zinc-950/90 backdrop-blur-sm p-3 pb-12 flex flex-col gap-3"
                   >
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="w-full h-full object-cover"
-                    />
+                    <div className="w-full h-full relative rounded-[10px] overflow-hidden">
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    
+                    {/* Card Footer Accent Dot */}
+                    <div className="flex justify-center items-center mt-1">
+                      <div 
+                        className="w-2 h-2 rounded-full opacity-70 animate-pulse" 
+                        style={{ backgroundColor: product.colors.hex, boxShadow: `0 0 8px ${product.colors.hex}` }}
+                      />
+                    </div>
                   </motion.div>
                 </div>
 
