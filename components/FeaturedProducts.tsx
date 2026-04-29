@@ -71,7 +71,7 @@ const imageVariants: Variants = {
     scale: 0.85,
   },
   onscreen: {
-    y: -90, 
+    y: -50, 
     opacity: 1,
     scale: 1,
     transition: {
