@@ -9,7 +9,7 @@ const whyFeatures = [
     title: "One-stop Provider",
     description: "Everything from registration to staging under one expert roof.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M16 48c0-10 8-18 18-18s18 8 18 18-8 18-18 18S16 58 16 48z" />
         <path d="M80 48c0-10-8-18-18-18S44 38 44 48s8 18 18 18 18-8 18-18z" />
         <line x1="34" y1="41" x2="44" y2="48" />
@@ -23,7 +23,7 @@ const whyFeatures = [
     title: "Tech Expertise",
     description: "Deep technical knowledge matched with real operational experience.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <rect x="28" y="28" width="40" height="40" rx="6" />
         <rect x="37" y="37" width="22" height="22" rx="3" />
         <line x1="16" y1="38" x2="28" y2="38" /><line x1="16" y1="48" x2="28" y2="48" /><line x1="16" y1="58" x2="28" y2="58" />
@@ -37,7 +37,7 @@ const whyFeatures = [
     title: "Scalable",
     description: "From intimate corporate workshops to large-scale festivals.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <line x1="16" y1="16" x2="16" y2="76" />
         <line x1="16" y1="76" x2="82" y2="76" />
         <polyline points="24,64 40,50 55,55 72,28" />
@@ -49,7 +49,7 @@ const whyFeatures = [
     title: "Integrated",
     description: "Unified data flow between registration, social media, and CRM.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <rect x="36" y="10" width="24" height="16" rx="4" />
         <rect x="10" y="58" width="22" height="16" rx="4" />
         <rect x="64" y="58" width="22" height="16" rx="4" />
@@ -65,7 +65,7 @@ const whyFeatures = [
     title: "Customization",
     description: "Solutions tailored to match your goals and requirements.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <line x1="14" y1="28" x2="82" y2="28" />
         <circle cx="32" cy="28" r="8" fill="currentColor" fillOpacity="0.2" />
         <line x1="14" y1="48" x2="82" y2="48" />
