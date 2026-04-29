@@ -108,7 +108,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 className={`
-                  flex items-center gap-1.5 px-4 py-2 text-[15px] font-bold text-white/80 hover:text-white transition-colors uppercase tracking-wider
+                  flex items-center gap-1.5 px-4 py-2 text-[14px] font-semibold text-white/80 hover:text-white transition-colors uppercase tracking-wider
                 `}
               >
                 {link.label}
@@ -131,7 +131,7 @@ export default function Navbar() {
                         <button
                           key={item.id}
                           onClick={() => handleNavJump(item.id)}
-                          className="w-full text-left px-4 py-2.5 text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white rounded-lg transition-all"
+                          className="w-full text-left px-4 py-2.5 text-md font-medium text-white/70 hover:bg-white/5 hover:text-white rounded-lg transition-all"
                         >
                           {item.label}
                         </button>
@@ -150,7 +150,7 @@ export default function Navbar() {
             href="https://in2it-service.com/registration/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-[13px] font-bold uppercase tracking-widest px-6 py-2.5 rounded-full transition-all hover:scale-[1.05] active:scale-95 shadow-[0_0_20px_rgba(255,102,0,0.3)]"
+            className="text-white text-[13px] font-semibold uppercase tracking-widest px-6 py-2.5 rounded-full transition-all hover:scale-[1.05] active:scale-95 shadow-[0_0_20px_rgba(255,102,0,0.3)]"
             style={{ background: "linear-gradient(to right, #FF6600, #FF3366)" }}
           >
             Sale Site
