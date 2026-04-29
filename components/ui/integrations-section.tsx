@@ -54,7 +54,7 @@ export default function IntegrationsSection() {
               className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold text-white tracking-tight leading-[1.1] mb-8"
             >
               Trusted{" "}
-              <span className="text-[#D11A41]">
+              <span className="text-[#FF3366]">
                 Partners
               </span>
             </motion.h2>
