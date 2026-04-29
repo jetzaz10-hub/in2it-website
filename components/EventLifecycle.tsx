@@ -589,8 +589,7 @@ export default function EventLifecycle() {
       {/* Top transition overlay */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
 
-      {/* Intense IN2IT Orange Transition Gradient */}
-      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#FF6600]/50 via-[#FF6600]/10 to-transparent z-10 pointer-events-none" />
+      {/* Intense IN2IT Orange Transition Gradient removed to unify with OurServices */}
 
       <motion.div
         style={{ scale: sectionScale, opacity: sectionOpacity }}

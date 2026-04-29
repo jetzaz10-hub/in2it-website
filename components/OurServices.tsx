@@ -218,8 +218,8 @@ export default function OurServices() {
       ref={containerRef}
       className="relative h-[550vh] pt-11 z-10"
     >
-      {/* Fill the empty space behind the rounded corners with the orange gradient from the section above */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#FF6600]/50 to-transparent z-[-2]" />
+      {/* Fill the empty space behind the rounded corners with the exact solid orange color */}
+      <div className="absolute -top-[2px] left-0 w-full h-32 bg-[#FF6600]/50 z-[-2]" />
       
       {/* The main rounded black background */}
       <div className="absolute inset-0 bg-black rounded-t-[40px] md:rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] z-[-1]" />
