@@ -50,7 +50,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-24 bg-black relative overflow-hidden">
       {/* Subtle background gradient ambience */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-1/3 left-[-10%] w-[600px] h-[600px] bg-[#4A32FF]/35 rounded-full blur-[110px]" />
         <div className="absolute bottom-1/3 right-[-10%] w-[500px] h-[500px] bg-[#FF6600]/35 rounded-full blur-[100px]" />
       </div>
@@ -59,7 +59,7 @@ export default function ContactSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-5%" }}
         transition={{ duration: 0.4, ease: "linear" }}
-        className="max-w-[1280px] mx-auto px-8"
+        className="max-w-[1280px] mx-auto px-8 relative z-10"
       >
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           {/* Left */}
