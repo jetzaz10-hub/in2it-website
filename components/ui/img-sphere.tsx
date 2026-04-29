@@ -116,7 +116,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
 
     const fadeStart = -15;
     const fadeEnd = -sphereRadius * 0.55;
-    const imageSize = Math.max(50, Math.min(66, containerSize * 0.115));
+    const imageSize = Math.max(64, Math.min(80, containerSize * 0.14));
     const half = containerSize / 2;
 
     // Directly update each DOM element
@@ -297,7 +297,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
             <img
               src={img.src}
               alt={img.alt}
-              className="w-[72%] h-[72%] object-contain pointer-events-none select-none"
+              className="w-[82%] h-[82%] object-contain pointer-events-none select-none"
               draggable={false}
               loading="lazy"
             />
