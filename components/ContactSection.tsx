@@ -51,8 +51,8 @@ export default function ContactSection() {
     <section id="contact" className="py-24 bg-black relative overflow-hidden">
       {/* Subtle background gradient ambience */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/3 left-[-10%] w-[500px] h-[500px] bg-[#4A32FF]/20 rounded-full blur-[140px] opacity-30" />
-        <div className="absolute bottom-1/3 right-[-10%] w-[400px] h-[400px] bg-[#FF6600]/15 rounded-full blur-[120px] opacity-30" />
+        <div className="absolute top-1/3 left-[-10%] w-[600px] h-[600px] bg-[#4A32FF]/35 rounded-full blur-[110px]" />
+        <div className="absolute bottom-1/3 right-[-10%] w-[500px] h-[500px] bg-[#FF6600]/35 rounded-full blur-[100px]" />
       </div>
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
