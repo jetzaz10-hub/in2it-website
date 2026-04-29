@@ -39,7 +39,6 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
   }, []);
 
   // Extract colors with different opacities for the border and glow
-  const borderColor = setOpacity(colorCenter, "0.2");
   const glowColor = setOpacity(colorCenter, "0.1");
   const insetGlow = setOpacity(colorCenter, "0.03");
   
@@ -53,16 +52,18 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
       className="relative w-full h-full rounded-[32px] overflow-hidden group"
       style={{
         "--card-color": setOpacity(colorCenter, "1"),
-        border: `1px solid ${borderColor}`,
+        borderWidth: "1px",
+        borderStyle: "solid",
         transformStyle: "preserve-3d",
         backgroundColor: "rgba(255,255,255,0.03)",
         willChange: "transform",
       } as React.CSSProperties}
-      initial={{ y: 0, rotateX: 0, rotateY: 0 }}
+      initial={{ y: 0, rotateX: 0, rotateY: 0, borderColor: setOpacity(colorCenter, "0.35") }}
       animate={{
         y: isHovered ? -16 : 0,
         rotateX: rotation.x,
         rotateY: rotation.y,
+        borderColor: isHovered ? setOpacity(colorCenter, "0.6") : setOpacity(colorCenter, "0.35"),
         boxShadow: isHovered
           ? `0 0 35px ${setOpacity(colorCenter, "0.3")}, inset 0 0 25px ${setOpacity(colorCenter, "0.1")}, 0 15px 40px 0 rgba(0,0,0,0.45)`
           : `0 0 25px ${glowColor}, inset 0 0 15px ${insetGlow}, 0 8px 32px 0 rgba(0,0,0,0.37)`
@@ -152,7 +153,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         <div
           className="relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg"
           style={{
-            backgroundColor: isHovered ? setOpacity(colorCenter, "0.2") : setOpacity(colorCenter, "0.1"),
+            backgroundColor: isHovered ? setOpacity(colorCenter, "0.25") : setOpacity(colorCenter, "0.15"),
             color: isHovered ? setOpacity(colorCenter, "1") : setOpacity(colorCenter, "0.8"),
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
