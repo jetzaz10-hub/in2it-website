@@ -22,7 +22,7 @@ const products = [
       hex: "#FF6600"
     },
     rotate: "-rotate-3",
-    imgRotate: -8,
+    imgRotate: -3,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
   },
   {
@@ -42,7 +42,7 @@ const products = [
       hex: "#4634F8"
     },
     rotate: "rotate-2",
-    imgRotate: 6,
+    imgRotate: 2,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
   },
   {
@@ -62,7 +62,7 @@ const products = [
       hex: "#E60039"
     },
     rotate: "-rotate-2",
-    imgRotate: -5,
+    imgRotate: -2,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46"
   },
 ];
@@ -75,7 +75,7 @@ const imageVariants: Variants = {
     rotate: 0,
   },
   onscreen: (customRotate: number) => ({
-    y: -80, // Bounces high out from the top-back of the card
+    y: -100, // Bounces higher out from the top-back of the card
     opacity: 1,
     scale: 1,
     rotate: customRotate,
@@ -142,7 +142,7 @@ export default function FeaturedProducts() {
         </div>
 
         {/* Cards Grid */}
-        <div className="w-full flex justify-center mt-10">
+        <div className="w-full flex justify-center mt-32">
           <div className="flex flex-wrap gap-16 md:gap-20 lg:gap-24 items-center justify-center px-2">
             {products.map((product, idx) => (
               <motion.div
@@ -155,7 +155,7 @@ export default function FeaturedProducts() {
                 onClick={() => window.open(product.link, "_blank")}
               >
                 {/* Bouncing Product Image (Tilted & positioned BEHIND the card) */}
-                <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 z-0 w-[280px] h-[180px] pointer-events-none">
+                <div className="absolute -top-[110px] left-1/2 -translate-x-1/2 z-0 w-[300px] h-[210px] pointer-events-none">
                   <motion.div
                     initial="offscreen"
                     whileInView="onscreen"
@@ -168,7 +168,7 @@ export default function FeaturedProducts() {
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain bg-[#0D0D0D]"
                     />
                   </motion.div>
                 </div>
