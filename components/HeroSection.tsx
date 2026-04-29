@@ -16,7 +16,7 @@ export default function HeroSection() {
     const streamUrl = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
 
     const setSlowMotion = () => {
-      video.playbackRate = 0.5; // Smooth subtle slow motion
+      video.playbackRate = 0.1; // Smooth subtle slow motion
     };
 
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
