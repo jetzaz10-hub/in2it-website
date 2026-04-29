@@ -7,51 +7,11 @@ import type { ImageData } from "./img-sphere";
 // Dynamically import the sphere (uses refs and pointer events — SSR-unsafe)
 const SphereImageGrid = dynamic(() => import("./img-sphere"), { ssr: false });
 
-/* ─── All partner logos fed into the sphere (Pruned broken files) ─── */
-const sphereLogos: ImageData[] = [
-  { id: "abbott", src: "/partners/Abbott.png", alt: "Abbott" },
-  { id: "amata", src: "/partners/AMATA.png", alt: "AMATA" },
-  { id: "amazing", src: "/partners/Amazing_Thailand.png", alt: "Amazing Thailand" },
-  { id: "blackitch", src: "/partners/Blackitch.png", alt: "Blackitch" },
-  { id: "cmu", src: "/partners/CMU.png", alt: "CMU" },
-  { id: "cru", src: "/partners/CRU.png", alt: "CRU" },
-  { id: "child", src: "/partners/Child_Development_Foundation.png", alt: "Child Dev. Foundation" },
-  { id: "delta", src: "/partners/Delta.png", alt: "Delta" },
-  { id: "don", src: "/partners/DON_Creative.png", alt: "DON Creative" },
-  { id: "iacio", src: "/partners/IACIO.png", alt: "IACIO" },
-  { id: "icird", src: "/partners/ICIRD.png", alt: "ICIRD" },
-  { id: "idext", src: "/partners/Idext.png", alt: "Idext" },
-  { id: "ifeat", src: "/partners/IFEAT.png", alt: "IFEAT" },
-  { id: "indeed", src: "/partners/Indeed_Creation.png", alt: "Indeed Creation" },
-  { id: "indego", src: "/partners/Indego_Idea.png", alt: "Indego Idea" },
-  { id: "kenan", src: "/partners/Kenan.png", alt: "Kenan" },
-  { id: "kx", src: "/partners/KX.png", alt: "KX" },
-  { id: "medcmu", src: "/partners/MedCMU.png", alt: "MedCMU" },
-  { id: "menarini", src: "/partners/Menarini.png", alt: "Menarini" },
-  { id: "meta", src: "/partners/Meta.png", alt: "Meta" },
-  { id: "mice", src: "/partners/MICE_Youth_Challenge.png", alt: "MICE Youth Challenge" },
-  { id: "mims", src: "/partners/MIMS.png", alt: "MIMS" },
-  { id: "moph", src: "/partners/MOPH.png", alt: "MOPH" },
-  { id: "motorexpo", src: "/partners/Motor_Expo.png", alt: "Motor Expo" },
-  { id: "msdhs", src: "/partners/MSDHS.png", alt: "MSDHS" },
-  { id: "otsuka", src: "/partners/Otsuka.png", alt: "Otsuka" },
-  { id: "pata", src: "/partners/PATA.png", alt: "PATA" },
-  { id: "proflex", src: "/partners/Proflex.png", alt: "Proflex" },
-  { id: "sake", src: "/partners/Sake_Merchant.png", alt: "Sake Merchant" },
-  { id: "site", src: "/partners/Site_Thailand.png", alt: "Site Thailand" },
-  { id: "swire", src: "/partners/Swire_Coca_Cola.png", alt: "Swire Coca-Cola" },
-  { id: "tat", src: "/partners/TAT.png", alt: "TAT" },
-  { id: "tceb", src: "/partners/TCEB.png", alt: "TCEB" },
-  { id: "tea", src: "/partners/TEA.png", alt: "TEA" },
-  { id: "techsauce", src: "/partners/TechSauce.png", alt: "TechSauce" },
-  { id: "thaiod", src: "/partners/Thai_IOD.png", alt: "Thai IOD" },
-  { id: "norwegian", src: "/partners/Thai_Norwegian_Chamber.png", alt: "Thai-Norwegian Chamber" },
-  { id: "thammasat", src: "/partners/Thammasat_University.png", alt: "Thammasat University" },
-  { id: "tica", src: "/partners/TICA.png", alt: "TICA" },
-  { id: "vnu", src: "/partners/vnu.png", alt: "VNU Exhibitions" },
-  { id: "wrg", src: "/partners/WRG.png", alt: "WRG" },
-  { id: "yindee", src: "/partners/Yindee.png", alt: "Yindee" },
-];
+const sphereLogos: ImageData[] = Array.from({ length: 42 }, (_, i) => ({
+  id: `partner-${i + 1}`,
+  src: `/partners/partner logo/${i + 1}.png`,
+  alt: `Partner ${i + 1}`,
+}));
 
 export default function IntegrationsSection() {
   return (
