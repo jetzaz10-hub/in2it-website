@@ -232,7 +232,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, rgba(139,92,246,0.12) 40%, rgba(59,130,246,0.06) 70%, transparent 90%)",
+          background: "radial-gradient(circle, rgba(99,102,241,0.35) 0%, rgba(139,92,246,0.25) 40%, rgba(59,130,246,0.12) 70%, transparent 90%)",
           filter: "blur(40px)",
         }}
       />
@@ -246,7 +246,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(139,92,246,0.1) 40%, rgba(99,102,241,0.06) 70%, transparent 100%)",
+          background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(139,92,246,0.3) 40%, rgba(99,102,241,0.15) 70%, transparent 100%)",
           filter: "blur(10px)",
         }}
       />
