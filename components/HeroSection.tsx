@@ -13,18 +13,20 @@ export default function HeroSection() {
     const video = videoRef.current;
     if (!video) return;
 
-    video.playbackRate = 0.6; // Slow down video smoothly
-
     const streamUrl = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
 
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       // Native Safari/iOS support
       video.src = streamUrl;
+      video.play().catch((e) => console.log("Auto-play prevented:", e));
     } else if (Hls.isSupported()) {
       // HLS.js fallback for Chrome/Firefox/Edge
       const hls = new Hls();
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch((e) => console.log("Auto-play prevented:", e));
+      });
     }
   }, []);
 
