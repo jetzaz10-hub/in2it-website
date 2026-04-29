@@ -173,7 +173,7 @@ function PhaseDetail({
           className="w-3 h-3 rounded-full"
           style={{ background: phase.colorActive }}
         />
-        <h3 className="text-3xl font-bold text-white tracking-tight">
+        <h3 className="text-4xl font-bold text-white tracking-tight">
           {phase.label.join(" ")}
         </h3>
       </div>
@@ -214,7 +214,7 @@ function PhaseDetail({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="px-8 pb-6 text-[15px] text-gray-500 leading-relaxed">
+                    <p className="px-8 pb-6 text-[18px] text-gray-500 leading-relaxed">
                       {item.description}
                     </p>
                   </motion.div>

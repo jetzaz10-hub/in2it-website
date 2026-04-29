@@ -71,7 +71,7 @@ export default function IntegrationsSection() {
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   500+
                 </div>
-                <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
+                <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Events
                 </div>
               </div>
@@ -80,7 +80,7 @@ export default function IntegrationsSection() {
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   40+
                 </div>
-                <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
+                <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Partners
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function IntegrationsSection() {
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   10+
                 </div>
-                <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
+                <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Years
                 </div>
               </div>

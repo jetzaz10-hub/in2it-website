@@ -4,37 +4,21 @@ import { useRef, useEffect } from "react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import ShinyText from "./ShinyText";
-import Hls from "hls.js";
 
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Re-implement the 8-second loop logic for a smoother cinematic feel
+  const handleTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.currentTime >= 8) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    }
+  };
+
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const streamUrl = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
-
-    const setSlowMotion = () => {
-      video.playbackRate = 0.1; // Smooth subtle slow motion
-    };
-
-    if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      // Native Safari/iOS support
-      video.src = streamUrl;
-      video.play()
-        .then(setSlowMotion)
-        .catch((e) => console.log("Auto-play prevented:", e));
-    } else if (Hls.isSupported()) {
-      // HLS.js fallback for Chrome/Firefox/Edge
-      const hls = new Hls();
-      hls.loadSource(streamUrl);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play()
-          .then(setSlowMotion)
-          .catch((e) => console.log("Auto-play prevented:", e));
-      });
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.6; // Slow down video smoothly
     }
   }, []);
 
@@ -46,11 +30,13 @@ export default function HeroSection() {
           ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
+          onTimeUpdate={handleTimeUpdate}
           className="absolute inset-0 w-full h-full object-cover opacity-[0.25] will-change-transform"
-        />
+        >
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4" />
+        </video>
         {/* Dark Overlay Gradient - Stronger fade to make it more opaque */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 via-70% to-black" />
       </div>
@@ -90,7 +76,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-white/60 text-xs lg:text-base leading-relaxed max-w-1xl mx-auto mb-6"
+              className="text-white/60 text-lg lg:text-xl leading-relaxed max-w-1xl mx-auto mb-6"
             >
               We deliver end-to-end event technology solutions for the MICE industry with cutting-edge expertise.
             </motion.p>
