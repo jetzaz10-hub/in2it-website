@@ -83,8 +83,17 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
     spherePositions.current = positions;
   }, [images.length]);
 
+  // Track last tick time to limit CPU overhead
+  const lastTickRef = useRef<number>(0);
+
   // ── Main animation loop — directly mutate DOM for max performance ──
-  const tick = useCallback(() => {
+  const tick = useCallback((timestamp: number) => {
+    if (timestamp - lastTickRef.current < 22) { // Caps at approx 45 FPS
+      animRef.current = requestAnimationFrame(tick);
+      return;
+    }
+    lastTickRef.current = timestamp;
+
     const vel = velRef.current;
     const rot = rotRef.current;
 
