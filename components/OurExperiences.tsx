@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, Volume1, VolumeX } from "lucide-react";
 import { cn } from "../lib/utils";
-import MetricsSection from "./MetricsSection";
+
 
 export default function OurExperiences() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -178,10 +178,8 @@ export default function OurExperiences() {
         </div>
       </motion.div>
 
-      {/* Metrics Section Full Width */}
-      <div className="w-full">
-        <MetricsSection />
-      </div>
+
+
 
       {/* CTA Button */}
       <div className="w-full flex justify-center mt-12 mb-20 relative z-20">
