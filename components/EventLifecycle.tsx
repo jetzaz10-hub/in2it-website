@@ -580,6 +580,12 @@ export default function EventLifecycle() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-16 pb-24 bg-black overflow-hidden">
+      {/* Scattered Purple Aura Backgrounds */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/3 right-[-10%] w-[500px] h-[500px] bg-[#9933FF]/20 rounded-full blur-[150px] opacity-40 animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute bottom-1/3 left-[-10%] w-[600px] h-[600px] bg-[#4A32FF]/20 rounded-full blur-[160px] opacity-40 animate-pulse" style={{ animationDuration: '14s' }} />
+      </div>
+
       {/* Top transition overlay */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
 

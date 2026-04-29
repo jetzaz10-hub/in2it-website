@@ -81,8 +81,10 @@ export default function WhyIN2IT() {
   return (
     <section id="why-in2it" className="bg-black py-20 overflow-hidden relative">
       {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#4A32FF]/10 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-[-5%] w-[500px] h-[500px] bg-[#9933FF]/20 rounded-full blur-[140px] opacity-40 animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-1/4 right-[-5%] w-[600px] h-[600px] bg-[#4A32FF]/20 rounded-full blur-[160px] opacity-40 animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FF3366]/10 rounded-full blur-[120px] opacity-30" />
       </div>
 
       <div className="max-w-[1440px] mx-auto px-6 relative z-10">
