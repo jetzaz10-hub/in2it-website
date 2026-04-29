@@ -130,42 +130,42 @@ export default function IntegrationsSection() {
       </div>
 
       {/* Top Curved Glowing Purple Border */}
-      <div className="absolute top-[-30px] left-0 w-full h-[60px] z-30 pointer-events-none">
-        <svg className="w-full h-full overflow-visible" viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <div className="absolute top-0 left-0 w-full h-[100px] z-30 pointer-events-none">
+        <svg className="w-full h-full overflow-visible" viewBox="0 0 1440 100" preserveAspectRatio="none">
           <path
-            d="M 0,0 Q 720,50 1440,0"
+            d="M 0,0 Q 720,90 1440,0"
             fill="none"
             stroke="rgb(168, 85, 247)"
-            strokeWidth="2.5"
-            className="drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+            strokeWidth="3"
+            className="drop-shadow-[0_0_12px_rgba(168,85,247,0.85)]"
           />
           <path
-            d="M 0,0 Q 720,50 1440,0"
+            d="M 0,0 Q 720,90 1440,0"
             fill="none"
             stroke="rgb(192, 132, 252)"
             strokeWidth="1.5"
-            className="drop-shadow-[0_0_20px_rgba(168,85,247,0.6)]"
+            className="drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]"
           />
         </svg>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-purple-500/15 blur-[25px] rounded-full pointer-events-none" />
       </div>
 
       {/* Bottom Curved Glowing Purple Border */}
-      <div className="absolute bottom-[-30px] left-0 w-full h-[60px] z-30 pointer-events-none">
-        <svg className="w-full h-full overflow-visible" viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <div className="absolute bottom-0 left-0 w-full h-[100px] z-30 pointer-events-none">
+        <svg className="w-full h-full overflow-visible" viewBox="0 0 1440 100" preserveAspectRatio="none">
           <path
-            d="M 0,0 Q 720,50 1440,0"
+            d="M 0,10 Q 720,100 1440,10"
             fill="none"
             stroke="rgb(168, 85, 247)"
-            strokeWidth="2.5"
-            className="drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+            strokeWidth="3"
+            className="drop-shadow-[0_0_12px_rgba(168,85,247,0.85)]"
           />
           <path
-            d="M 0,0 Q 720,50 1440,0"
+            d="M 0,10 Q 720,100 1440,10"
             fill="none"
             stroke="rgb(192, 132, 252)"
             strokeWidth="1.5"
-            className="drop-shadow-[0_0_20px_rgba(168,85,247,0.6)]"
+            className="drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]"
           />
         </svg>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-purple-500/15 blur-[25px] rounded-full pointer-events-none" />
