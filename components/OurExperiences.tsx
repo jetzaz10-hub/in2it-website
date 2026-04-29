@@ -94,7 +94,7 @@ export default function OurExperiences() {
           <h2 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter">
             Our <span className="text-[#F97316]">Experiences</span>
           </h2>
-          <p className="mt-4 text-white/85 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 text-white/85 text-xl max-w-3xl mx-auto leading-relaxed">
             We partner with corporate, government, and international organizations
             <br />
             supporting events up to <span className="text-white font-bold">100,000+</span> participants.

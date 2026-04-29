@@ -612,7 +612,7 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-4 text-white/90 text-lg md:text-xl max-w-none mx-auto"
+            className="mt-4 text-white/90 text-xl max-w-none mx-auto"
           >
             A structured, end-to-end workflow where we plan, think and execute every detail to ensure seamless results.
           </motion.p>
