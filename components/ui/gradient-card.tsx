@@ -108,12 +108,12 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         className="absolute bottom-0 left-0 right-0 h-2/3 z-20 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse at bottom right, ${colorRight} 0%, transparent 75%),
-            radial-gradient(ellipse at bottom left, ${colorLeft} 0%, transparent 75%),
-            radial-gradient(circle at bottom center, ${colorCenter} -10%, transparent 65%)
+            radial-gradient(ellipse at bottom right, ${colorRight} -10%, transparent 70%),
+            radial-gradient(ellipse at bottom left, ${colorLeft} -10%, transparent 70%),
+            radial-gradient(circle at bottom center, ${colorCenter} -20%, transparent 60%)
           `,
-          filter: "blur(35px)",
-          opacity: isHovered ? 1.0 : 0.95,
+          filter: "blur(40px)",
+          opacity: isHovered ? 0.9 : 0.8,
           transition: "opacity 0.4s ease-out",
         }}
       />
