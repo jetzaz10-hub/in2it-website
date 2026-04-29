@@ -120,8 +120,8 @@ export default function FeaturedProducts() {
 
       <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
         
-        {/* Heading Section (Increased margin to avoid overlap) */}
-        <div className="flex flex-col items-center mb-48">
+        {/* Heading Section (Tighter spacing to prevent large gap) */}
+        <div className="flex flex-col items-center mb-24">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ export default function FeaturedProducts() {
         </div>
 
         {/* Cards Grid */}
-        <div className="w-full flex justify-center mt-16">
+        <div className="w-full flex justify-center mt-12">
           <div className="flex flex-wrap gap-16 md:gap-20 lg:gap-24 items-center justify-center px-2">
             {products.map((product, idx) => (
               <motion.div
@@ -146,13 +146,13 @@ export default function FeaturedProducts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ amount: 0.2 }} 
                 transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full sm:w-[340px] md:w-[360px] cursor-pointer group mt-24"
+                className="relative w-full sm:w-[340px] md:w-[360px] cursor-pointer group mt-20"
                 onClick={() => window.open(product.link, "_blank")}
               >
                 {/* The Card Itself (Explicitly z-10 to overlay image) */}
                 <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 z-10 relative ${product.colors.shadow}`}>
                   
-                  {/* Bouncing Product Icon (Nested inside, matching card center and rotation perfectly) */}
+                  {/* Bouncing Product Icon & Glow (Nested inside, matching card center perfectly) */}
                   <div className="absolute -top-[120px] left-1/2 -translate-x-1/2 z-[-1] w-[200px] h-[200px] pointer-events-none">
                     <motion.div
                       initial="offscreen"
@@ -162,6 +162,14 @@ export default function FeaturedProducts() {
                       variants={imageVariants}
                       className="w-full h-full relative flex items-center justify-center"
                     >
+                      {/* Soft colorful gradient shining down from top-center */}
+                      <div 
+                        className="absolute -top-8 left-1/2 -translate-x-1/2 w-[160px] h-[160px] rounded-full opacity-35 blur-[45px]"
+                        style={{
+                          background: `radial-gradient(circle at center, ${product.colors.hex}, transparent 70%)`
+                        }}
+                      />
+
                       <img
                         src={product.image}
                         alt={product.title}
