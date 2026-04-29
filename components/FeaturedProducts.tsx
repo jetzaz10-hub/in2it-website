@@ -2,35 +2,16 @@
 
 import { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
-import { Nfc, Share2, Camera, ArrowRight } from "lucide-react";
+import { Share2, Camera, Nfc, ArrowRight } from "lucide-react";
 
 const products = [
   {
-    id: "nfc",
-    num: "01",
-    title: "NFC & Digital Badges",
-    description: "Customizable smart badges for fast check-in, access control, and real-time tracking.",
-    icon: Nfc,
-    image: "/products/products/nfc.png",
-    colors: {
-      inner: "bg-[#140800] border-[#FF6600]/20",
-      text: "text-[#FF6600]",
-      textHover: "group-hover:text-[#FF8833]",
-      iconBg: "bg-[#FF6600]/10",
-      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(255,102,0,0.15)]",
-      glow: "bg-[#FF6600]",
-      hex: "#FF6600"
-    },
-    rotate: "-rotate-3",
-    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
-  },
-  {
     id: "social-product",
-    num: "02",
+    num: "01",
     title: "Social Media Tools",
     description: "Improve your marketing campaign with integrated social media tools including Line OA, Facebook, and Instagram.",
     icon: Share2,
-    image: "/products/products/scm.png",
+    image: "/products/scm.png",
     colors: {
       inner: "bg-[#050314] border-[#4634F8]/20",
       text: "text-[#6A5AF9]",
@@ -40,16 +21,16 @@ const products = [
       glow: "bg-[#4634F8]",
       hex: "#4634F8"
     },
-    rotate: "rotate-2",
+    rotate: "-rotate-3",
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
   },
   {
     id: "photobooth",
-    num: "03",
+    num: "02",
     title: "Interactive Photobooths",
     description: "Photobooths make your event more outstanding by allowing users to take pictures and print instantly.",
     icon: Camera,
-    image: "/products/products/kiosk.png",
+    image: "/products/kiosk.png",
     colors: {
       inner: "bg-[#140005] border-[#E60039]/20",
       text: "text-[#E60039]",
@@ -59,25 +40,44 @@ const products = [
       glow: "bg-[#E60039]",
       hex: "#E60039"
     },
-    rotate: "-rotate-2",
+    rotate: "rotate-2",
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46"
+  },
+  {
+    id: "nfc",
+    num: "03",
+    title: "NFC & Digital Badges",
+    description: "Customizable smart badges for fast check-in, access control, and real-time tracking.",
+    icon: Nfc,
+    image: "/products/nfc.png",
+    colors: {
+      inner: "bg-[#140800] border-[#FF6600]/20",
+      text: "text-[#FF6600]",
+      textHover: "group-hover:text-[#FF8833]",
+      iconBg: "bg-[#FF6600]/10",
+      shadow: "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(255,102,0,0.15)]",
+      glow: "bg-[#FF6600]",
+      hex: "#FF6600"
+    },
+    rotate: "-rotate-2",
+    link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
   },
 ];
 
-const imageVariants: Variants = {
+const iconVariants: Variants = {
   offscreen: {
     y: 100,
     opacity: 0,
     scale: 0.85,
   },
   onscreen: {
-    y: -80, 
+    y: -100, // Floats high out from the back
     opacity: 1,
     scale: 1,
     transition: {
       type: "spring",
-      bounce: 0.35,
-      duration: 0.9,
+      bounce: 0.4,
+      duration: 1.0,
     },
   },
 };
@@ -120,7 +120,7 @@ export default function FeaturedProducts() {
 
       <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
         
-        {/* Heading Section (Increased margin to avoid overlap) */}
+        {/* Heading Section */}
         <div className="flex flex-col items-center mb-48">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -152,20 +152,20 @@ export default function FeaturedProducts() {
                 {/* The Card Itself (Explicitly z-10 to overlay image) */}
                 <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 z-10 relative ${product.colors.shadow}`}>
                   
-                  {/* Bouncing Product Image (Nested inside, matching card center and rotation perfectly) */}
-                  <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 z-[-1] w-[280px] h-[180px] pointer-events-none">
+                  {/* Floating Product Icon (Positioned BEHIND the card container) */}
+                  <div className="absolute -top-[100px] left-1/2 -translate-x-1/2 z-[-1] w-[160px] h-[160px] pointer-events-none">
                     <motion.div
                       initial="offscreen"
                       whileInView="onscreen"
                       exit="offscreen"
                       viewport={{ amount: 0.3 }}
-                      variants={imageVariants}
-                      className="w-full h-full relative shadow-[0_25px_50px_rgba(0,0,0,0.8)] rounded-[14px] overflow-hidden border border-white/10 bg-zinc-900"
+                      variants={iconVariants}
+                      className="w-full h-full relative"
                     >
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]"
                       />
                     </motion.div>
                   </div>
