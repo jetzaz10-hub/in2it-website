@@ -96,17 +96,16 @@ export default function IntegrationsSection() {
             </motion.div>
 
             {/* Description */}
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-zinc-300 text-sm md:text-sm leading-relaxed max-w-[460px] mx-auto lg:mx-0"
+              className="text-zinc-300 text-base md:text-base leading-relaxed max-w-[800px] mx-auto lg:mx-0"
             >
-              Connect to the largest ecosystem of event technology partners. We
-              collaborate with leading brands, government agencies, and
-              international organizations.
-            </motion.p>
+              <span className="block lg:whitespace-nowrap">Connect to the largest ecosystem of event technology partners.</span>
+              <span className="block lg:whitespace-nowrap">We collaborate with leading brands, government agencies, and international organizations.</span>
+            </motion.div>
 
           </div>
 
