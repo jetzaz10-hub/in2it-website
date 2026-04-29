@@ -34,9 +34,13 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
   }, []);
 
   // Extract colors with different opacities for the border and glow
-  const borderColor = colorCenter.replace("0.7)", "0.4)");
-  const glowColor = colorCenter.replace("0.7)", "0.15)");
-  const insetGlow = colorCenter.replace("0.7)", "0.05)");
+  const borderColor = colorCenter.replace("0.95)", "0.2)").replace("0.7)", "0.2)");
+  const glowColor = colorCenter.replace("0.95)", "0.1)").replace("0.15)", "0.1)").replace("0.7)", "0.1)");
+  const insetGlow = colorCenter.replace("0.95)", "0.03)").replace("0.7)", "0.03)");
+  
+  const shadowRight = colorRight.replace("0.95)", "0.3)").replace("0.7)", "0.3)");
+  const shadowCenter = colorCenter.replace("0.95)", "0.3)").replace("0.7)", "0.3)");
+  const shadowLeft = colorLeft.replace("0.95)", "0.3)").replace("0.7)", "0.3)");
 
   return (
     <motion.div
@@ -113,7 +117,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         className="absolute bottom-0 left-0 right-0 h-[2px] z-[25] pointer-events-none"
         style={{
           background: "linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.05) 100%)",
-          boxShadow: `0 0 15px 3px ${colorRight}, 0 0 25px 5px ${colorCenter}, 0 0 35px 7px ${colorLeft}`,
+          boxShadow: `0 0 15px 3px ${shadowRight}, 0 0 25px 5px ${shadowCenter}, 0 0 35px 7px ${shadowLeft}`,
           opacity: isHovered ? 1 : 0.9,
           transition: "opacity 0.4s ease-out, box-shadow 0.4s ease-out",
         }}
@@ -123,7 +127,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         className="absolute bottom-0 left-0 h-1/4 w-[1px] z-[25] rounded-full pointer-events-none"
         style={{
           background: "linear-gradient(to top, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 80%)",
-          boxShadow: `0 0 15px 3px ${colorCenter}`,
+          boxShadow: `0 0 15px 3px ${shadowCenter}`,
           transition: "opacity 0.4s ease-out",
         }}
       />
@@ -132,7 +136,7 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         className="absolute bottom-0 right-0 h-1/4 w-[1px] z-[25] rounded-full pointer-events-none"
         style={{
           background: "linear-gradient(to top, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 80%)",
-          boxShadow: `0 0 15px 3px ${colorCenter}`,
+          boxShadow: `0 0 15px 3px ${shadowCenter}`,
           transition: "opacity 0.4s ease-out",
         }}
       />
