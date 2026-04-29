@@ -22,7 +22,6 @@ const products = [
       hex: "#FF6600"
     },
     rotate: "-rotate-3",
-    imgRotate: -3,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#12"
   },
   {
@@ -42,7 +41,6 @@ const products = [
       hex: "#4634F8"
     },
     rotate: "rotate-2",
-    imgRotate: 2,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
   },
   {
@@ -62,7 +60,6 @@ const products = [
       hex: "#E60039"
     },
     rotate: "-rotate-2",
-    imgRotate: -2,
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46"
   },
 ];
@@ -72,19 +69,17 @@ const imageVariants: Variants = {
     y: 100,
     opacity: 0,
     scale: 0.85,
-    rotate: 0,
   },
-  onscreen: (customRotate: number) => ({
+  onscreen: {
     y: -80, 
     opacity: 1,
     scale: 1,
-    rotate: customRotate,
     transition: {
       type: "spring",
       bounce: 0.35,
       duration: 0.9,
     },
-  }),
+  },
 };
 
 export default function FeaturedProducts() {
@@ -154,27 +149,27 @@ export default function FeaturedProducts() {
                 className="relative w-full sm:w-[340px] md:w-[360px] cursor-pointer group mt-24"
                 onClick={() => window.open(product.link, "_blank")}
               >
-                {/* Bouncing Product Image (Matching card rotation BEHIND the card) */}
-                <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 z-0 w-[280px] h-[180px] pointer-events-none">
-                  <motion.div
-                    initial="offscreen"
-                    whileInView="onscreen"
-                    exit="offscreen"
-                    viewport={{ amount: 0.3 }}
-                    custom={product.imgRotate}
-                    variants={imageVariants}
-                    className="w-full h-full relative shadow-[0_25px_50px_rgba(0,0,0,0.8)] rounded-[14px] overflow-hidden border border-white/10 bg-zinc-900"
-                  >
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                </div>
-
                 {/* The Card Itself (Explicitly z-10 to overlay image) */}
                 <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 z-10 relative ${product.colors.shadow}`}>
+                  
+                  {/* Bouncing Product Image (Nested inside, matching card center and rotation perfectly) */}
+                  <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 z-[-1] w-[280px] h-[180px] pointer-events-none">
+                    <motion.div
+                      initial="offscreen"
+                      whileInView="onscreen"
+                      exit="offscreen"
+                      viewport={{ amount: 0.3 }}
+                      variants={imageVariants}
+                      className="w-full h-full relative shadow-[0_25px_50px_rgba(0,0,0,0.8)] rounded-[14px] overflow-hidden border border-white/10 bg-zinc-900"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  </div>
+
                   <div 
                     className={`w-full h-full min-h-[340px] rounded-[20px] ${product.colors.inner} p-8 pt-16 flex flex-col border relative overflow-hidden transition-colors duration-300`}
                     style={{ '--card-glow': product.colors.hex } as React.CSSProperties}
