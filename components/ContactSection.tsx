@@ -63,7 +63,7 @@ export default function ContactSection() {
               Ready to Elevate Your Next<br />
               <span style={{ color: "#4A32FF" }}> EVENT ?</span>
             </h2>
-            <p className="text-white/90 text-lg mb-10 max-w-md">
+            <p className="text-white/75 text-lg mb-10 max-w-md">
               Contact our team for a specialized consultation and a tailored
               proposal for your event technology needs.
             </p>
@@ -85,7 +85,7 @@ export default function ContactSection() {
                     {item.icon}
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs font-semibold tracking-widest uppercase mb-1">
+                    <p className="text-white/60 text-xs font-semibold tracking-widest uppercase mb-1">
                       {item.label}
                     </p>
                     {item.href ? (
