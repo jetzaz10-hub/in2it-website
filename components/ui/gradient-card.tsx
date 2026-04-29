@@ -104,16 +104,15 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
 
       {/* Color glow effect — combined into one layer instead of two */}
       <div
-        className="absolute inset-0 z-20 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-2/3 z-20 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse at top center, ${colorCenter} -30%, transparent 70%),
-            radial-gradient(ellipse at bottom right, ${colorRight} -10%, transparent 70%),
-            radial-gradient(ellipse at bottom left, ${colorLeft} -10%, transparent 70%),
-            radial-gradient(circle at center, ${colorCenter} -20%, transparent 60%)
+            radial-gradient(ellipse at bottom right, ${colorRight} 0%, transparent 75%),
+            radial-gradient(ellipse at bottom left, ${colorLeft} 0%, transparent 75%),
+            radial-gradient(circle at bottom center, ${colorCenter} -10%, transparent 65%)
           `,
           filter: "blur(35px)",
-          opacity: isHovered ? 1 : 0.92,
+          opacity: isHovered ? 1.0 : 0.95,
           transition: "opacity 0.4s ease-out",
         }}
       />
