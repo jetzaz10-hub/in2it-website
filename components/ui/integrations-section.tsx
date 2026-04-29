@@ -51,7 +51,7 @@ export default function IntegrationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold text-white tracking-tight leading-[1.1] mb-8"
+              className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold text-white tracking-tight leading-[1.1] mb-14"
             >
               Trusted{" "}
               <span className="text-[#FF3366]">
@@ -65,31 +65,31 @@ export default function IntegrationsSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex gap-8 mb-10 justify-center lg:justify-start"
+              className="flex gap-8 md:gap-12 mb-10 justify-center lg:justify-start"
             >
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   500+
                 </div>
-                <div className="text-xs text-white/70 uppercase tracking-wider font-medium mt-1">
+                <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
                   Events
                 </div>
               </div>
               <div className="w-px bg-white/10" />
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   60+
                 </div>
-                <div className="text-xs text-white/70 uppercase tracking-wider font-medium mt-1">
+                <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
                   Partners
                 </div>
               </div>
               <div className="w-px bg-white/10" />
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   10+
                 </div>
-                <div className="text-xs text-white/70 uppercase tracking-wider font-medium mt-1">
+                <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
                   Countries
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function IntegrationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-zinc-200 text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0"
+              className="text-zinc-300 text-sm md:text-sm leading-relaxed max-w-[460px] mx-auto lg:mx-0"
             >
               Connect to the largest ecosystem of event technology partners. We
               collaborate with leading brands, government agencies, and
