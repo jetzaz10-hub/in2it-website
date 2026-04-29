@@ -194,11 +194,11 @@ export default function OurExperiences() {
         </a>
       </div>
 
-      {/* ═══ IN2IT STYLE — Bottom Glowing Purple Border Divider ═══ */}
+      {/* ═══ IN2IT STYLE — Bottom Glowing Orange Border Divider ═══ */}
       <div className="absolute bottom-0 left-0 w-full h-[2px] z-30">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500 to-transparent h-[2px]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] shadow-[0_0_15px_rgba(168,85,247,0.6),0_0_30px_rgba(168,85,247,0.3)]" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-purple-500/15 blur-[25px] rounded-full pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF6600] to-transparent h-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F97316] to-transparent h-[2px] shadow-[0_0_15px_rgba(255,102,0,0.6),0_0_30px_rgba(255,102,0,0.3)]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-[#FF6600]/15 blur-[25px] rounded-full pointer-events-none" />
       </div>
     </section>
   );
