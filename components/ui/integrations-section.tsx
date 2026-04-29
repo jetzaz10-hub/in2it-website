@@ -75,7 +75,7 @@ export default function IntegrationsSection() {
                   Events
                 </div>
               </div>
-              <div className="w-px bg-white/10" />
+              <div className="w-px bg-white/30" />
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   60+
@@ -84,13 +84,13 @@ export default function IntegrationsSection() {
                   Partners
                 </div>
               </div>
-              <div className="w-px bg-white/10" />
+              <div className="w-px bg-white/30" />
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
                   10+
                 </div>
                 <div className="text-sm md:text-base text-white/70 uppercase tracking-wider font-medium mt-1">
-                  Countries
+                  Years
                 </div>
               </div>
             </motion.div>
