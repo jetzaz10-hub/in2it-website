@@ -178,20 +178,43 @@ export default function OurExperiences() {
 
       {/* CTA Button */}
       <div className="w-full flex justify-center mt-12 mb-20 relative z-20">
-        <a
+        <motion.a
+          initial={{ "--x": "100%" } as any}
+          animate={{ "--x": "-100%" } as any}
+          whileTap={{ scale: 0.95 }}
+          transition={{
+            repeat: Infinity,
+            repeatType: "loop",
+            repeatDelay: 1,
+            type: "spring",
+            stiffness: 20,
+            damping: 15,
+            mass: 2,
+            scale: {
+              type: "spring",
+              stiffness: 200,
+              damping: 5,
+              mass: 0.5,
+            },
+          }}
           href="https://www.canva.com/design/DAG9n3Xa6_Y/XvXea3m4LcLRZkM4ozQWkg/view#1"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-white text-base tracking-tight transition-all hover:scale-[1.05]"
+          className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-white text-base tracking-tight transition-shadow duration-300 ease-in-out hover:scale-[1.05]"
         >
           {/* Glossy Button Background */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#FF6600] to-[#FF9900] rounded-full shadow-[0_0_30px_rgba(255,102,0,0.3)] transition-all group-hover:shadow-[0_0_50px_rgba(255,102,0,0.5)]" />
+
+          {/* Shiny Sweep Layer */}
+          <span 
+            className="absolute inset-0 block rounded-[inherit] bg-[linear-gradient(-75deg,transparent_calc(var(--x)+20%),rgba(255,255,255,0.35)_calc(var(--x)+25%),transparent_calc(var(--x)+100%))] z-10 pointer-events-none"
+          />
 
           <span className="relative z-10">VIEW FULL PORTFOLIO</span>
           <svg className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
-        </a>
+        </motion.a>
       </div>
 
       {/* ═══ IN2IT STYLE — Bottom Glowing Orange Border Divider ═══ */}
