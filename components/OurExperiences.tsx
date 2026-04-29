@@ -210,7 +210,7 @@ export default function OurExperiences() {
             className="absolute inset-0 block rounded-[inherit] bg-[linear-gradient(-75deg,transparent_calc(var(--x)+20%),rgba(255,255,255,0.35)_calc(var(--x)+25%),transparent_calc(var(--x)+100%))] z-10 pointer-events-none"
           />
 
-          <span className="relative z-10">VIEW FULL PORTFOLIO</span>
+          <span className="relative z-10 font-bold">VIEW FULL PORTFOLIO</span>
           <svg className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
