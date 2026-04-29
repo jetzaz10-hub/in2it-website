@@ -657,11 +657,6 @@ export default function EventLifecycle() {
             )}
           </div>
         </div>
-
-        {/* ─── Shared Progress Timeline ─── */}
-        <div className="w-full mt-10 lg:mt-0 pb-8">
-          <TimelineProgress activeId={activeId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
-        </div>
       </motion.div>
     </section>
   );
