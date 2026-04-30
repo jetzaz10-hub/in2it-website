@@ -182,16 +182,32 @@ function PhaseDetail({
         {phase.items.map((item: PhaseItem) => {
           const isOpen = !!openItems[item.title];
           return (
-            <div
+            <motion.div
+              layout
               key={item.title}
-              className={`border-b border-gray-100 last:border-0 transition-colors duration-300 ${isOpen ? "bg-[#EEF9F8]" : "bg-white hover:bg-gray-50"
-                }`}
+              initial={false}
+              animate={{ 
+                backgroundColor: isOpen ? "#EEF9F8" : "#ffffff",
+              }}
+              whileHover={{ backgroundColor: isOpen ? "#EEF9F8" : "#F9FAFB" }}
+              className="border-b border-gray-100 last:border-0"
             >
               <button
                 onClick={() => toggleItem(item.title)}
                 className="w-full flex items-center justify-between px-8 py-5 text-left"
               >
-                <span className="text-gray-800 font-semibold text-lg tracking-wide">{item.title}</span>
+                <motion.span
+                  layout
+                  initial={false}
+                  animate={{ 
+                    color: isOpen ? "#000000" : "#1f2937",
+                    fontSize: isOpen ? "1.25rem" : "1.125rem",
+                    fontWeight: isOpen ? 700 : 600,
+                  }}
+                  className="tracking-wide block"
+                >
+                  {item.title}
+                </motion.span>
                 <svg
                   className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
                     }`}
@@ -214,13 +230,13 @@ function PhaseDetail({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="px-8 pb-6 text-[18px] text-gray-500 leading-relaxed">
+                    <p className="px-8 pb-6 text-[17px] text-gray-500 leading-relaxed">
                       {item.description}
                     </p>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           );
         })}
       </div>
