@@ -15,16 +15,17 @@ export default function Counter({
   value,
   direction = "up",
   className,
-  stiffness = 80,
-  damping = 40,
+  stiffness = 150,
+  damping = 35,
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   const motionValue = useMotionValue(direction === "down" ? value : 0);
   const springValue = useSpring(motionValue, {
     damping: damping,
     stiffness: stiffness,
+    mass: 1,
     restDelta: 0.001,
   });
   

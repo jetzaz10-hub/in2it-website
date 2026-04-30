@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import type { ImageData } from "./img-sphere";
-import Counter from "./counter";
+import Counter from "./Counter";
 
 // Dynamically import the sphere (uses refs and pointer events — SSR-unsafe)
 const SphereImageGrid = dynamic(() => import("./img-sphere"), { ssr: false });
@@ -70,7 +70,7 @@ export default function IntegrationsSection() {
             >
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-                  <Counter value={500} stiffness={120} damping={30} />+
+                  <Counter value={500} stiffness={150} damping={35} />+
                 </div>
                 <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Events
@@ -79,7 +79,7 @@ export default function IntegrationsSection() {
               <div className="w-px bg-white/30" />
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-                  <Counter value={40} stiffness={120} damping={30} />+
+                  <Counter value={40} stiffness={150} damping={35} />+
                 </div>
                 <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Partners
@@ -88,7 +88,7 @@ export default function IntegrationsSection() {
               <div className="w-px bg-white/30" />
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-                  <Counter value={10} stiffness={120} damping={30} />+
+                  <Counter value={10} stiffness={150} damping={35} />+
                 </div>
                 <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Years
