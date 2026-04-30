@@ -618,7 +618,7 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="section-heading text-white text-3xl lg:text-4xl"
+            className="section-heading text-white mb-8"
           >
             Your event lifecycle,{" "}
             <span style={{ color: "#FF3366" }}>from start to finish</span>
@@ -628,7 +628,7 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-4 text-white/85 text-xl max-w-none mx-auto"
+            className="text-white/85 text-xl max-w-none mx-auto"
           >
             A structured, end-to-end workflow where we plan, think and execute every detail to ensure seamless results.
           </motion.p>

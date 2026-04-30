@@ -42,6 +42,8 @@ export const metadata: Metadata = {
   },
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: {
@@ -50,7 +52,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <body className="font-poppins bg-black text-white antialiased">
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -90,11 +90,11 @@ export default function OurExperiences() {
         className="max-w-[1200px] mx-auto px-8 w-full"
       >
         {/* Heading */}
-        <div className="mb-8 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter">
+        <div className="mb-12 text-center">
+          <h2 className="section-heading text-white mb-5 tracking-tighter uppercase">
             Our <span className="text-[#F97316]">Experiences</span>
           </h2>
-          <p className="mt-4 text-white/85 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-white/85 text-xl max-w-3xl mx-auto leading-relaxed">
             We partner with corporate, government, and international organizations
             <br />
             supporting events up to <span className="text-white font-bold">100,000+</span> participants.

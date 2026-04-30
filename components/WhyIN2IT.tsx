@@ -101,7 +101,7 @@ export default function WhyIN2IT() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 tracking-tighter">
+            <h2 className="section-heading text-white mb-8 tracking-tighter">
               Why <span className="text-[#FF3366]">IN2IT</span> ?
             </h2>
             <p className="text-white/85 text-xl max-w-none mx-auto leading-relaxed">

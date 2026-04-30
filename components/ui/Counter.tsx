@@ -1,33 +1,46 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring, useTransform, animate, motion } from "framer-motion";
+import { useInView, useMotionValue, useSpring, useTransform, motion } from "framer-motion";
 
 interface CounterProps {
   value: number;
-  duration?: number;
-  delay?: number;
+  direction?: "up" | "down";
   className?: string;
+  stiffness?: number;
+  damping?: number;
 }
 
-export default function Counter({ value, duration = 0.4, delay = 0, className }: CounterProps) {
+export default function Counter({
+  value,
+  direction = "up",
+  className,
+  stiffness = 80,
+  damping = 40,
+}: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const count = useMotionValue(0);
+  const motionValue = useMotionValue(direction === "down" ? value : 0);
+  const springValue = useSpring(motionValue, {
+    damping: damping,
+    stiffness: stiffness,
+    restDelta: 0.001,
+  });
   
-  const display = useTransform(count, (latest) => 
-    Math.floor(latest).toLocaleString()
+  const displayValue = useTransform(springValue, (latest) => 
+    Math.round(latest).toLocaleString()
   );
 
   useEffect(() => {
     if (isInView) {
-      const timeout = setTimeout(() => {
-        animate(count, value, { duration, ease: "linear" });
-      }, delay * 1000);
-      return () => clearTimeout(timeout);
+      motionValue.set(direction === "down" ? 0 : value);
     }
-  }, [isInView, value, count, duration, delay]);
+  }, [motionValue, isInView, value, direction]);
 
-  return <motion.span ref={ref} className={className}>{display}</motion.span>;
+  return (
+    <motion.span ref={ref} className={className}>
+      {displayValue}
+    </motion.span>
+  );
 }

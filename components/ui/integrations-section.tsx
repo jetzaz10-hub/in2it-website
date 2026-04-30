@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import type { ImageData } from "./img-sphere";
+import Counter from "./counter";
 
 // Dynamically import the sphere (uses refs and pointer events — SSR-unsafe)
 const SphereImageGrid = dynamic(() => import("./img-sphere"), { ssr: false });
@@ -69,7 +70,7 @@ export default function IntegrationsSection() {
             >
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-                  500+
+                  <Counter value={500} stiffness={120} damping={30} />+
                 </div>
                 <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Events
@@ -78,7 +79,7 @@ export default function IntegrationsSection() {
               <div className="w-px bg-white/30" />
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-                  40+
+                  <Counter value={40} stiffness={120} damping={30} />+
                 </div>
                 <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Partners
@@ -87,7 +88,7 @@ export default function IntegrationsSection() {
               <div className="w-px bg-white/30" />
               <div>
                 <div className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-                  10+
+                  <Counter value={10} stiffness={120} damping={30} />+
                 </div>
                 <div className="text-base md:text-lg text-white/70 uppercase tracking-wider font-medium mt-1">
                   Years
@@ -104,7 +105,8 @@ export default function IntegrationsSection() {
               className="text-zinc-300 text-xl leading-relaxed max-w-[800px] mx-auto lg:mx-0"
             >
               <span className="block lg:whitespace-nowrap">Connect to the largest ecosystem of event technology partners.</span>
-              <span className="block lg:whitespace-nowrap">We collaborate with leading brands, government agencies and international organizations.</span>
+              <span className="block lg:whitespace-nowrap">We collaborate with leading brands, government agencies</span>
+              <span className="block lg:whitespace-nowrap">and international organizations.</span>
             </motion.div>
 
           </div>
