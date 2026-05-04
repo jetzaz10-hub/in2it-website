@@ -1,178 +1,82 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import SphereImageGrid from "./img-sphere";
+import type { ImageData } from "./img-sphere";
 
-// Categorized logos based on their visual aspect ratio
 const allLogos = [
-  { src: "/partners/Abbott.png", alt: "Abbott", name: "Abbott", type: "square" },
-  { src: "/partners/AMATA.png", alt: "AMATA", name: "AMATA", type: "wide" },
-  { src: "/partners/Amazing_Thailand.png", alt: "Amazing Thailand", name: "TAT", type: "wide" },
-  { src: "/partners/Blackitch.png", alt: "Blackitch", name: "Blackitch", type: "square" },
-  { src: "/partners/CMU.png", alt: "Chiang Mai University", name: "CMU", type: "square" },
-  { src: "/partners/CRU.png", alt: "Chiang Rai Rajabhat", name: "CRU", type: "wide" },
-  { src: "/partners/Child_Development_Foundation.png", alt: "Child Development", name: "CDF", type: "wide" },
-  { src: "/partners/Delta.png", alt: "Delta Electronics", name: "Delta", type: "square" },
-  { src: "/partners/DON_Creative.png", alt: "DON Creative Agency", name: "DON", type: "wide" },
-  { src: "/partners/IACIO.png", alt: "International CIO", name: "IACIO", type: "square" },
-  { src: "/partners/ICIRD.png", alt: "ICIRD", name: "ICIRD", type: "square" },
-  { src: "/partners/idext.png", alt: "idext MICE", name: "idext", type: "square" },
-  { src: "/partners/iFEAT.png", alt: "iFEAT", name: "iFEAT", type: "square" },
-  { src: "/partners/Indeed_Creation.png", alt: "Indeed Creation", name: "Indeed", type: "wide" },
-  { src: "/partners/Indego_Idea.png", alt: "Indego Idea", name: "Indego", type: "wide" },
-  { src: "/partners/Thai_Norwegian_Chamber.png", alt: "Thai-Norwegian", name: "TNCC", type: "wide" },
-  { src: "/partners/Kenan.png", alt: "Kenan Foundation", name: "Kenan", type: "wide" },
-  { src: "/partners/KX.png", alt: "Knowledge Exchange", name: "KX", type: "square" },
-  { src: "/partners/MSDHS.png", alt: "MSDHS", name: "MSDHS", type: "square" },
-  { src: "/partners/MOPH.png", alt: "Ministry of Health", name: "MOPH", type: "square" },
-  { src: "/partners/MedCMU.png", alt: "MedCMU", name: "MedCMU", type: "square" },
-  { src: "/partners/Menarini.png", alt: "Menarini", name: "Menarini", type: "wide" },
-  { src: "/partners/Meta.png", alt: "Meta", name: "Meta", type: "square" },
-  { src: "/partners/MIMS.png", alt: "MIMS Thailand", name: "MIMS", type: "square" },
-  { src: "/partners/Motor_Expo.png", alt: "Motor Expo", name: "Motor Expo", type: "wide" },
-  { src: "/partners/Otsuka.png", alt: "Otsuka", name: "Otsuka", type: "square" },
-  { src: "/partners/PATA.png", alt: "PATA", name: "PATA", type: "square" },
-  { src: "/partners/Proflex.png", alt: "Pro Flex", name: "Proflex", type: "wide" },
-  { src: "/partners/Sake_Merchant.png", alt: "Sake Merchant", name: "Sake", type: "wide" },
-  { src: "/partners/Site_Thailand.png", alt: "Site Thailand", name: "Site", type: "wide" },
-  { src: "/partners/Swire_Coca_Cola.png", alt: "Swire Coca-Cola", name: "Swire", type: "wide" },
-  { src: "/partners/TAT.png", alt: "Tourism Thailand", name: "TAT", type: "wide" },
-  { src: "/partners/TCEB.png", alt: "TCEB", name: "TCEB", type: "wide" },
-  { src: "/partners/TEA.png", alt: "Thai Exhibition", name: "TEA", type: "wide" },
-  { src: "/partners/Techsauce.png", alt: "Techsauce", name: "Techsauce", type: "wide" },
-  { src: "/partners/MICE_Youth_Challenge.png", alt: "MICE Youth", name: "MICE", type: "wide" },
-  { src: "/partners/Thai_IOD.png", alt: "Thai IOD", name: "Thai IOD", type: "square" },
-  { src: "/partners/Thammasat_University.png", alt: "Thammasat", name: "TU", type: "wide" },
-  { src: "/partners/TICA.png", alt: "TICA", name: "TICA", type: "wide" },
-  { src: "/partners/vnu.png", alt: "VNU Exhibitions", name: "VNU", type: "square" },
-  { src: "/partners/WRG.png", alt: "World Robot Games", name: "WRG", type: "wide" },
-  { src: "/partners/Yindee.png", alt: "Yindee Agency", name: "Yindee", type: "square" },
+  { src: "/partners/Abbott.png", alt: "Abbott" },
+  { src: "/partners/AMATA.png", alt: "AMATA" },
+  { src: "/partners/Amazing_Thailand.png", alt: "Amazing Thailand" },
+  { src: "/partners/Blackitch.png", alt: "Blackitch Artisan Kitchen" },
+  { src: "/partners/CMU.png", alt: "Chiang Mai University" },
+  { src: "/partners/CRU.png", alt: "Chiang Rai Rajabhat University" },
+  { src: "/partners/Child_Development_Foundation.png", alt: "Child Development Foundation" },
+  { src: "/partners/Delta.png", alt: "Delta Electronics" },
+  { src: "/partners/DON_Creative.png", alt: "DON Creative Agency" },
+  { src: "/partners/IACIO.png", alt: "International Academy of CIO" },
+  { src: "/partners/ICIRD.png", alt: "ICIRD" },
+  { src: "/partners/idext.png", alt: "idext MICE" },
+  { src: "/partners/iFEAT.png", alt: "iFEAT" },
+  { src: "/partners/Indeed_Creation.png", alt: "Indeed Creation" },
+  { src: "/partners/Indego_Idea.png", alt: "Indego Idea" },
+  { src: "/partners/Thai_Norwegian_Chamber.png", alt: "Thai-Norwegian Chamber of Commerce" },
+  { src: "/partners/Kenan.png", alt: "Kenan Foundation Asia" },
+  { src: "/partners/KX.png", alt: "Knowledge Exchange" },
+  { src: "/partners/MSDHS.png", alt: "MSDHS" },
+  { src: "/partners/MOPH.png", alt: "Ministry of Public Health" },
+  { src: "/partners/MedCMU.png", alt: "MedCMU" },
+  { src: "/partners/Menarini.png", alt: "Menarini" },
+  { src: "/partners/Meta.png", alt: "Meta" },
+  { src: "/partners/MIMS.png", alt: "MIMS Thailand" },
+  { src: "/partners/Motor_Expo.png", alt: "Motor Expo" },
+  { src: "/partners/Otsuka.png", alt: "Otsuka" },
+  { src: "/partners/PATA.png", alt: "PATA" },
+  { src: "/partners/Proflex.png", alt: "Pro Flex Consult" },
+  { src: "/partners/Sake_Merchant.png", alt: "The Sake Merchant" },
+  { src: "/partners/Site_Thailand.png", alt: "Site Thailand" },
+  { src: "/partners/Swire_Coca_Cola.png", alt: "Swire Coca-Cola" },
+  { src: "/partners/TAT.png", alt: "Tourism Authority of Thailand" },
+  { src: "/partners/TCEB.png", alt: "TCEB" },
+  { src: "/partners/TEA.png", alt: "Thai Exhibition Association" },
+  { src: "/partners/Techsauce.png", alt: "Techsauce" },
+  { src: "/partners/MICE_Youth_Challenge.png", alt: "MICE Youth Challenge" },
+  { src: "/partners/Thai_IOD.png", alt: "Thai Institute of Directors" },
+  { src: "/partners/Thammasat_University.png", alt: "Thammasat University" },
+  { src: "/partners/TICA.png", alt: "TICA" },
+  { src: "/partners/vnu.png", alt: "VNU Exhibitions" },
+  { src: "/partners/WRG.png", alt: "World Robot Games" },
+  { src: "/partners/Yindee.png", alt: "Yindee Agency" },
 ];
 
-// Triple for seamless infinite loop
-const loopedLogos = [...allLogos, ...allLogos, ...allLogos];
+// Convert to the format required by SphereImageGrid
+const SPHERE_IMAGES: ImageData[] = allLogos.map((logo, i) => ({
+  id: `partner-${i}`,
+  src: logo.src,
+  alt: logo.alt,
+}));
 
 export default function IntegrationsSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const animRef = useRef<number>(0);
-  const scrollY = useRef(0);
-  const isDragging = useRef(false);
-  const startY = useRef(0);
-  const startScroll = useRef(0);
-  const halfHeight = useRef(0);
-
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [0.7, 1, 1, 0.7]);
-  const opacity = useTransform(scrollYProgress, [0.1, 0.35, 0.65, 0.9], [0.2, 1, 1, 0.2]);
-
-  // Measure half-height for looping
-  useEffect(() => {
-    const measure = () => {
-      if (trackRef.current) {
-        halfHeight.current = trackRef.current.scrollHeight / 3;
-      }
-    };
-    const id = requestAnimationFrame(() => {
-      measure();
-      setTimeout(measure, 500);
-    });
-    return () => cancelAnimationFrame(id);
-  }, []);
-
-  // Auto-scroll animation
-  useEffect(() => {
-    const speed = 0.5;
-    const animate = () => {
-      if (!isDragging.current && trackRef.current && halfHeight.current > 0) {
-        scrollY.current += speed;
-        if (scrollY.current >= halfHeight.current) {
-          scrollY.current -= halfHeight.current;
-        }
-        trackRef.current.style.transform = `translateY(-${scrollY.current}px)`;
-      }
-      animRef.current = requestAnimationFrame(animate);
-    };
-    animRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animRef.current);
-  }, []);
-
-  // Drag — mouse
-  const onMouseDown = useCallback((e: React.MouseEvent) => {
-    isDragging.current = true;
-    startY.current = e.clientY;
-    startScroll.current = scrollY.current;
-    e.preventDefault();
-  }, []);
-
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging.current || !trackRef.current) return;
-      const dy = startY.current - e.clientY;
-      let next = startScroll.current + dy;
-      const h = halfHeight.current;
-      if (h > 0) {
-        if (next < 0) next += h;
-        if (next >= h) next -= h;
-      }
-      scrollY.current = next;
-      trackRef.current.style.transform = `translateY(-${next}px)`;
-    };
-    const onMouseUp = () => { isDragging.current = false; };
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-    };
-  }, []);
-
-  // Drag — touch
-  useEffect(() => {
-    const el = trackRef.current?.parentElement;
-    if (!el) return;
-    const onTouchStart = (e: TouchEvent) => {
-      isDragging.current = true;
-      startY.current = e.touches[0].clientY;
-      startScroll.current = scrollY.current;
-    };
-    const onTouchMove = (e: TouchEvent) => {
-      if (!isDragging.current || !trackRef.current) return;
-      const dy = startY.current - e.touches[0].clientY;
-      let next = startScroll.current + dy;
-      const h = halfHeight.current;
-      if (h > 0) {
-        if (next < 0) next += h;
-        if (next >= h) next -= h;
-      }
-      scrollY.current = next;
-      trackRef.current.style.transform = `translateY(-${next}px)`;
-    };
-    const onTouchEnd = () => { isDragging.current = false; };
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", onTouchEnd);
-    return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
-    };
-  }, []);
+  const scale = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [0.8, 1, 1, 0.8]);
+  const opacity = useTransform(scrollYProgress, [0.1, 0.35, 0.65, 0.9], [0.3, 1, 1, 0.3]);
 
   return (
     <section ref={sectionRef} className="w-full py-24 md:py-32 bg-[#020202] text-white overflow-hidden relative">
       {/* Background radial glows */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[140px] pointer-events-none opacity-50" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none opacity-50" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[140px] pointer-events-none opacity-40" />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none opacity-40" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center">
           
           {/* Left: Text Content */}
           <div className="flex flex-col items-start max-w-xl">
@@ -189,15 +93,15 @@ export default function IntegrationsSection() {
               </div>
               
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.95] mb-8">
-                Hundreds of <br />
+                Global <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-500 to-cyan-400">
-                  favourite tools
+                  Ecosystem
                 </span>
               </h1>
               
               <p className="text-xl text-zinc-500 leading-relaxed mb-12 max-w-md font-medium">
-                Create endless possibilities. Connect to the largest library of integrations 
-                that your team is already using.
+                Our massive library of integrations connects your events to leading brands and 
+                government systems worldwide.
               </p>
               
               <motion.button
@@ -205,52 +109,27 @@ export default function IntegrationsSection() {
                 whileTap={{ scale: 0.95 }}
                 className="group flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-black text-sm uppercase tracking-widest transition-all"
               >
-                <span>View All Integrations</span>
+                <span>Explore Network</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.button>
             </motion.div>
           </div>
 
-          {/* Right: Vertical Scrolling Grid */}
-          <div
-            className="relative h-[500px] md:h-[650px] overflow-hidden cursor-grab active:cursor-grabbing rounded-[2.5rem] border border-white/5 bg-zinc-950/20 backdrop-blur-3xl shadow-2xl"
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-            }}
-            onMouseDown={onMouseDown}
-          >
-            <div
-              ref={trackRef}
-              className="absolute top-0 left-0 right-0 grid grid-cols-4 gap-3 p-4"
-            >
-              {loopedLogos.map((logo, idx) => (
-                <div
-                  key={`${logo.alt}-${idx}`}
-                  className={`
-                    group relative flex items-center justify-center bg-zinc-900/40 border border-white/5 
-                    rounded-2xl transition-all duration-300 hover:bg-zinc-800/80 hover:border-white/20
-                    ${logo.type === "wide" ? "col-span-2 h-20 md:h-28" : "col-span-1 h-20 md:h-28"}
-                  `}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-cyan-500/0 group-hover:from-purple-500/10 group-hover:to-cyan-500/10 transition-all" />
-                  
-                  <div className={`
-                    relative bg-white rounded-xl flex items-center justify-center shadow-inner overflow-hidden
-                    ${logo.type === "wide" ? "w-[85%] h-[70%]" : "w-[75%] h-[75%]"}
-                  `}>
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      fill
-                      className="object-contain p-2 md:p-4 pointer-events-none select-none"
-                      draggable={false}
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Right: 3D Image Sphere */}
+          <div className="relative flex justify-center items-center h-[500px] md:h-[650px] w-full">
+             <SphereImageGrid
+                images={SPHERE_IMAGES}
+                containerSize={600}
+                sphereRadius={220}
+                autoRotate={true}
+                autoRotateSpeed={0.2}
+                dragSensitivity={0.8}
+                baseImageScale={0.18}
+                className="z-20"
+              />
+              
+              {/* Decorative radial glows behind the sphere */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-cyan-600/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
           </div>
 
         </div>
