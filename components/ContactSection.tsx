@@ -66,7 +66,7 @@ export default function ContactSection() {
           <div className="flex-1">
             <h2 className="text-4xl font-bold text-white mb-7 leading-tight">
               Ready to Elevate Your Next<br />
-              <span style={{ color: "#4A32FF" }}> EVENT ?</span>
+              <span style={{ color: "#FF3366" }}> EVENT ?</span>
             </h2>
             <p className="text-white/85 text-md mb-12 max-w-md">
               Contact our team for a specialized consultation and a tailored
@@ -78,7 +78,7 @@ export default function ContactSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {contactItems.map((item) => (
                 <div key={item.label} className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#0D0D11]/75 backdrop-blur-lg border border-white/10 flex items-center justify-center shrink-0 shadow-[0_8px_25px_rgba(0,0,0,0.6)]">
+                  <div className="w-12 h-12 rounded-2xl bg-[#0D0D11]/90 border border-white/10 flex items-center justify-center shrink-0 shadow-[0_8px_25px_rgba(0,0,0,0.6)]">
                     {item.icon}
                   </div>
                   <div>

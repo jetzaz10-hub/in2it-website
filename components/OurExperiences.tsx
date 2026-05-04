@@ -105,7 +105,7 @@ export default function OurExperiences() {
         <div className="relative w-full h-[350px] md:h-[450px] lg:h-[550px] rounded-[2.5rem] overflow-hidden group shadow-[0_0_100px_rgba(249,115,22,0.1)] border border-white/10 bg-zinc-950">
           <video
             ref={videoRef}
-            src="/videos/beyond_the_elephant.mov"
+            src="/video/IN2IT%20-%20Beyond%20the%20elephant%20in%20the%20room%20Draft%2023%20DEC%202022%20(1).mov"
             loop
             muted={isMuted}
             playsInline

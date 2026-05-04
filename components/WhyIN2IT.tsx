@@ -82,9 +82,9 @@ export default function WhyIN2IT() {
     <section id="why-in2it" className="bg-black py-20 overflow-hidden relative">
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-[-10%] w-[600px] h-[600px] bg-[#9933FF]/35 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-1/4 right-[-10%] w-[700px] h-[700px] bg-[#4A32FF]/35 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FF3366]/15 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 left-[-10%] w-[500px] h-[500px] bg-[#9933FF]/25 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute bottom-1/4 right-[-10%] w-[600px] h-[600px] bg-[#4A32FF]/25 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '15s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#FF3366]/10 rounded-full blur-[80px]" />
         
         {/* Top black fade-in mask */}
         <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
@@ -98,8 +98,8 @@ export default function WhyIN2IT() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h2 className="section-heading text-white mb-8 tracking-tighter">
               Why <span className="text-[#FF3366]">IN2IT</span> ?
@@ -125,8 +125,12 @@ export default function WhyIN2IT() {
                 key={feature.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: i * 0.08,
+                  ease: [0.21, 0.47, 0.32, 0.98] // Smooth custom easing
+                }}
                 className="h-full"
               >
                 <GradientCard
