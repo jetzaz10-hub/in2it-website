@@ -5,7 +5,7 @@ import EventLifecycle from "@/components/EventLifecycle";
 import OurServices from "@/components/OurServices";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import OurExperiences from "@/components/OurExperiences";
-import Gallery from "@/components/Gallery";
+
 import IntegrationsSection from "@/components/ui/integrations-section";
 import ContactSection from "@/components/ContactSection";
 
@@ -29,7 +29,7 @@ export default function HomePage() {
           <OurServices />
           <FeaturedProducts />
           <OurExperiences />
-          <Gallery />
+
         </UnifiedBackgroundWrapper>
 
         <ContactSection />

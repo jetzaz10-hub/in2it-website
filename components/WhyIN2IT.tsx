@@ -9,7 +9,7 @@ const whyFeatures = [
     title: "One-stop Provider",
     description: "Everything from registration to staging under one expert roof.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M16 48c0-10 8-18 18-18s18 8 18 18-8 18-18 18S16 58 16 48z" />
         <path d="M80 48c0-10-8-18-18-18S44 38 44 48s8 18 18 18 18-8 18-18z" />
         <line x1="34" y1="41" x2="44" y2="48" />
@@ -23,7 +23,7 @@ const whyFeatures = [
     title: "Tech Expertise",
     description: "Deep technical knowledge matched with real operational experience.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <rect x="28" y="28" width="40" height="40" rx="6" />
         <rect x="37" y="37" width="22" height="22" rx="3" />
         <line x1="16" y1="38" x2="28" y2="38" /><line x1="16" y1="48" x2="28" y2="48" /><line x1="16" y1="58" x2="28" y2="58" />
@@ -37,7 +37,7 @@ const whyFeatures = [
     title: "Scalable",
     description: "From intimate corporate workshops to large-scale festivals.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <line x1="16" y1="16" x2="16" y2="76" />
         <line x1="16" y1="76" x2="82" y2="76" />
         <polyline points="24,64 40,50 55,55 72,28" />
@@ -49,7 +49,7 @@ const whyFeatures = [
     title: "Integrated",
     description: "Unified data flow between registration, social media, and CRM.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <rect x="36" y="10" width="24" height="16" rx="4" />
         <rect x="10" y="58" width="22" height="16" rx="4" />
         <rect x="64" y="58" width="22" height="16" rx="4" />
@@ -65,7 +65,7 @@ const whyFeatures = [
     title: "Customization",
     description: "Solutions tailored to match your goals and requirements.",
     icon: (
-      <svg className="w-20 h-20 md:w-24 md:h-24 text-white/90 mb-2 transition-colors duration-300 group-hover:text-[var(--card-color)]" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-20 h-20 md:w-24 md:h-24 text-white mb-2 transition-colors duration-300" viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <line x1="14" y1="28" x2="82" y2="28" />
         <circle cx="32" cy="28" r="8" fill="currentColor" fillOpacity="0.2" />
         <line x1="14" y1="48" x2="82" y2="48" />
@@ -81,8 +81,16 @@ export default function WhyIN2IT() {
   return (
     <section id="why-in2it" className="bg-black py-20 overflow-hidden relative">
       {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#4A32FF]/10 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-[-10%] w-[600px] h-[600px] bg-[#9933FF]/35 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-1/4 right-[-10%] w-[700px] h-[700px] bg-[#4A32FF]/35 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FF3366]/15 rounded-full blur-[100px]" />
+        
+        {/* Top black fade-in mask */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
+        
+        {/* Bottom black fade-out mask */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
       </div>
 
       <div className="max-w-[1440px] mx-auto px-6 relative z-10">
@@ -93,10 +101,10 @@ export default function WhyIN2IT() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 uppercase tracking-tighter">
+            <h2 className="section-heading text-white mb-8 tracking-tighter">
               Why <span className="text-[#FF3366]">IN2IT</span> ?
             </h2>
-            <p className="text-white/60 text-lg md:text-xl max-w-none mx-auto leading-relaxed">
+            <p className="text-white/85 text-xl max-w-none mx-auto leading-relaxed">
               We combine cutting-edge technology with decade-long event expertise to deliver flawless experiences.
             </p>
           </motion.div>
@@ -105,11 +113,11 @@ export default function WhyIN2IT() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {whyFeatures.map((feature, i) => {
             const cardColors = [
-              { right: "rgba(172, 92, 255, 0.7)", left: "rgba(56, 189, 248, 0.7)", center: "rgba(161, 58, 229, 0.7)" }, // Purple/Blue
-              { right: "rgba(249, 115, 22, 0.7)", left: "rgba(234, 179, 8, 0.7)", center: "rgba(239, 68, 68, 0.7)" },    // Orange/Yellow/Red
-              { right: "rgba(34, 197, 94, 0.7)", left: "rgba(6, 182, 212, 0.7)", center: "rgba(16, 185, 129, 0.7)" },    // Green/Cyan
-              { right: "rgba(236, 72, 153, 0.7)", left: "rgba(168, 85, 247, 0.7)", center: "rgba(219, 39, 119, 0.7)" },  // Pink/Purple
-              { right: "rgba(59, 130, 246, 0.7)", left: "rgba(139, 92, 246, 0.7)", center: "rgba(37, 99, 235, 0.7)" },    // Blue/Indigo
+              { right: "rgba(172, 92, 255, 0.95)", left: "rgba(56, 189, 248, 0.95)", center: "rgba(161, 58, 229, 0.95)" }, // Purple/Blue
+              { right: "rgba(249, 115, 22, 0.95)", left: "rgba(234, 179, 8, 0.95)", center: "rgba(239, 68, 68, 0.95)" },    // Orange/Yellow/Red
+              { right: "rgba(34, 197, 94, 0.95)", left: "rgba(6, 182, 212, 0.95)", center: "rgba(16, 185, 129, 0.95)" },    // Green/Cyan
+              { right: "rgba(236, 72, 153, 0.95)", left: "rgba(168, 85, 247, 0.95)", center: "rgba(219, 39, 119, 0.95)" },  // Pink/Purple
+              { right: "rgba(59, 130, 246, 0.95)", left: "rgba(139, 92, 246, 0.95)", center: "rgba(37, 99, 235, 0.95)" },    // Blue/Indigo
             ];
             const color = cardColors[i % cardColors.length];
             return (

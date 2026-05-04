@@ -49,7 +49,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="text-white/80 text-[14px] lg:text-s font-bold tracking-[0.5em] uppercase mb-6 text-center"
+          className="text-white/90 text-[14px] lg:text-s font-semibold tracking-[0.5em] uppercase mb-6 text-center"
         >
           IN2IT Company
         </motion.p>
@@ -76,7 +76,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-white/60 text-xs lg:text-base leading-relaxed max-w-1xl mx-auto mb-6"
+              className="text-white/80 text-lg lg:text-xl leading-relaxed max-w-1xl mx-auto mb-6"
             >
               We deliver end-to-end event technology solutions for the MICE industry with cutting-edge expertise.
             </motion.p>

@@ -100,6 +100,25 @@ const services = [
   }
 ];
 
+// Animation variants for the image slider to prevent glitching on rapid scrolls
+const slideVariants = {
+  enter: (direction: number) => ({
+    y: direction > 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.95
+  }),
+  center: {
+    y: 0,
+    opacity: 1,
+    scale: 1
+  },
+  exit: (direction: number) => ({
+    y: direction > 0 ? -300 : 300,
+    opacity: 0,
+    scale: 0.95
+  })
+};
+
 // --- Internal Image Component ---
 const ServiceImageSlider = ({ images, title, isActive }: { images: string[], title: string, isActive: boolean }) => {
   return (
@@ -188,29 +207,28 @@ export default function OurServices() {
   }, []);
  // Remove dependency on activeIndex
 
-  // Section fade in/out with scale
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.05, 0.9, 1], [0, 1, 1, 0]);
-  const contentScale = useTransform(scrollYProgress, [0, 0.1, 0.85, 1], [0.97, 1, 1, 0.97]);
+  // Section fade out with scale at the very end
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.85, 1], [1, 1, 0.97]);
 
 
   return (
     <section
       id="services"
       ref={containerRef}
-      className="relative h-[550vh] bg-black rounded-t-[40px] md:rounded-t-[60px] mt-0.3 pt-11 z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]"
+      className="relative h-[550vh] pt-11 z-10"
     >
+      {/* Fill the empty space behind the rounded corners with the exact solid orange color */}
+      <div className="absolute -top-[2px] left-0 w-full h-32 bg-[#FF6600]/50 z-[-2]" />
+      
+      {/* The main rounded black background */}
+      <div className="absolute inset-0 bg-black rounded-t-[40px] md:rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] z-[-1]" />
       {/* Top Curved Orange Glow Divider */}
       <div className="absolute top-0 left-0 w-full h-[100px] z-40 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full border-t-[4px] border-[#FF6600]/80 rounded-t-[40px] md:rounded-t-[60px] shadow-[0_-12px_40px_rgba(255,102,0,0.6)]" />
         <div className="absolute top-[-20px] left-1/2 -translate-x-1/2 w-[90%] h-[60px] bg-[#FF6600]/15 blur-[45px] rounded-full" />
       </div>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-5%" }}
-        transition={{ duration: 0.4, ease: "linear" }}
-        className="w-full h-full"
-      >
+      <div className="w-full h-full">
         {/* PC Sticky Viewport */}
         <div className="sticky top-0 h-screen w-full overflow-hidden hidden lg:block">
           {/* Background Video */}
@@ -266,9 +284,6 @@ export default function OurServices() {
                 {services.map((service, idx) => {
                   const distance = idx - activeIndex;
 
-                  // Only show adjacent items
-                  if (Math.abs(distance) > 1) return null;
-
                   let y = activeIndex === 0 ? -100 : -140; // Active center (moved up for 2-10)
                   let scale = 1;
                   let opacity = 1;
@@ -283,6 +298,16 @@ export default function OurServices() {
                     y = 180; // Faint next
                     scale = 0.55;
                     opacity = 0.25;
+                    pointerEvents = "none";
+                  } else if (distance < -1) {
+                    y = -350; // Animate out top
+                    scale = 0.4;
+                    opacity = 0;
+                    pointerEvents = "none";
+                  } else if (distance > 1) {
+                    y = 350; // Animate out bottom
+                    scale = 0.4;
+                    opacity = 0;
                     pointerEvents = "none";
                   }
 
@@ -343,9 +368,10 @@ export default function OurServices() {
                     <motion.div
                       key={activeIndex}
                       custom={direction}
-                      initial={{ y: direction > 0 ? 300 : -300, opacity: 0, scale: 0.95 }}
-                      animate={{ y: 0, opacity: 1, scale: 1 }}
-                      exit={{ y: direction > 0 ? -300 : 300, opacity: 0, scale: 0.95 }}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
                       transition={{
                         y: { type: "spring", stiffness: 100, damping: 20 },
                         opacity: { duration: 0.3 },
@@ -424,7 +450,7 @@ export default function OurServices() {
           ))}
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

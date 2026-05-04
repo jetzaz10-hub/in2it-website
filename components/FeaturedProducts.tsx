@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Nfc, Share2, Camera, ArrowRight } from "lucide-react";
 
 const products = [
@@ -11,6 +11,7 @@ const products = [
     title: "NFC & Digital Badges",
     description: "Customizable smart badges for fast check-in, access control, and real-time tracking.",
     icon: Nfc,
+    image: "/products/NFC.png",
     colors: {
       inner: "bg-[#140800] border-[#FF6600]/20",
       text: "text-[#FF6600]",
@@ -29,6 +30,7 @@ const products = [
     title: "Social Media Tools",
     description: "Improve your marketing campaign with integrated social media tools including Line OA, Facebook, and Instagram.",
     icon: Share2,
+    image: "/products/social media.png",
     colors: {
       inner: "bg-[#050314] border-[#4634F8]/20",
       text: "text-[#6A5AF9]",
@@ -47,6 +49,7 @@ const products = [
     title: "Interactive Photobooths",
     description: "Photobooths make your event more outstanding by allowing users to take pictures and print instantly.",
     icon: Camera,
+    image: "/products/photobooths.png",
     colors: {
       inner: "bg-[#140005] border-[#E60039]/20",
       text: "text-[#E60039]",
@@ -60,6 +63,24 @@ const products = [
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#46"
   },
 ];
+
+const imageVariants: Variants = {
+  offscreen: {
+    y: 100,
+    opacity: 0,
+    scale: 0.85,
+  },
+  onscreen: {
+    y: -50, 
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      bounce: 0.4,
+      duration: 0.9,
+    },
+  },
+};
 
 export default function FeaturedProducts() {
   // Handle nav-jump event from Navbar/Footer
@@ -81,25 +102,17 @@ export default function FeaturedProducts() {
   }, []);
 
   return (
-    <section id="products" className="py-24 lg:min-h-screen lg:flex lg:items-center bg-transparent text-white overflow-hidden relative">
+    <section id="products" className="py-32 bg-transparent text-white overflow-hidden relative">
       
-      {/* Background Ambient Glows (Breathing Animation) */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-[#FF6600]/30 rounded-full blur-[130px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.5, 0.2] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[5%] right-[10%] w-[600px] h-[600px] bg-[#4634F8]/20 rounded-full blur-[150px]" 
-        />
+      {/* Background Ambient Glows (Static to prevent GPU layout lag) */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-[#FF6600]/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[5%] right-[10%] w-[600px] h-[600px] bg-[#4634F8]/15 rounded-full blur-[130px]" />
       </div>
 
       <div className="container max-w-[1440px] mx-auto px-6 relative z-10">
         
-        {/* Heading Section */}
+        {/* Heading Section (Tighter spacing to prevent large gap) */}
         <div className="flex flex-col items-center mb-24">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -111,93 +124,104 @@ export default function FeaturedProducts() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase text-white mb-6">
               Featured <span className="text-[#FF6600]">Products</span>
             </h2>
-            <motion.div 
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 0.4 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="w-full h-1 bg-gradient-to-r from-[#4634F8] via-[#E60039] to-[#FF6600] mt-1 mx-auto origin-center"
-            ></motion.div>
+            <div className="w-full h-1 bg-gradient-to-r from-[#4634F8] via-[#E60039] to-[#FF6600] mt-1 opacity-40 rounded-full mx-auto origin-center" />
           </motion.div>
         </div>
 
-        {/* Sticky Notes Track */}
-        <div className="w-full flex justify-center mt-10">
-          <div className="flex flex-wrap gap-12 md:gap-16 lg:gap-20 items-center justify-center px-2">
+        {/* Cards Grid */}
+        <div className="w-full flex justify-center mt-36">
+          <div className="flex flex-wrap gap-16 md:gap-20 lg:gap-24 items-center justify-center px-2">
             {products.map((product, idx) => (
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full sm:w-[320px] md:w-[350px] cursor-pointer group"
+                viewport={{ amount: 0.2 }} 
+                transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full sm:w-[340px] md:w-[360px] cursor-pointer group mt-20"
                 onClick={() => window.open(product.link, "_blank")}
               >
-                <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 ${product.colors.shadow}`}>
-                  {/* Inner Colored Box */}
-                <div 
-                  className={`w-full h-full min-h-[340px] rounded-[20px] ${product.colors.inner} p-8 flex flex-col border relative overflow-hidden transition-colors duration-300`}
-                  style={{ '--card-glow': product.colors.hex } as React.CSSProperties}
-                >
+                {/* The Card Itself (Explicitly z-10 to overlay image) */}
+                <div className={`w-full h-full bg-[#0A0A0A] rounded-3xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 transform ${product.rotate} group-hover:rotate-0 group-hover:-translate-y-4 transition-all duration-500 z-10 relative will-change-transform ${product.colors.shadow}`}>
                   
-                  {/* Bottom Gradient Glow like Why IN2IT */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-3/4 z-0 pointer-events-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
-                    style={{
-                      background: `radial-gradient(circle at bottom center, var(--card-glow) -20%, transparent 65%)`,
-                      filter: "blur(35px)",
-                    }}
-                  />
-                  
-                  {/* Bottom border line glow */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-[2px] z-[5] pointer-events-none opacity-90 group-hover:opacity-100 transition-all duration-500"
-                    style={{
-                      background: "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%)",
-                      boxShadow: `0 0 20px 3px var(--card-glow)`,
-                    }}
-                  />
-
-                  {/* Big Number & Icon */}
-                  <div className="flex items-start justify-between mb-8 relative z-10">
-                    <motion.h1 
-                      initial={{ opacity: 0, x: -15, filter: "blur(8px)" }}
-                      whileInView={{ opacity: 0.9, x: 0, filter: "blur(0px)" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: idx * 0.15 + 0.3 }}
-                      className={`text-[64px] leading-none font-bold tracking-tighter ${product.colors.text} drop-shadow-[0_0_15px_currentColor] group-hover:opacity-100 transition-opacity`}
+                  {/* Bouncing Product Icon & Glow (Nested inside, matching card center perfectly) */}
+                  <div className="absolute -top-[120px] left-1/2 -translate-x-1/2 z-[-1] w-[200px] h-[200px] pointer-events-none">
+                    <motion.div
+                      initial="offscreen"
+                      whileInView="onscreen"
+                      exit="offscreen"
+                      viewport={{ amount: 0.3 }}
+                      variants={imageVariants}
+                      className="w-full h-full relative flex items-center justify-center will-change-transform"
                     >
-                      {product.num}
-                    </motion.h1>
-                    <div className={`p-3 rounded-2xl ${product.colors.iconBg} backdrop-blur-sm ${product.colors.text} opacity-60 group-hover:opacity-100 transition-all`}>
-                      <product.icon strokeWidth={2} className="w-8 h-8" />
-                    </div>
+                      {/* Soft colorful gradient shining down from top-center */}
+                      <div 
+                        className="absolute -top-8 left-1/2 -translate-x-1/2 w-[160px] h-[160px] rounded-full opacity-35 blur-[45px]"
+                        style={{
+                          background: `radial-gradient(circle at center, ${product.colors.hex}, transparent 70%)`
+                        }}
+                      />
+
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-[160px] h-[160px] object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]"
+                      />
+                    </motion.div>
                   </div>
 
-                  {/* Title & Description */}
-                  <div className="mb-auto relative z-10">
-                    <h3 className={`text-2xl font-bold text-white mb-4 leading-tight transition-colors ${product.colors.textHover}`}>
-                      {product.title}
-                    </h3>
-                    <p className="text-white/60 text-[15px] leading-relaxed font-light group-hover:text-white/80 transition-colors">
-                      {product.description}
-                    </p>
-                  </div>
-
-                  {/* Interactive Button */}
-                  <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`mt-8 inline-flex items-center gap-2 font-bold text-sm tracking-widest uppercase ${product.colors.text} opacity-70 group-hover:opacity-100 transition-all relative z-10 origin-left`}
+                  <div 
+                    className={`w-full h-full min-h-[340px] rounded-[20px] ${product.colors.inner} p-8 pt-16 flex flex-col border relative overflow-hidden transition-colors duration-300`}
+                    style={{ '--card-glow': product.colors.hex } as React.CSSProperties}
                   >
-                    SALE KITS
-                    <ArrowRight strokeWidth={3} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </motion.div>
-                  
-                  {/* Subtle Background Glow inside the note */}
-                  <div className={`absolute -bottom-20 -right-20 w-48 h-48 rounded-full blur-[60px] opacity-20 pointer-events-none ${product.colors.glow}`} />
-                </div>
+                    
+                    {/* Bottom Gradient Glow */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-3/4 z-0 pointer-events-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
+                      style={{
+                        background: `radial-gradient(circle at bottom center, var(--card-glow) -20%, transparent 65%)`,
+                        filter: "blur(35px)",
+                      }}
+                    />
+                    
+                    {/* Bottom border line glow */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-[2px] z-[5] pointer-events-none opacity-90 group-hover:opacity-100 transition-all duration-500"
+                      style={{
+                        background: "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%)",
+                        boxShadow: `0 0 20px 3px var(--card-glow)`,
+                      }}
+                    />
+
+                    {/* Big Number & Icon */}
+                    <div className="flex items-start justify-between mb-8 relative z-10">
+                      <span className={`text-[64px] leading-none font-bold tracking-tighter ${product.colors.text} drop-shadow-[0_0_15px_currentColor]`}>
+                        {product.num}
+                      </span>
+                      <div className={`p-3 rounded-2xl ${product.colors.iconBg} backdrop-blur-sm ${product.colors.text} opacity-60 group-hover:opacity-100 transition-all`}>
+                        <product.icon strokeWidth={2} className="w-8 h-8" />
+                      </div>
+                    </div>
+
+                    {/* Title & Description */}
+                    <div className="mb-auto relative z-10">
+                      <h3 className={`text-2xl font-bold text-white mb-4 leading-tight transition-colors ${product.colors.textHover}`}>
+                        {product.title}
+                      </h3>
+                      <p className="text-white/60 text-[15px] leading-relaxed font-light group-hover:text-white/80 transition-colors">
+                        {product.description}
+                      </p>
+                    </div>
+
+                    {/* Interactive Button */}
+                    <div className={`mt-8 inline-flex items-center gap-2 font-bold text-sm tracking-widest uppercase ${product.colors.text} opacity-70 group-hover:opacity-100 transition-all relative z-10 origin-left`}>
+                      SALE KITS
+                      <ArrowRight strokeWidth={3} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                    
+                    {/* Subtle Background Glow inside the note */}
+                    <div className={`absolute -bottom-20 -right-20 w-48 h-48 rounded-full blur-[60px] opacity-20 pointer-events-none ${product.colors.glow}`} />
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -207,4 +231,3 @@ export default function FeaturedProducts() {
     </section>
   );
 }
-

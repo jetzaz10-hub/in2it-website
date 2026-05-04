@@ -50,7 +50,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <body className="font-poppins bg-black text-white antialiased">
-        {children}
+        
+          {children}
+        
       </body>
     </html>
   );

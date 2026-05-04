@@ -173,7 +173,7 @@ function PhaseDetail({
           className="w-3 h-3 rounded-full"
           style={{ background: phase.colorActive }}
         />
-        <h3 className="text-3xl font-bold text-white tracking-tight">
+        <h3 className="text-4xl font-bold text-white tracking-tight">
           {phase.label.join(" ")}
         </h3>
       </div>
@@ -182,16 +182,32 @@ function PhaseDetail({
         {phase.items.map((item: PhaseItem) => {
           const isOpen = !!openItems[item.title];
           return (
-            <div
+            <motion.div
+              layout
               key={item.title}
-              className={`border-b border-gray-100 last:border-0 transition-colors duration-300 ${isOpen ? "bg-[#EEF9F8]" : "bg-white hover:bg-gray-50"
-                }`}
+              initial={false}
+              animate={{ 
+                backgroundColor: isOpen ? "#EEF9F8" : "#ffffff",
+              }}
+              whileHover={{ backgroundColor: isOpen ? "#EEF9F8" : "#F9FAFB" }}
+              className="border-b border-gray-100 last:border-0"
             >
               <button
                 onClick={() => toggleItem(item.title)}
                 className="w-full flex items-center justify-between px-8 py-5 text-left"
               >
-                <span className="text-gray-800 font-extrabold text-lg tracking-wide">{item.title}</span>
+                <motion.span
+                  layout
+                  initial={false}
+                  animate={{ 
+                    color: isOpen ? "#000000" : "#1f2937",
+                    fontSize: isOpen ? "1.25rem" : "1.125rem",
+                    fontWeight: isOpen ? 700 : 600,
+                  }}
+                  className="tracking-wide block"
+                >
+                  {item.title}
+                </motion.span>
                 <svg
                   className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
                     }`}
@@ -214,13 +230,13 @@ function PhaseDetail({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="px-8 pb-6 text-[15px] text-gray-500 leading-relaxed">
+                    <p className="px-8 pb-6 text-[17px] text-gray-500 leading-relaxed">
                       {item.description}
                     </p>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           );
         })}
       </div>
@@ -580,11 +596,16 @@ export default function EventLifecycle() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-16 pb-24 bg-black overflow-hidden">
+      {/* Scattered Purple Aura Backgrounds */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/3 right-[-20%] w-[600px] h-[600px] bg-[#9933FF]/35 rounded-full blur-[110px] animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute bottom-1/3 left-[-20%] w-[700px] h-[700px] bg-[#4A32FF]/35 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '14s' }} />
+      </div>
+
       {/* Top transition overlay */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
 
-      {/* Intense IN2IT Orange Transition Gradient */}
-      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#FF6600]/50 via-[#FF6600]/10 to-transparent z-10 pointer-events-none" />
+      {/* Intense IN2IT Orange Transition Gradient removed to unify with OurServices */}
 
       <motion.div
         style={{ scale: sectionScale, opacity: sectionOpacity }}
@@ -597,7 +618,7 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="section-heading text-white text-3xl lg:text-4xl"
+            className="section-heading text-white mb-8"
           >
             Your event lifecycle,{" "}
             <span style={{ color: "#FF3366" }}>from start to finish</span>
@@ -607,7 +628,7 @@ export default function EventLifecycle() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-4 text-white/70 text-lg md:text-xl max-w-none mx-auto"
+            className="text-white/85 text-xl max-w-none mx-auto"
           >
             A structured, end-to-end workflow where we plan, think and execute every detail to ensure seamless results.
           </motion.p>
@@ -656,11 +677,6 @@ export default function EventLifecycle() {
               </div>
             )}
           </div>
-        </div>
-
-        {/* ─── Shared Progress Timeline ─── */}
-        <div className="w-full mt-10 lg:mt-0 pb-8">
-          <TimelineProgress activeId={activeId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
         </div>
       </motion.div>
     </section>
