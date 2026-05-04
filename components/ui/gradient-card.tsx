@@ -57,21 +57,24 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
         transformStyle: "preserve-3d",
         backgroundColor: "rgba(255,255,255,0.03)",
         willChange: "transform",
+        // Move heavy properties to CSS transitions for better performance
+        borderColor: isHovered ? setOpacity(colorCenter, "0.6") : setOpacity(colorCenter, "0.35"),
+        boxShadow: isHovered
+          ? `0 0 35px ${setOpacity(colorCenter, "0.3")}, inset 0 0 25px ${setOpacity(colorCenter, "0.1")}, 0 15px 40px 0 rgba(0,0,0,0.45)`
+          : `0 0 25px ${glowColor}, inset 0 0 15px ${insetGlow}, 0 8px 32px 0 rgba(0,0,0,0.37)`,
+        transition: "border-color 0.4s ease-out, box-shadow 0.4s ease-out",
       } as React.CSSProperties}
-      initial={{ y: 0, rotateX: 0, rotateY: 0, borderColor: setOpacity(colorCenter, "0.35") }}
+      initial={false}
       animate={{
         y: isHovered ? -16 : 0,
         rotateX: rotation.x,
         rotateY: rotation.y,
-        borderColor: isHovered ? setOpacity(colorCenter, "0.6") : setOpacity(colorCenter, "0.35"),
-        boxShadow: isHovered
-          ? `0 0 35px ${setOpacity(colorCenter, "0.3")}, inset 0 0 25px ${setOpacity(colorCenter, "0.1")}, 0 15px 40px 0 rgba(0,0,0,0.45)`
-          : `0 0 25px ${glowColor}, inset 0 0 15px ${insetGlow}, 0 8px 32px 0 rgba(0,0,0,0.37)`
       }}
       transition={{
         type: "spring",
-        stiffness: 300,
-        damping: 20
+        stiffness: 260,
+        damping: 20,
+        mass: 1
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
@@ -155,8 +158,6 @@ export const GradientCard = ({ title, description, icon, colorRight, colorLeft, 
           style={{
             backgroundColor: isHovered ? setOpacity(colorCenter, "0.25") : setOpacity(colorCenter, "0.15"),
             color: isHovered ? setOpacity(colorCenter, "1") : setOpacity(colorCenter, "0.8"),
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
             border: `1px solid ${isHovered ? setOpacity(colorCenter, "0.4") : setOpacity(colorCenter, "0.2")}`,
             boxShadow: `inset 0 1px 1px ${setOpacity(colorCenter, "0.4")}`,
           }}
