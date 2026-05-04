@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { smoothScrollTo } from "../lib/smoothScroll";
 
 const navLinks = [
   {
@@ -42,36 +42,78 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
+  // Gallery modal listener
   useEffect(() => {
     const handleGalleryModal = (e: Event) => {
       const customEvent = e as CustomEvent;
       setIsModalOpen(customEvent.detail.isOpen);
-      if (customEvent.detail.isOpen) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
+      setIsVisible(!customEvent.detail.isOpen);
     };
     window.addEventListener('gallery-modal-change', handleGalleryModal);
     return () => window.removeEventListener('gallery-modal-change', handleGalleryModal);
   }, []);
 
+  // Mouse hover at top to reveal navbar + auto-hide when mouse leaves
+  useEffect(() => {
+    if (isModalOpen) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const inHero = window.scrollY < 300;
+
+      if (e.clientY <= 80) {
+        // Mouse near top → show navbar, cancel pending hide
+        if (hideTimerRef.current) {
+          clearTimeout(hideTimerRef.current);
+          hideTimerRef.current = null;
+        }
+        setIsVisible(true);
+      } else if (!inHero && e.clientY > 150 && !openMenu) {
+        // Mouse moved away → schedule hide (only outside hero)
+        if (!hideTimerRef.current) {
+          hideTimerRef.current = setTimeout(() => {
+            if (window.scrollY >= 300) setIsVisible(false);
+            hideTimerRef.current = null;
+          }, 1500);
+        }
+      }
+    };
+
+    // Throttle mousemove to reduce re-renders (fires at most every 100ms)
+    let lastCall = 0;
+    const throttled = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastCall < 100) return;
+      lastCall = now;
+      handleMouseMove(e);
+    };
+
+    window.addEventListener('mousemove', throttled, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', throttled);
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
+  }, [isModalOpen, openMenu]);
+
+  // Scroll handler for navbar hide/show
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
-      if (isModalOpen) return; // Prevent scroll from showing navbar when modal is open
+      if (isModalOpen || (window as any).__navJumpActive) {
+        lastScrollY = window.scrollY;
+        return;
+      }
 
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 30);
 
-      // Hide on scroll down, show on scroll up
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsVisible(false);
-        setOpenMenu(null); // Close dropdowns when hiding
+        setOpenMenu(null);
       } else if (currentScrollY < lastScrollY) {
         setIsVisible(true);
       }
@@ -83,15 +125,39 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isModalOpen]);
 
-  const handleNavJump = (id: string) => {
+  // Programmatic scroll helper — sets flag, scrolls, cleans up
+  const doScroll = useCallback((targetY: number) => {
+    (window as any).__navJumpActive = true;
+    smoothScrollTo(targetY);
+    setTimeout(() => { (window as any).__navJumpActive = false; }, 1500);
+  }, []);
+
+  // Nav-jump for dropdown sub-items (dispatches event for OurServices/FeaturedProducts)
+  const handleNavJump = useCallback((id: string) => {
+    (window as any).__navJumpActive = true;
     window.dispatchEvent(new CustomEvent('nav-jump', { detail: { targetId: id } }));
     setMobileOpen(false);
-    setOpenMenu(null);
-  };
+    // Delay menu close so dropdown exit animation doesn't interfere
+    setTimeout(() => setOpenMenu(null), 50);
+    setTimeout(() => { (window as any).__navJumpActive = false; }, 1500);
+  }, []);
+
+  // Click handler for parent section links (Services, Products, Project)
+  const handleSectionClick = useCallback((href: string) => {
+    const target = document.querySelector(href);
+    if (!target) return;
+    const offset = href === "#products" ? 20 : 100;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    doScroll(top);
+    setTimeout(() => {
+      setOpenMenu(null);
+      setMobileOpen(false);
+    }, 100);
+  }, [doScroll]);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-6 py-6 pointer-events-none transition-transform duration-500 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}>
-      <div className={`
+      <div ref={navRef} className={`
         relative w-full max-w-7xl flex items-center justify-between px-8 py-3.5
         bg-gray-900/40 backdrop-blur-md border border-gray-700/50 rounded-full
         transition-all duration-500 pointer-events-auto shadow-2xl
@@ -99,7 +165,7 @@ export default function Navbar() {
       `}>
         {/* Logo (Scroll to Top) */}
         <div 
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => doScroll(0)}
           className="flex items-center gap-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
           role="button"
           aria-label="Scroll to top"
@@ -125,9 +191,13 @@ export default function Navbar() {
             >
               <a
                 href={link.href}
-                className={`
-                  flex items-center gap-1.5 px-4 py-2 text-[14px] font-semibold text-white/80 hover:text-white transition-colors uppercase tracking-wider
-                `}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (link.href.startsWith("#")) {
+                    handleSectionClick(link.href);
+                  }
+                }}
+                className="flex items-center gap-1.5 px-4 py-2 text-[14px] font-semibold text-white/80 hover:text-white transition-colors uppercase tracking-wider"
               >
                 {link.label}
                 {link.hasDropdown && (
@@ -148,7 +218,7 @@ export default function Navbar() {
                       {link.items.map((item) => (
                         <button
                           key={item.id}
-                          onClick={() => handleNavJump(item.id)}
+                          onClick={(e) => { e.stopPropagation(); handleNavJump(item.id); }}
                           className="w-full text-left px-4 py-2.5 text-md font-medium text-white/70 hover:bg-white/5 hover:text-white rounded-lg transition-all"
                         >
                           {item.label}
@@ -199,7 +269,13 @@ export default function Navbar() {
                 <div key={link.label} className="flex flex-col gap-2">
                   <a
                     href={link.href}
-                    onClick={() => !link.hasDropdown && setMobileOpen(false)}
+                    onClick={(e) => {
+                      if (link.href.startsWith("#")) {
+                        e.preventDefault();
+                        handleSectionClick(link.href);
+                      }
+                      if (!link.hasDropdown) setMobileOpen(false);
+                    }}
                     className="text-lg font-bold text-white/90"
                   >
                     {link.label}

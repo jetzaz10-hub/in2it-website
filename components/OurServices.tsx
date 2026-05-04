@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, forwardRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
+import { smoothScrollTo } from "../lib/smoothScroll";
 import { 
   ArrowRight, 
   ClipboardCheck, 
@@ -173,32 +174,29 @@ export default function OurServices() {
       const index = services.findIndex(s => s.id === targetId);
 
       if (index !== -1 && containerRef.current) {
-        // Delay slightly to allow any menus to close or layout to stabilize
-        setTimeout(() => {
-          if (!containerRef.current) return;
-          
-          let absoluteTop = 0;
-          let element: HTMLElement | null = containerRef.current;
-          
-          while (element) {
-            absoluteTop += element.offsetTop;
-            element = element.offsetParent as HTMLElement;
+        // If we are on mobile, use direct element scroll
+        if (window.innerWidth < 1024) {
+          const targetEl = document.getElementById(`mobile-service-${targetId}`);
+          if (targetEl) {
+            const top = targetEl.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({ top, behavior: "smooth" });
           }
+          return;
+        }
 
-          const sectionHeight = containerRef.current.offsetHeight;
-          const viewportHeight = window.innerHeight;
-          const scrollableDistance = sectionHeight - viewportHeight;
+        // Desktop: Direct scroll to the exact position within the 550vh track.
+        // getBoundingClientRect().top + scrollY always gives correct absolute position.
+        const sectionTop = containerRef.current.getBoundingClientRect().top + window.scrollY;
+        const sectionHeight = containerRef.current.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollRange = sectionHeight - viewportHeight;
+        
+        // scrollYProgress mapping: index = floor(progress * (1/0.9) * 10)
+        // Center of index i: progress = (i + 0.5) * 0.9 / 10
+        const targetProgress = (index + 0.5) * 0.9 / services.length;
+        const targetScrollY = sectionTop + (targetProgress * scrollRange);
 
-          // Calculate specific progress within the track
-          const targetProgress = index / (services.length / 0.9);
-          // Add a safe buffer (10% of viewport) to ensure the slide is active
-          const targetScroll = absoluteTop + (targetProgress * scrollableDistance) + (viewportHeight * 0.1);
-
-          window.scrollTo({
-            top: targetScroll,
-            behavior: "smooth"
-          });
-        }, 100);
+        smoothScrollTo(targetScrollY);
       }
     };
 
@@ -428,7 +426,7 @@ export default function OurServices() {
           </div>
           
           {services.map((s, idx) => (
-            <div key={s.id} className="space-y-6">
+            <div key={s.id} id={`mobile-service-${s.id}`} className="space-y-6">
               <h3 className="text-2xl font-bold text-white uppercase tracking-tight flex items-center gap-3">
                 <s.icon className="w-7 h-7 text-[#FF6600]" />
                 {s.title}

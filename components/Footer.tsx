@@ -11,6 +11,7 @@ const footerLinks = {
       { label: "Website Design", id: "website" },
       { label: "EDM", id: "edm" },
       { label: "Ticket Event", id: "ticket" },
+      { label: "Festival Tech", id: "festival" },
       { label: "IOT & Hardware Design", id: "iot" },
       { label: "Event Organizer", id: "organizer" },
       { label: "Graphic Design", id: "graphic" },
@@ -82,7 +83,9 @@ export default function Footer() {
                       href={section.href}
                       onClick={(e) => {
                         e.preventDefault();
+                        (window as any).__navJumpActive = true;
                         window.dispatchEvent(new CustomEvent('nav-jump', { detail: { targetId: link.id } }));
+                        setTimeout(() => { (window as any).__navJumpActive = false; }, 1500);
                       }}
                       className="text-white/60 text-sm hover:text-white transition-colors"
                     >

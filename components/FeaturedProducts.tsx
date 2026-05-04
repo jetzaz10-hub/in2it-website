@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Nfc, Share2, Camera, ArrowRight } from "lucide-react";
+import { smoothScrollTo } from "../lib/smoothScroll";
 
 const products = [
   {
@@ -92,7 +93,9 @@ export default function FeaturedProducts() {
       if (isProduct) {
         const section = document.getElementById('products');
         if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const offset = 20;
+          const top = section.getBoundingClientRect().top + window.scrollY - offset;
+          smoothScrollTo(top);
         }
       }
     };
