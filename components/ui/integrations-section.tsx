@@ -1,7 +1,7 @@
 "use client";
-
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 import type { ImageData } from "./img-sphere";
 import Counter from "./Counter";
 
@@ -15,6 +15,17 @@ const sphereLogos: ImageData[] = Array.from({ length: 42 }, (_, i) => ({
 }));
 
 export default function IntegrationsSection() {
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowWidth < 1024;
+  const containerSize = isMobile ? Math.min(windowWidth - 40, 450) : 560;
+  const sphereRadius = isMobile ? containerSize * 0.42 : 240;
   return (
     <section
       id="partners-section"
@@ -121,10 +132,10 @@ export default function IntegrationsSection() {
           >
             <SphereImageGrid
               images={sphereLogos}
-              containerSize={560}
-              sphereRadius={240}
+              containerSize={containerSize}
+              sphereRadius={sphereRadius}
               autoRotate={true}
-              autoRotateSpeed={0.2} // Reverted to original speed
+              autoRotateSpeed={0.2}
               dragSensitivity={0.4}
             />
           </motion.div>

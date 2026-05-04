@@ -78,7 +78,7 @@ export default function ContactSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {contactItems.map((item) => (
                 <div key={item.label} className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#0D0D11]/75 backdrop-blur-lg border border-white/10 flex items-center justify-center shrink-0 shadow-[0_8px_25px_rgba(0,0,0,0.6)]">
+                  <div className="w-12 h-12 rounded-2xl bg-[#0D0D11]/90 border border-white/10 flex items-center justify-center shrink-0 shadow-[0_8px_25px_rgba(0,0,0,0.6)]">
                     {item.icon}
                   </div>
                   <div>

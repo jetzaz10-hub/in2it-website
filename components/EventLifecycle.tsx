@@ -637,7 +637,7 @@ export default function EventLifecycle() {
         {/* ─── Locked Layout (Donut + Details) ─── */}
         <div className="relative w-full max-w-[1000px] flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-20 mb-10 mt-6">
           {/* Donut Graphic (Always Left on Desktop) */}
-          <div className="relative shrink-0 w-[340px] md:w-[420px] aspect-square flex items-center justify-center">
+          <div className="relative shrink-0 w-[280px] sm:w-[340px] md:w-[420px] aspect-square flex items-center justify-center">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}

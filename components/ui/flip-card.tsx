@@ -37,9 +37,10 @@ export default function CardFlip({
       style={{
         ['--primary' as any]: color ?? '#2563eb',
       }}
-      className="group relative h-[460px] w-full max-w-[360px] [perspective:2000px] mx-auto"
+      className="group relative h-[460px] w-full max-w-[360px] [perspective:2000px] mx-auto cursor-pointer"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
+      onClick={() => setIsFlipped(!isFlipped)}
     >
       {/* Outer Glow Effect */}
       <div
