@@ -43,10 +43,28 @@ export default function Navbar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleGalleryModal = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsModalOpen(customEvent.detail.isOpen);
+      if (customEvent.detail.isOpen) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    };
+    window.addEventListener('gallery-modal-change', handleGalleryModal);
+    return () => window.removeEventListener('gallery-modal-change', handleGalleryModal);
+  }, []);
+
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
+      if (isModalOpen) return; // Prevent scroll from showing navbar when modal is open
+
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 30);
 
@@ -63,7 +81,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isModalOpen]);
 
   const handleNavJump = (id: string) => {
     window.dispatchEvent(new CustomEvent('nav-jump', { detail: { targetId: id } }));

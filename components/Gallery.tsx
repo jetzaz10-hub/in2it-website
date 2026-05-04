@@ -13,10 +13,12 @@ export default function Gallery() {
   const openGalleryAt = (id: number) => {
     setInitialImageId(id);
     setIsModalOpen(true);
+    window.dispatchEvent(new CustomEvent('gallery-modal-change', { detail: { isOpen: true } }));
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    window.dispatchEvent(new CustomEvent('gallery-modal-change', { detail: { isOpen: false } }));
     // Delay resetting the ID to allow for the modal closing animation
     setTimeout(() => setInitialImageId(null), 300);
   };
@@ -60,7 +62,10 @@ export default function Gallery() {
             </p>
 
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                setIsModalOpen(true);
+                window.dispatchEvent(new CustomEvent('gallery-modal-change', { detail: { isOpen: true } }));
+              }}
               className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-white text-sm tracking-tight transition-all hover:scale-[1.05]"
             >
               {/* Glossy Button Background */}

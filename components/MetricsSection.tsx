@@ -1,12 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Counter from "./ui/Counter";
 
 export default function MetricsSection() {
-  return (
+  const [isHidden, setIsHidden] = useState(false);
 
-    <section className="w-full relative z-20 py-16 bg-black">
+  useEffect(() => {
+    const handleGalleryModal = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsHidden(customEvent.detail.isOpen);
+    };
+    window.addEventListener('gallery-modal-change', handleGalleryModal);
+    return () => window.removeEventListener('gallery-modal-change', handleGalleryModal);
+  }, []);
+
+  return (
+    <section className={`w-full relative z-20 py-16 bg-black transition-opacity duration-500 ${isHidden ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
       <div className="max-w-[1200px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-3 gap-5">
         
         {/* Card 1: Events Delivered */}
