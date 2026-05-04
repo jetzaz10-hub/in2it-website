@@ -221,6 +221,15 @@
     background: #333333;
   }
 
+  /* Hide scrollbar for carousels but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Hide elements when gallery modal is open */
   [data-gallery-open="true"] nav,
   [data-gallery-open="true"] #metrics-section {

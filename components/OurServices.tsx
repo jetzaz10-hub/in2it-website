@@ -156,6 +156,14 @@ export default function OurServices() {
   });
 
   const [[activeIndex, direction], setActiveStep] = useState([0, 0]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Map scroll to index (0 to 9) - 550vh track
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -174,17 +182,7 @@ export default function OurServices() {
       const index = services.findIndex(s => s.id === targetId);
 
       if (index !== -1 && containerRef.current) {
-        // If we are on mobile, use direct element scroll
-        if (window.innerWidth < 1024) {
-          const targetEl = document.getElementById(`mobile-service-${targetId}`);
-          if (targetEl) {
-            const top = targetEl.getBoundingClientRect().top + window.scrollY - 100;
-            window.scrollTo({ top, behavior: "smooth" });
-          }
-          return;
-        }
-
-        // Desktop: Direct scroll to the exact position within the 550vh track.
+        // Direct scroll to the exact position within the 550vh track.
         // getBoundingClientRect().top + scrollY always gives correct absolute position.
         const sectionTop = containerRef.current.getBoundingClientRect().top + window.scrollY;
         const sectionHeight = containerRef.current.offsetHeight;
@@ -227,8 +225,8 @@ export default function OurServices() {
         <div className="absolute top-[-20px] left-1/2 -translate-x-1/2 w-[90%] h-[60px] bg-[#FF6600]/15 blur-[45px] rounded-full" />
       </div>
       <div className="w-full h-full">
-        {/* PC Sticky Viewport */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden hidden lg:block">
+        {/* Sticky Viewport (Responsive) */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden block">
           {/* Background Video */}
           <div className="absolute inset-0 z-0">
             <video
@@ -255,16 +253,16 @@ export default function OurServices() {
             }}
             className="relative h-full w-full flex flex-col justify-center"
           >
-            <div className="container max-w-7xl mx-auto px-10 grid grid-cols-2 gap-20 items-center z-10">
+            <div className="container max-w-7xl mx-auto px-6 lg:px-10 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4 lg:gap-20 items-center justify-center z-10 h-full pb-8 lg:pb-0 pt-24 lg:pt-0">
 
               {/* Left Column: Heading + Service Info */}
-              <div className="relative h-[550px] w-full flex flex-col justify-center">
+              <div className="relative h-[280px] lg:h-[550px] w-full flex flex-col justify-center overflow-hidden lg:overflow-visible">
                 
                 {/* Dynamic "Our Services" Main Title */}
                 <motion.div 
                   initial={false}
                   animate={{ 
-                    y: activeIndex === 0 ? -220 : -320, 
+                    y: activeIndex === 0 ? (isMobile ? -100 : -220) : (isMobile ? -180 : -320), 
                     opacity: activeIndex === 0 ? 1 : 0,
                     filter: `blur(${activeIndex === 0 ? 0 : 8}px)`,
                     scale: activeIndex === 0 ? 1 : 0.8
@@ -272,38 +270,39 @@ export default function OurServices() {
                   transition={{ type: "spring", stiffness: 120, damping: 20 }}
                   className="absolute top-1/2 left-0 w-full space-y-4 z-20 origin-left"
                 >
-                  <h2 className="text-3xl md:text-6xl font-bold text-white uppercase tracking-tighter">
+                  <h2 className="text-2xl md:text-6xl font-bold text-white uppercase tracking-tighter leading-tight">
                     Our <span className="text-[#FF6600]">Services</span>
                   </h2>
-                  <div className="w-16 h-1 bg-[#4634F8] opacity-50"></div>
+                  <div className="w-8 lg:w-16 h-1 bg-[#4634F8] opacity-50 mt-1 lg:mt-0"></div>
                 </motion.div>
 
                 {/* Services Coverflow List */}
                 {services.map((service, idx) => {
                   const distance = idx - activeIndex;
 
-                  let y = activeIndex === 0 ? -100 : -140; // Active center (moved up for 2-10)
+                  let y = activeIndex === 0 ? (isMobile ? 0 : -100) : (isMobile ? -50 : -140);
+                  
                   let scale = 1;
                   let opacity = 1;
                   let pointerEvents = "auto" as any;
 
                   if (distance === -1) {
-                    y = -220; // Replaces "Our Services"
+                    y = isMobile ? -160 : -220; // Replaces "Our Services"
                     scale = 0.55;
                     opacity = 0.25;
                     pointerEvents = "none";
                   } else if (distance === 1) {
-                    y = 180; // Faint next
+                    y = isMobile ? 80 : 180; // Faint next
                     scale = 0.55;
                     opacity = 0.25;
                     pointerEvents = "none";
                   } else if (distance < -1) {
-                    y = -350; // Animate out top
+                    y = isMobile ? -220 : -350; // Animate out top
                     scale = 0.4;
                     opacity = 0;
                     pointerEvents = "none";
                   } else if (distance > 1) {
-                    y = 350; // Animate out bottom
+                    y = isMobile ? 180 : 350; // Animate out bottom
                     scale = 0.4;
                     opacity = 0;
                     pointerEvents = "none";
@@ -318,8 +317,8 @@ export default function OurServices() {
                       className="absolute top-1/2 left-0 w-full"
                       style={{ originX: 0, originY: 0, pointerEvents, willChange: "transform, opacity" }}
                     >
-                      <h3 className="text-4xl lg:text-[40px] font-bold text-white tracking-tighter leading-tight uppercase mb-6 drop-shadow-md flex items-center gap-4">
-                        <service.icon className="w-10 h-10 text-[#FF6600]" />
+                      <h3 className="text-[18px] lg:text-[40px] font-bold text-white tracking-tighter leading-tight uppercase mb-1.5 lg:mb-6 drop-shadow-md flex items-center gap-2 lg:gap-4">
+                        <service.icon className="w-5 h-5 lg:w-10 lg:h-10 text-[#FF6600]" />
                         {service.title}
                       </h3>
 
@@ -331,7 +330,7 @@ export default function OurServices() {
                         }}
                         className="overflow-hidden"
                       >
-                        <p className="text-lg lg:text-xl text-white/80 leading-relaxed max-w-md font-light mb-8">
+                        <p className="text-[12px] lg:text-xl text-white/80 leading-relaxed max-w-md font-light mb-3 lg:mb-8 line-clamp-3 lg:line-clamp-none">
                           {service.description}
                         </p>
 
@@ -339,10 +338,10 @@ export default function OurServices() {
                           href={service.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn-sale-kit group w-fit font-bold"
+                          className="btn-sale-kit group w-fit font-bold !py-1.5 !px-3 lg:!py-3 lg:!px-7 !text-[10px] lg:!text-[16px]"
                         >
                           <span>Sale Kits</span>
-                          <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform text-white" />
+                          <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5 group-hover:translate-x-1 lg:group-hover:translate-x-2 transition-transform text-white" />
                         </a>
                       </motion.div>
                     </motion.div>
@@ -361,7 +360,7 @@ export default function OurServices() {
                   />
                 </div>
 
-                <div className="relative w-full aspect-square lg:aspect-[4/5] overflow-hidden bg-transparent rounded-3xl shadow-2xl border border-white/5">
+                <div className="relative w-[80%] max-w-[320px] lg:max-w-none lg:w-full aspect-[4/3] lg:aspect-[4/5] overflow-hidden bg-transparent rounded-2xl lg:rounded-3xl shadow-2xl border border-white/5">
                   <AnimatePresence mode="popLayout" custom={direction}>
                     <motion.div
                       key={activeIndex}
@@ -399,54 +398,6 @@ export default function OurServices() {
 
             </div>
           </motion.div>
-        </div>
-
-        {/* Mobile Fallback with Slider */}
-        <div className="lg:hidden block relative bg-black py-20 px-6 space-y-16 overflow-hidden">
-          {/* Background Video for Mobile */}
-          <div className="absolute inset-0 z-0">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="none"
-              onCanPlay={(e) => { e.currentTarget.playbackRate = 0.6; }}
-              className="w-full h-full object-cover opacity-30 will-change-transform"
-            >
-              <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-black/60" />
-          </div>
-
-          <div className="relative z-10 space-y-16">
-            <div className="space-y-4 mb-16 px-2">
-            <h2 className="text-3xl font-bold text-white uppercase">Our <span className="text-[#FF6600]">Services</span></h2>
-            <div className="w-12 h-1 bg-[#4634F8] opacity-50"></div>
-          </div>
-          
-          {services.map((s, idx) => (
-            <div key={s.id} id={`mobile-service-${s.id}`} className="space-y-6">
-              <h3 className="text-2xl font-bold text-white uppercase tracking-tight flex items-center gap-3">
-                <s.icon className="w-7 h-7 text-[#FF6600]" />
-                {s.title}
-              </h3>
-              <div 
-                className="relative aspect-video overflow-hidden"
-                style={{
-                  maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
-                }}
-              >
-                <ServiceImageSlider images={s.images} title={s.title} isActive={true} />
-              </div>
-              <p className="text-white/80 text-base leading-relaxed">{s.description}</p>
-              <a href={s.link} target="_blank" rel="noopener noreferrer" className="btn-sale-kit w-full justify-center">
-                SALE KITS <ArrowRight className="w-5 h-5" />
-              </a>
-            </div>
-          ))}
-          </div>
         </div>
       </div>
     </section>
