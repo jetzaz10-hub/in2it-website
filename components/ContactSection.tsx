@@ -66,7 +66,7 @@ export default function ContactSection() {
           <div className="flex-1">
             <h2 className="text-4xl font-bold text-white mb-7 leading-tight">
               Ready to Elevate Your Next<br />
-              <span style={{ color: "#4A32FF" }}> EVENT ?</span>
+              <span style={{ color: "#FF3366" }}> EVENT ?</span>
             </h2>
             <p className="text-white/85 text-md mb-12 max-w-md">
               Contact our team for a specialized consultation and a tailored
