@@ -42,8 +42,10 @@ export default function Footer() {
               <Image src="/logo/in2it-logo.svg" alt="IN2IT Logo" width={88} height={43} className="object-contain" draggable={false} />
             </div>
 
-            <p className="text-white/60 text-sm leading-relaxed max-w-[280px]">
-              One Stop Service for Event Technology. 10+ years of expertise in delivering 500+ successful events globally.
+            <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
+              One Stop Service for Event Technology.<br />
+              10+ years of expertise in delivering<br />
+              500+ successful events globally.
             </p>
 
             {/* Social icons — Figma shows 3 circular outlined icons */}
