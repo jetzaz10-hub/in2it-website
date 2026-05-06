@@ -87,7 +87,7 @@ const services = [
     id: "scm",
     title: "Social Tools",
     description: "Boost engagement with interactive social media integrations — Line OA, Facebook, Instagram, and live photo walls.",
-    images: ["/services/scm/scm1.png", "/services/scm/scm2.png", "/services/scm/scm3.png"],
+    images: ["/services/scm/social.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
     icon: Share2
   },
