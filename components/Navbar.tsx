@@ -164,7 +164,7 @@ export default function Navbar() {
         ${scrolled ? "max-w-5xl translate-y-[-10px] bg-gray-900/70" : ""}
       `}>
         {/* Logo (Scroll to Top) */}
-        <div 
+        <div
           onClick={() => doScroll(0)}
           className="flex items-center gap-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
           role="button"
@@ -241,7 +241,7 @@ export default function Navbar() {
             className="text-white text-[13px] font-semibold uppercase tracking-widest px-6 py-2.5 rounded-full transition-all hover:scale-[1.05] active:scale-95 shadow-[0_0_20px_rgba(255,102,0,0.3)]"
             style={{ background: "linear-gradient(to right, #FF6600, #FF3366)" }}
           >
-            Sale Site
+            Sale Sites
           </a>
         </div>
 

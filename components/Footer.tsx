@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { smoothScrollTo } from "../lib/smoothScroll";
 
 const footerLinks = {
   Services: {
@@ -72,9 +73,24 @@ export default function Footer() {
           {/* Link columns — Figma: "SERVICES" and "PRODUCTS" in Electric Indigo uppercase */}
           {Object.entries(footerLinks).map(([title, section]) => (
             <div key={title}>
-              {/* Section header: Figma uses Electric Indigo #4A32FF, uppercase, bold, small tracking */}
-              <h4 className="font-bold text-sm tracking-widest uppercase mb-5" style={{ color: "#4A32FF" }}>
-                {title}
+              {/* Section header: Figma uses Electric Indigo #ffffffff, uppercase, bold, small tracking */}
+              <h4 className="font-bold text-sm tracking-widest uppercase mb-5" style={{ color: "#ffffffff" }}>
+                <a
+                  href={section.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(section.href);
+                    if (!target) return;
+                    const offset = section.href === "#products" ? 20 : 100;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    (window as any).__navJumpActive = true;
+                    smoothScrollTo(top);
+                    setTimeout(() => { (window as any).__navJumpActive = false; }, 1500);
+                  }}
+                  className="hover:text-white/80 transition-colors cursor-pointer"
+                >
+                  {title}
+                </a>
               </h4>
               <ul className="flex flex-col gap-2.5">
                 {section.items.map((link) => (
