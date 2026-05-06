@@ -279,7 +279,7 @@ export default function OurServices() {
                 {services.map((service, idx) => {
                   const distance = idx - activeIndex;
 
-                  let y = activeIndex === 0 ? (isMobile ? 20 : -60) : (isMobile ? -30 : -100);
+                  let y = activeIndex === 0 ? (isMobile ? 0 : -100) : (isMobile ? -50 : -140);
                   
                   let scale = 1;
                   let opacity = 1;
