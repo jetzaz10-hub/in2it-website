@@ -55,7 +55,7 @@ export default function IntegrationsSection() {
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 items-center">
           
           {/* ═══ LEFT COLUMN — Text & Stats ═══ */}
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left lg:pl-8">
             
             {/* Main Headline */}
             <motion.h2
