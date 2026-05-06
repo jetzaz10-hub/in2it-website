@@ -189,7 +189,7 @@ function PhaseDetail({
               animate={{ 
                 backgroundColor: isOpen ? "#EEF9F8" : "#ffffff",
               }}
-              whileHover={{ backgroundColor: isOpen ? "#EEF9F8" : "#F9FAFB" }}
+              whileHover={{ backgroundColor: isOpen ? "#EEF9F8" : "#E5E7EB" }}
               className="border-b border-gray-100 last:border-0"
             >
               <button
