@@ -194,7 +194,7 @@ function PhaseDetail({
             >
               <button
                 onClick={() => toggleItem(item.title)}
-                className="w-full flex items-center justify-between px-8 py-5 text-left"
+                className="group w-full flex items-center justify-between px-8 py-5 text-left"
               >
                 <motion.span
                   layout
@@ -204,12 +204,12 @@ function PhaseDetail({
                     fontSize: isOpen ? "1.1875rem" : "1.125rem",
                     fontWeight: isOpen ? 700 : 600,
                   }}
-                  className="tracking-wide block"
+                  className="tracking-wide block group-hover:text-black transition-colors"
                 >
                   {item.title}
                 </motion.span>
                 <svg
-                  className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180" : ""
+                  className={`w-4 h-4 transition-all duration-300 shrink-0 ml-4 ${isOpen ? "rotate-180 text-black" : "text-gray-900 group-hover:text-black"
                     }`}
                   viewBox="0 0 20 20"
                   fill="currentColor"

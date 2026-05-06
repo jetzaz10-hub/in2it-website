@@ -63,7 +63,7 @@ const services = [
     id: "iot",
     title: "IOT & Hardware",
     description: "Specially engineered hardware for the MICE industry: RFID systems, check-in kiosks, and IOT integrations for seamless management.",
-    images: ["/services/iot/iot.png", "/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
+    images: ["/services/iot/iotscan.png", "/services/iot/iot.png", "/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45",
     icon: Cpu
   },
@@ -71,7 +71,7 @@ const services = [
     id: "organizer",
     title: "Event Organizer",
     description: "Full-service event management from concept to wrap-up, including logistics, vendor management and on-site coordination.",
-    images: ["/services/org/org.png", "/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
+    images: ["/services/org/eventorganics.png", "/services/org/org.png", "/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#31",
     icon: CalendarDays
   },
