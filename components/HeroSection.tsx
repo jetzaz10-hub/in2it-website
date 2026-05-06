@@ -30,10 +30,11 @@ export default function HeroSection() {
           ref={videoRef}
           autoPlay
           muted
+          loop
           playsInline
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.25] will-change-transform"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.25] will-change-transform transform-gpu"
         >
           <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4" />
         </video>
@@ -61,7 +62,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full"
+            className="w-full will-change-transform"
           >
             <h1 className="flex flex-wrap justify-center items-center gap-x-10 gap-y-8 leading-[1.5] tracking-tighter mb-8 w-full">
               <span className="text-white font-medium text-4xl md:text-5xl lg:text-6xl xl:text-[6.8rem]">
@@ -72,14 +73,14 @@ export default function HeroSection() {
                 className="text-4xl md:text-5xl lg:text-6xl xl:text-[6.9rem] font-black"
               />
             </h1>
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-white/80 text-lg lg:text-xl leading-relaxed max-w-1xl mx-auto mb-6"
             >
               We deliver end-to-end event technology solutions for the MICE industry with cutting-edge expertise.
-            </motion.p>
+            </motion.div>
           </motion.div>
 
           {/* Dual CTA Buttons (Restored) */}

@@ -598,8 +598,8 @@ export default function EventLifecycle() {
     <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-8 pb-0 bg-black overflow-hidden">
       {/* Scattered Purple Aura Backgrounds */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/3 right-[-20%] w-[600px] h-[600px] bg-[#9933FF]/35 rounded-full blur-[110px] animate-pulse" style={{ animationDuration: '12s' }} />
-        <div className="absolute bottom-1/3 left-[-20%] w-[700px] h-[700px] bg-[#4A32FF]/35 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '14s' }} />
+        <div className="absolute top-1/3 right-[-20%] w-[600px] h-[600px] bg-[#9933FF]/35 rounded-full blur-[110px] animate-pulse will-change-[opacity,transform] transform-gpu" style={{ animationDuration: '12s' }} />
+        <div className="absolute bottom-1/3 left-[-20%] w-[700px] h-[700px] bg-[#4A32FF]/35 rounded-full blur-[130px] animate-pulse will-change-[opacity,transform] transform-gpu" style={{ animationDuration: '14s' }} />
       </div>
 
       {/* Top transition overlay */}
@@ -646,7 +646,7 @@ export default function EventLifecycle() {
                 scale: { type: "spring", damping: 12, stiffness: 100, delay: 0.1 },
                 opacity: { duration: 0.4 }
               }}
-              className="w-full h-full"
+              className="w-full h-full will-change-transform transform-gpu"
             >
               <DonutGraphic activeId={activeId} hoverId={hoverId} setHoverId={setHoverId} setActiveId={setActiveId} setOpenItems={setOpenItems} />
             </motion.div>

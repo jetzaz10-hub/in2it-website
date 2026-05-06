@@ -233,9 +233,9 @@ export default function OurServices() {
               loop
               muted
               playsInline
-              preload="none"
+              preload="metadata"
               onCanPlay={(e) => { e.currentTarget.playbackRate = 0.6; }}
-              className="w-full h-full object-cover opacity-30 will-change-transform"
+              className="w-full h-full object-cover opacity-30 will-change-transform transform-gpu"
             >
               <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4" />
             </video>
@@ -263,7 +263,6 @@ export default function OurServices() {
                   animate={{ 
                     y: activeIndex === 0 ? (isMobile ? -120 : -260) : (isMobile ? -200 : -360), 
                     opacity: activeIndex === 0 ? 1 : 0,
-                    filter: `blur(${activeIndex === 0 ? 0 : 8}px)`,
                     scale: activeIndex === 0 ? 1 : 0.8
                   }}
                   transition={{ type: "spring", stiffness: 120, damping: 20 }}
@@ -325,9 +324,9 @@ export default function OurServices() {
                         initial={false}
                         animate={{ 
                           opacity: distance === 0 ? 1 : 0,
-                          height: distance === 0 ? 'auto' : 0,
+                          display: distance === 0 ? 'block' : 'none',
                         }}
-                        className="overflow-hidden"
+                        className="will-change-transform"
                       >
                         <p className="text-[12px] lg:text-xl text-white/80 leading-relaxed max-w-md font-light mb-3 lg:mb-8 line-clamp-3 lg:line-clamp-none">
                           {service.description}
