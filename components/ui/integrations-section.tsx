@@ -12,7 +12,7 @@ const sphereLogos: ImageData[] = Array.from({ length: 42 }, (_, i) => ({
   id: `partner-${i + 1}`,
   src: `/partners/partner logo/${i + 1}.png?v=2`,
   alt: `Partner ${i + 1}`,
-}));
+})).filter(p => p.id !== "partner-40");
 
 export default function IntegrationsSection() {
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
