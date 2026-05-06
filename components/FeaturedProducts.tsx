@@ -217,8 +217,8 @@ export default function FeaturedProducts() {
                     </div>
 
                     {/* Interactive Button */}
-                    <div className={`mt-8 inline-flex items-center gap-2 font-bold text-sm tracking-widest uppercase ${product.colors.text} opacity-100 group-hover:brightness-125 drop-shadow-[0_0_8px_currentColor] transition-all relative z-10 origin-left`}>
-                      SALES KIT
+                    <div className="mt-8 inline-flex items-center gap-2 font-bold text-sm tracking-widest uppercase text-white opacity-100 group-hover:brightness-125 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-all relative z-10 origin-left">
+                      SALE KIT
                       <ArrowRight strokeWidth={3} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
 

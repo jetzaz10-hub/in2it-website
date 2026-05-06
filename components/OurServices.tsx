@@ -339,7 +339,7 @@ export default function OurServices() {
                           rel="noopener noreferrer"
                           className="btn-sale-kit group w-fit font-bold !py-1.5 !px-3 lg:!py-3 lg:!px-7 !text-[10px] lg:!text-[16px]"
                         >
-                          <span>Sale Kits</span>
+                          <span>Sale Kit</span>
                           <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5 group-hover:translate-x-1 lg:group-hover:translate-x-2 transition-transform text-white" />
                         </a>
                       </motion.div>
