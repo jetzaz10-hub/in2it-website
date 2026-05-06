@@ -46,7 +46,7 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
               One Stop Service for Event Technology.<br />
               10+ years of expertise in delivering<br />
-              500+ successful events globally.
+              500+ successful events.
             </p>
 
             {/* Social icons — Figma shows 3 circular outlined icons */}
