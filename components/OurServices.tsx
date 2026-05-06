@@ -4,18 +4,18 @@ import { useRef, useState, useEffect, forwardRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
 import { smoothScrollTo } from "../lib/smoothScroll";
-import {
-  ArrowRight,
-  ClipboardCheck,
-  Globe,
-  Mail,
-  Ticket,
-  Tent,
-  Cpu,
-  CalendarDays,
-  PenTool,
-  Share2,
-  Video
+import { 
+  ArrowRight, 
+  ClipboardCheck, 
+  Globe, 
+  Mail, 
+  Ticket, 
+  Tent, 
+  Cpu, 
+  CalendarDays, 
+  PenTool, 
+  Share2, 
+  Video 
 } from "lucide-react";
 
 const services = [
@@ -63,7 +63,7 @@ const services = [
     id: "iot",
     title: "IOT & Hardware",
     description: "Specially engineered hardware for the MICE industry: RFID systems, check-in kiosks, and IOT integrations for seamless management.",
-    images: ["/services/iot/iotscan.png", "/services/iot/iot.png", "/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
+    images: ["/services/iot/iot.png", "/services/iot/iot1.png", "/services/iot/iot2.png", "/services/iot/iot3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45",
     icon: Cpu
   },
@@ -71,7 +71,7 @@ const services = [
     id: "organizer",
     title: "Event Organizer",
     description: "Full-service event management from concept to wrap-up, including logistics, vendor management and on-site coordination.",
-    images: ["/services/org/eventorganics.png", "/services/org/org.png", "/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
+    images: ["/services/org/org.png", "/services/org/org1.png", "/services/org/org2.png", "/services/org/org3.png"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#31",
     icon: CalendarDays
   },
@@ -123,7 +123,7 @@ const slideVariants = {
 // --- Internal Image Component ---
 const ServiceImageSlider = ({ images, title, isActive }: { images: string[], title: string, isActive: boolean }) => {
   return (
-    <div
+    <div 
       className="relative w-full h-full overflow-hidden"
       style={{
         maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 92%, transparent 100%)',
@@ -188,7 +188,7 @@ export default function OurServices() {
         const sectionHeight = containerRef.current.offsetHeight;
         const viewportHeight = window.innerHeight;
         const scrollRange = sectionHeight - viewportHeight;
-
+        
         // scrollYProgress mapping: index = floor(progress * (1/0.9) * 10)
         // Center of index i: progress = (i + 0.5) * 0.9 / 10
         const targetProgress = (index + 0.5) * 0.9 / services.length;
@@ -201,7 +201,7 @@ export default function OurServices() {
     window.addEventListener('nav-jump', handleJump);
     return () => window.removeEventListener('nav-jump', handleJump);
   }, []);
-  // Remove dependency on activeIndex
+ // Remove dependency on activeIndex
 
   // Section fade out with scale at the very end
   const contentOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
@@ -212,17 +212,16 @@ export default function OurServices() {
     <section
       id="services"
       ref={containerRef}
-      className="relative h-[550vh] pt-11 z-10"
+      className="relative h-[550vh] pt-0 z-10"
     >
-      {/* Fill the empty space behind the rounded corners with the exact solid orange color */}
-      <div className="absolute -top-[2px] left-0 w-full h-32 bg-[#FF6600]/50 z-[-2]" />
-
-      {/* The main rounded black background */}
-      <div className="absolute inset-0 bg-black rounded-t-[40px] md:rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] z-[-1]" />
-      {/* Top Curved Orange Glow Divider */}
-      <div className="absolute top-0 left-0 w-full h-[100px] z-40 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full border-t-[4px] border-[#FF6600]/80 rounded-t-[40px] md:rounded-t-[60px] shadow-[0_-12px_40px_rgba(255,102,0,0.6)]" />
-        <div className="absolute top-[-20px] left-1/2 -translate-x-1/2 w-[90%] h-[60px] bg-[#FF6600]/15 blur-[45px] rounded-full" />
+      {/* The main black background */}
+      <div className="absolute inset-0 bg-black shadow-[0_-20px_50px_rgba(0,0,0,0.5)] z-[-1]" />
+      
+      {/* ═══ IN2IT STYLE — Top Glowing Orange Border Divider ═══ */}
+      <div className="absolute top-0 left-0 w-full h-[2px] z-30">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF6600] to-transparent h-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F97316] to-transparent h-[2px] shadow-[0_0_15px_rgba(255,102,0,0.6),0_0_30px_rgba(255,102,0,0.3)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-[#FF6600]/15 blur-[25px] rounded-full pointer-events-none" />
       </div>
       <div className="w-full h-full">
         {/* Sticky Viewport (Responsive) */}
@@ -257,12 +256,12 @@ export default function OurServices() {
 
               {/* Left Column: Heading + Service Info */}
               <div className="relative h-[280px] lg:h-[550px] w-full flex flex-col justify-center overflow-hidden lg:overflow-visible">
-
+                
                 {/* Dynamic "Our Services" Main Title */}
-                <motion.div
+                <motion.div 
                   initial={false}
-                  animate={{
-                    y: activeIndex === 0 ? (isMobile ? -100 : -220) : (isMobile ? -180 : -320),
+                  animate={{ 
+                    y: activeIndex === 0 ? (isMobile ? -140 : -300) : (isMobile ? -220 : -400), 
                     opacity: activeIndex === 0 ? 1 : 0,
                     filter: `blur(${activeIndex === 0 ? 0 : 8}px)`,
                     scale: activeIndex === 0 ? 1 : 0.8
@@ -281,7 +280,7 @@ export default function OurServices() {
                   const distance = idx - activeIndex;
 
                   let y = activeIndex === 0 ? (isMobile ? 0 : -100) : (isMobile ? -50 : -140);
-
+                  
                   let scale = 1;
                   let opacity = 1;
                   let pointerEvents = "auto" as any;
@@ -322,9 +321,9 @@ export default function OurServices() {
                         {service.title}
                       </h3>
 
-                      <motion.div
+                      <motion.div 
                         initial={false}
-                        animate={{
+                        animate={{ 
                           opacity: distance === 0 ? 1 : 0,
                           height: distance === 0 ? 'auto' : 0,
                         }}
@@ -340,7 +339,7 @@ export default function OurServices() {
                           rel="noopener noreferrer"
                           className="btn-sale-kit group w-fit font-bold !py-1.5 !px-3 lg:!py-3 lg:!px-7 !text-[10px] lg:!text-[16px]"
                         >
-                          <span>Sales Kit</span>
+                          <span>Sale Kits</span>
                           <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5 group-hover:translate-x-1 lg:group-hover:translate-x-2 transition-transform text-white" />
                         </a>
                       </motion.div>
@@ -351,10 +350,10 @@ export default function OurServices() {
 
               {/* Right Column: Image Mockup with Slider & Progress Tubes */}
               <div className="relative w-full flex items-center justify-center">
-
+                
                 {/* Left Tube */}
                 <div className="absolute -left-6 top-10 bottom-10 w-[2px] bg-white/10 rounded-full overflow-hidden hidden xl:block">
-                  <motion.div
+                  <motion.div 
                     className="w-full h-full bg-gradient-to-b from-[#4634F8] via-[#FF3366] to-[#FF6600] shadow-[0_0_15px_#FF6600]"
                     style={{ scaleY: scrollYProgress, originY: 0 }}
                   />
@@ -388,7 +387,7 @@ export default function OurServices() {
 
                 {/* Right Tube */}
                 <div className="absolute -right-6 top-10 bottom-10 w-[2px] bg-white/10 rounded-full overflow-hidden hidden xl:block">
-                  <motion.div
+                  <motion.div 
                     className="w-full h-full bg-gradient-to-b from-[#4634F8] via-[#FF3366] to-[#FF6600] shadow-[0_0_15px_#FF6600]"
                     style={{ scaleY: scrollYProgress, originY: 0 }}
                   />

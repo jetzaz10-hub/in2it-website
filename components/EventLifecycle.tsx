@@ -595,7 +595,7 @@ export default function EventLifecycle() {
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-16 pb-24 bg-black overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center pt-8 pb-0 bg-black overflow-hidden">
       {/* Scattered Purple Aura Backgrounds */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/3 right-[-20%] w-[600px] h-[600px] bg-[#9933FF]/35 rounded-full blur-[110px] animate-pulse" style={{ animationDuration: '12s' }} />

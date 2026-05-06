@@ -79,7 +79,7 @@ const whyFeatures = [
 
 export default function WhyIN2IT() {
   return (
-    <section id="why-in2it" className="bg-black py-20 overflow-hidden relative">
+    <section id="why-in2it" className="bg-black pt-20 pb-8 overflow-hidden relative">
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-[-10%] w-[500px] h-[500px] bg-[#9933FF]/25 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '12s' }} />
