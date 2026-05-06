@@ -202,23 +202,14 @@
     background: #FF6600 !important;
   }
 
-  /* Global Scrollbar Refinement */
+  /* Hide Global Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    display: none;
   }
 
-  ::-webkit-scrollbar-track {
-    background: #000000;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #222222;
-    border-radius: 10px;
-    border: 2px solid #000000;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #333333;
+  html, body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 
   /* Hide scrollbar for carousels but keep functionality */

@@ -156,13 +156,6 @@ export default function IntegrationsSection() {
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-[40px] bg-purple-500/15 blur-[25px] rounded-full pointer-events-none" />
       </div>
 
-      {/* Side Accent Glows */}
-      <div className="absolute top-0 left-0 w-[2px] h-full z-30">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/40 to-transparent" />
-      </div>
-      <div className="absolute top-0 right-0 w-[2px] h-full z-30">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/40 to-transparent" />
-      </div>
 
     </section>
   );
