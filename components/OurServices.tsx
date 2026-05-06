@@ -23,7 +23,7 @@ const services = [
     id: "registration",
     title: "Registration System",
     description: "End-to-end event registration solutions. We handle everything from customized online forms to high-capacity onsite check-ins.",
-    images: ["/services/regis/regis.png"],
+    images: ["/services/regis/regis.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#6",
     icon: ClipboardCheck
   },
@@ -31,7 +31,7 @@ const services = [
     id: "website",
     title: "Website Design",
     description: "Professional event microsites and corporate landing pages designed to convert visitors flawlessly.",
-    images: ["/services/web/web.png"],
+    images: ["/services/web/web.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#13",
     icon: Globe
   },
@@ -39,7 +39,7 @@ const services = [
     id: "edm",
     title: "EDM Solution",
     description: "Professional electronic direct mail campaigns designed to drive registrations, boost attendance, and keep participants engaged.",
-    images: ["/services/edm/edm_celebrate.png"],
+    images: ["/services/edm/edm_celebrate.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#24",
     icon: Mail
   },
@@ -47,7 +47,7 @@ const services = [
     id: "ticket",
     title: "Ticket Event",
     description: "Secure and scalable ticketing infrastructure with QR code entry, mobile scanning, and real-time reporting dashboards.",
-    images: ["/services/ticket/ticket-event.png"],
+    images: ["/services/ticket/ticket-event.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#29",
     icon: Ticket
   },
@@ -55,7 +55,7 @@ const services = [
     id: "festival",
     title: "Festival Tech",
     description: "Robust infrastructure for large-scale festivals: cashless payments, RFID wristbands, and live crowd management dashboards.",
-    images: ["/services/fest/fest.png"],
+    images: ["/services/fest/fest.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#30",
     icon: Tent
   },
@@ -63,7 +63,7 @@ const services = [
     id: "iot",
     title: "IOT & Hardware",
     description: "Specially engineered hardware for the MICE industry: RFID systems, check-in kiosks, and IOT integrations for seamless management.",
-    images: ["/services/iot/iotscan.png"],
+    images: ["/services/iot/iotscan.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#45",
     icon: Cpu
   },
@@ -71,7 +71,7 @@ const services = [
     id: "organizer",
     title: "Event Organizer",
     description: "Full-service event management from concept to wrap-up, including logistics, vendor management and on-site coordination.",
-    images: ["/services/org/eventorganics.png"],
+    images: ["/services/org/eventorganics.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#31",
     icon: CalendarDays
   },
@@ -79,7 +79,7 @@ const services = [
     id: "graphic",
     title: "Graphic Design",
     description: "Visually stunning event branding — from logo and print materials to digital assets and stage backdrops.",
-    images: ["/services/graph/graph.png"],
+    images: ["/services/graph/graph.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#55",
     icon: PenTool
   },
@@ -87,7 +87,7 @@ const services = [
     id: "scm",
     title: "Social Tools",
     description: "Boost engagement with interactive social media integrations — Line OA, Facebook, Instagram, and live photo walls.",
-    images: ["/services/scm/social.png"],
+    images: ["/services/scm/social.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#56",
     icon: Share2
   },
@@ -95,7 +95,7 @@ const services = [
     id: "streaming",
     title: "Live Streaming",
     description: "Professional multi-camera live production with encoding and high-fidelity streaming to multiple global platforms.",
-    images: ["/services/stream/live-stream.png"],
+    images: ["/services/stream/live-stream.png?v=2"],
     link: "https://www.canva.com/design/DAGrhqIpyKM/FkG1h34DhZAuM5ufTXjwYg/view#57",
     icon: Video
   }
