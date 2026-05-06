@@ -201,7 +201,7 @@ function PhaseDetail({
                   initial={false}
                   animate={{ 
                     color: isOpen ? "#000000" : "#1f2937",
-                    fontSize: isOpen ? "1.25rem" : "1.125rem",
+                    fontSize: isOpen ? "1.1875rem" : "1.125rem",
                     fontWeight: isOpen ? 700 : 600,
                   }}
                   className="tracking-wide block"
@@ -230,7 +230,7 @@ function PhaseDetail({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="px-8 pb-6 text-[17px] text-gray-500 leading-relaxed">
+                    <p className="px-8 pb-6 text-[15px] text-gray-500 leading-relaxed">
                       {item.description}
                     </p>
                   </motion.div>

@@ -69,8 +69,8 @@ export default function ContactSection() {
               <span style={{ color: "#FF3366" }}> EVENT ?</span>
             </h2>
             <p className="text-white/85 text-md mb-12 max-w-md">
-              Contact our team for a specialized consultation and a tailored
-              proposal for your event technology needs.
+              Contact our team for a specialized consultation and<br />
+              a tailored proposal for your event technology needs.
             </p>
 
 
