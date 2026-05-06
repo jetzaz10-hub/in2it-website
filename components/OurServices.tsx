@@ -212,7 +212,7 @@ export default function OurServices() {
     <section
       id="services"
       ref={containerRef}
-      className="relative h-[550vh] pt-10 z-10"
+      className="relative h-[550vh] pt-0 z-10"
     >
       {/* The main black background */}
       <div className="absolute inset-0 bg-black shadow-[0_-20px_50px_rgba(0,0,0,0.5)] z-[-1]" />
@@ -261,7 +261,7 @@ export default function OurServices() {
                 <motion.div 
                   initial={false}
                   animate={{ 
-                    y: activeIndex === 0 ? (isMobile ? -120 : -260) : (isMobile ? -200 : -360), 
+                    y: activeIndex === 0 ? (isMobile ? -180 : -340) : (isMobile ? -220 : -400), 
                     opacity: activeIndex === 0 ? 1 : 0,
                     filter: `blur(${activeIndex === 0 ? 0 : 8}px)`,
                     scale: activeIndex === 0 ? 1 : 0.8
@@ -279,7 +279,7 @@ export default function OurServices() {
                 {services.map((service, idx) => {
                   const distance = idx - activeIndex;
 
-                  let y = activeIndex === 0 ? (isMobile ? -20 : -130) : (isMobile ? -70 : -170);
+                  let y = activeIndex === 0 ? (isMobile ? -40 : -140) : (isMobile ? -50 : -140);
                   
                   let scale = 1;
                   let opacity = 1;
